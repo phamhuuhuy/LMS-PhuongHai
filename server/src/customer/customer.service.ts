@@ -9,11 +9,19 @@ export class CustomerService {
         private customerRepository: Repository<Customer>,
       ) {}
       
-      async findAll(): Promise<Customer[]> {
-        return this.customerRepository.find();
+      async getAll(): Promise<Customer[]> {
+        return await this.customerRepository.find();
       }
 
       async create(newCustomer: Customer): Promise<Customer>{
-        return this.customerRepository.save(newCustomer);
+        return await this.customerRepository.save(newCustomer);
+      }
+
+      async getOne(uuid: string): Promise<Customer> {
+        return await this.customerRepository.findOne({
+          where: {
+            id: uuid
+          }
+        });
       }
 }

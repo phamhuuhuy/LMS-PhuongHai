@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseUUIDPipe, Post } from '@nestjs/common';
 import { Customer } from './customer.entity';
 import { CustomerService } from './customer.service';
 
@@ -7,12 +7,18 @@ export class CustomerController {
     constructor(private readonly customerService: CustomerService){}
 
     @Get('/')
-    getAll() {
-        return this.customerService.findAll();
+    async getAll() {
+        return await this.customerService.getAll();
     }
 
     @Post('/')
-    createCustomer(@Body() customer: any){
-        return this.customerService.create(customer);
+    async createCustomer(@Body() customer: Customer){
+        return await this.customerService.create(customer);
     }
+
+    @Get('/:uuid')
+    async getOne(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
+        return await this.customerService.getOne(uuid);
+    }
+
 }

@@ -1,3 +1,4 @@
+import { IsString } from "class-validator";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -6,6 +7,7 @@ export class Customer {
     id: string;
 
     @Column({name: 'customer_name'})
+    @IsString()
     customerName: string;
 
     @Column({name: 'customer_type'})
