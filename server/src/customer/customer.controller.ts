@@ -1,4 +1,5 @@
 import {
+  Delete,
   Body,
   Controller,
   Get,
@@ -14,7 +15,7 @@ import { UpdateCustomer } from './dto';
 
 @Controller('customer')
 export class CustomerController {
-  constructor(private readonly customerService: CustomerService) {}
+  constructor(private readonly customerService: CustomerService) { }
 
   @Get('')
   getAll(@Query('name') name: string) {
@@ -29,6 +30,11 @@ export class CustomerController {
   @Get('/:uuid')
   getOne(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
     return this.customerService.getOne(uuid);
+  }
+
+  @Delete('/:uuid')
+  deleteCustomer(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
+    return this.customerService.deleteCustomer(uuid)
   }
 
   @Patch('/:uuid')

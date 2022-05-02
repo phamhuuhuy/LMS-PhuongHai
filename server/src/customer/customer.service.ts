@@ -4,7 +4,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Like, Repository } from 'typeorm';
+import { Like, Repository, DeleteResult } from 'typeorm';
 import { Customer } from './customer.entity';
 import { UpdateCustomer } from './dto';
 
@@ -13,7 +13,7 @@ export class CustomerService {
   constructor(
     @Inject('CUSTOMER_REPOSITORY')
     private customerRepository: Repository<Customer>,
-  ) {}
+  ) { }
 
   async getAll(name: string): Promise<Customer[]> {
     if (name) {
@@ -49,5 +49,13 @@ export class CustomerService {
       ...updatedCustomer,
     });
     return customer;
+  }
+
+  async deleteCustomer(uuid: string): Promise<DeleteResult> {
+    const customer = await this.customerRepository.findOne({ where: { id: uuid } });
+    if (customer === undefined) {
+      throw new NotFoundException();
+    }
+    return this.customerRepository.delete(uuid);
   }
 }
