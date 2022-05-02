@@ -6,6 +6,7 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { Customer } from './customer.entity';
 import { CustomerService } from './customer.service';
@@ -15,19 +16,19 @@ import { UpdateCustomer } from './dto';
 export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 
-  @Get('/')
-  async getAll() {
-    return await this.customerService.getAll();
+  @Get('')
+  getAll(@Query('name') name: string) {
+    return this.customerService.getAll(name);
   }
 
   @Post('/')
-  async createCustomer(@Body() customer: Customer) {
-    return await this.customerService.create(customer);
+  createCustomer(@Body() customer: Customer) {
+    return this.customerService.create(customer);
   }
 
   @Get('/:uuid')
-  async getOne(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
-    return await this.customerService.getOne(uuid);
+  getOne(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
+    return this.customerService.getOne(uuid);
   }
 
   @Patch('/:uuid')
