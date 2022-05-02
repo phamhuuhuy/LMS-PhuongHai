@@ -13,15 +13,15 @@ export class CustomerService {
   constructor(
     @Inject('CUSTOMER_REPOSITORY')
     private customerRepository: Repository<Customer>,
-  ) { }
+  ) {}
 
   async getAll(name: string): Promise<Customer[]> {
     if (name) {
-      return this.customerRepository.find({
+      return await this.customerRepository.find({
         where: { customerName: Like(`%${name}%`) },
       });
     }
-    return this.customerRepository.find();
+    return await this.customerRepository.find();
   }
 
   async create(newCustomer: Customer): Promise<Customer> {
@@ -29,21 +29,18 @@ export class CustomerService {
   }
 
   async getOne(uuid: string): Promise<Customer> {
-    return this.customerRepository.findOneBy({ id: uuid });
+    const customer = await this.customerRepository.findOneBy({ id: uuid });
+    if (!customer) {
+      throw new NotFoundException('Customer id is not exist');
+    }
+    return customer;
   }
 
   async updateCustomer(
     uuid: string,
     updatedCustomer: UpdateCustomer,
   ): Promise<Customer> {
-    const customerFound = await this.customerRepository.findOne({
-      where: {
-        id: uuid,
-      },
-    });
-    if (!customerFound) {
-      throw new NotFoundException('customer id is not exist');
-    }
+    const customerFound = await this.getOne(uuid);
     const customer = await this.customerRepository.save({
       ...customerFound,
       ...updatedCustomer,
@@ -51,11 +48,9 @@ export class CustomerService {
     return customer;
   }
 
-  async deleteCustomer(uuid: string): Promise<DeleteResult> {
-    const customer = await this.customerRepository.findOne({ where: { id: uuid } });
-    if (customer === undefined) {
-      throw new NotFoundException();
-    }
-    return this.customerRepository.delete(uuid);
+  async deleteCustomer(uuid: string) {
+    const customer = await this.getOne(uuid);
+    await this.customerRepository.delete(customer.id);
+    return { msg: 'Sucessfully deleted customer' };
   }
 }

@@ -15,7 +15,7 @@ import { UpdateCustomer } from './dto';
 
 @Controller('customer')
 export class CustomerController {
-  constructor(private readonly customerService: CustomerService) { }
+  constructor(private readonly customerService: CustomerService) {}
 
   @Get('')
   getAll(@Query('name') name: string) {
@@ -34,7 +34,7 @@ export class CustomerController {
 
   @Delete('/:uuid')
   deleteCustomer(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
-    return this.customerService.deleteCustomer(uuid)
+    return this.customerService.deleteCustomer(uuid);
   }
 
   @Patch('/:uuid')
