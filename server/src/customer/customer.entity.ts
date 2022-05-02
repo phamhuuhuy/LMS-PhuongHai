@@ -27,5 +27,6 @@ export class Customer {
   customerEmail: string;
 
   @Column({ name: 'customer_note', nullable: true })
+  @IsString()
   customerNote: string;
 }
