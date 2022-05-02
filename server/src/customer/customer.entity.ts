@@ -1,4 +1,4 @@
-import { IsEmail, IsString } from 'class-validator';
+import { IsEmail, IsOptional, IsString } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -28,5 +28,6 @@ export class Customer {
 
   @Column({ name: 'customer_note', nullable: true })
   @IsString()
+  @IsOptional()
   customerNote: string;
 }
