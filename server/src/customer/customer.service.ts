@@ -51,18 +51,11 @@ export class CustomerService {
     return customer;
   }
 
-  async deleteCustomer(uuid: string): Promise<Object> {
+  async deleteCustomer(uuid: string): Promise<DeleteResult> {
     const customer = await this.customerRepository.findOne({ where: { id: uuid } });
     if (customer === undefined) {
       throw new NotFoundException();
     }
-    const response = this.customerRepository.delete(uuid);
-    if (response) {
-      return {
-        "statusCode": 200,
-        "message": `Successfully deleted customer with id ${uuid}`,
-        "error": "Good Request"
-      }
-    }
+    return this.customerRepository.delete(uuid);
   }
 }
