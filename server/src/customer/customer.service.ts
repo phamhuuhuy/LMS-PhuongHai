@@ -1,6 +1,12 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { DeleteResult, Repository } from 'typeorm';
+import {
+  ForbiddenException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { Like, Repository, DeleteResult } from 'typeorm';
 import { Customer } from './customer.entity';
+import { UpdateCustomer } from './dto';
 
 @Injectable()
 export class CustomerService {
@@ -9,20 +15,40 @@ export class CustomerService {
     private customerRepository: Repository<Customer>,
   ) { }
 
-  async getAll(): Promise<Customer[]> {
-    return await this.customerRepository.find();
+  async getAll(name: string): Promise<Customer[]> {
+    if (name) {
+      return this.customerRepository.find({
+        where: { customerName: Like(`%${name}%`) },
+      });
+    }
+    return this.customerRepository.find();
   }
 
   async create(newCustomer: Customer): Promise<Customer> {
-    return await this.customerRepository.save(newCustomer);
+    return this.customerRepository.save(newCustomer);
   }
 
   async getOne(uuid: string): Promise<Customer> {
-    return await this.customerRepository.findOne({
+    return this.customerRepository.findOneBy({ id: uuid });
+  }
+
+  async updateCustomer(
+    uuid: string,
+    updatedCustomer: UpdateCustomer,
+  ): Promise<Customer> {
+    const customerFound = await this.customerRepository.findOne({
       where: {
-        id: uuid
-      }
+        id: uuid,
+      },
     });
+    if (!customerFound) {
+      throw new NotFoundException('customer id is not exist');
+    }
+    const customer = await this.customerRepository.save({
+      ...customerFound,
+      ...updatedCustomer,
+    });
+    return customer;
   }
 
   async deleteCustomer(uuid: string): Promise<Object> {
