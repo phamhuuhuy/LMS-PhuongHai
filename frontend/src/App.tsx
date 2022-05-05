@@ -112,7 +112,7 @@ function App() {
               </BrowserRouter>
             </Box>
 
-            <Box style={{ height: '6vh', backgroundColor: 'blue', position: 'fixed', bottom:'0', width: '100%' }}>
+            <Box style={{ height: '6vh', position: 'fixed', bottom: '0', width: '100%' }}>
               <Footer />
             </Box>
 
