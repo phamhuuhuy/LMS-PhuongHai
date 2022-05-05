@@ -1,4 +1,4 @@
-import { Box, Container, Paper, Typography } from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 import Grid from '@mui/material/Grid'
 import React from 'react'
 
@@ -27,10 +27,10 @@ const data = [
 
 const chooseColor = (index: Number): string => {
     console.log(index);
-    if (index < 10) return 'green'
-    if (index < 20) return 'oragne'
+    if (index < 10) return '#00ff00'
+    if (index < 20) return '#FFA600'
     if (index < 70) return 'red'
-    return 'purple'
+    return '#6a0dad'
 }
 
 const Footer = () => {
