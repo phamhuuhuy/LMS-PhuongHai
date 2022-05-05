@@ -1,7 +1,7 @@
 import React from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Edit, Delete, Search } from "@mui/icons-material";
-import { Typography, TextField, Button } from "@mui/material";
+import { Typography, TextField, Button, Tooltip } from "@mui/material";
 
 const CustomerTable = () => {
   const handleEdit = (id: string) => {
@@ -51,16 +51,20 @@ const CustomerTable = () => {
         return (
           <>
             <div style={{ marginRight: "20px" }}>
-              <Edit
-                style={{ color: "#1976d2" }}
-                onClick={() => handleEdit(params.row.id)}
-              />
+              <Tooltip title="Sửa">
+                <Edit
+                  style={{ color: "#1976d2" }}
+                  onClick={() => handleEdit(params.row.id)}
+                />
+              </Tooltip>
             </div>
             <div>
-              <Delete
-                style={{ color: "red" }}
-                onClick={() => handleDelete(params.row.id)}
-              />
+              <Tooltip title="Xoá">
+                <Delete
+                  style={{ color: "red" }}
+                  onClick={() => handleDelete(params.row.id)}
+                />
+              </Tooltip>
             </div>
             {/* <Link to={`/user/${params.row._id}`}>
                             <button className="userListEdit">Edit</button>
@@ -156,7 +160,7 @@ const CustomerTable = () => {
     },
   ];
   return (
-    <div>
+    <div style={{ height: "100%", width: "100%" }}>
       <Typography
         component="h2"
         variant="h6"
@@ -188,11 +192,11 @@ const CustomerTable = () => {
         <Button variant="contained">+ Thêm KH</Button>
       </div>
 
-      <div style={{ height: 423, width: "100%" }}>
+      <div style={{ height: "79%", width: "100%" }}>
         <DataGrid
           rows={rows}
           columns={columns}
-          pageSize={6}
+          pageSize={7}
           disableSelectionOnClick
         />
       </div>

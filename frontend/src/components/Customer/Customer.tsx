@@ -11,10 +11,13 @@ const Customer = () => {
       sx={{ mt: 4, mb: 4 }}
       style={{ height: "100%", overflow: "scroll" }}
     >
-      <Grid container spacing={3}>
+      <Grid container spacing={3} style={{ height: "100%" }}>
         {/* Recent Orders */}
         <Grid item xs={12}>
-          <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+          <Paper
+            sx={{ p: 2, display: "flex", flexDirection: "column" }}
+            style={{ height: "100%" }}
+          >
             <CustomerTable />
           </Paper>
         </Grid>
