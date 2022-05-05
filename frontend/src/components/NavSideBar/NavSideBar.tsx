@@ -5,7 +5,11 @@ import { mainListItems } from './listItems';
 import { Box, IconButton, Toolbar, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
 import Avatar from '@mui/material/Avatar';
+
 
 
 
@@ -54,7 +58,7 @@ const NavSideBar = ({ handleOnClick, stateOpen }: any) => {
             >
                 <Box sx={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center' }}>
                     {/* src will be fetched */}
-                    <Avatar src='' alt='avatar' sx={{width: '50px', height: '50px', backgroundColor: 'grey', marginRight: '10px' }}/>
+                    <Avatar src='' alt='avatar' sx={{ width: '50px', height: '50px', backgroundColor: 'grey', marginRight: '10px' }} />
 
                     <div style={{ flexGrow: '1' }}>
                         <div style={{ fontSize: '15px', fontWeight: '600' }}>Người Dùng</div>
@@ -69,6 +73,14 @@ const NavSideBar = ({ handleOnClick, stateOpen }: any) => {
             </Toolbar>
             <Divider />
             <List component="nav">
+                {!stateOpen &&
+                    (<ListItemButton>
+                        <ListItemIcon>
+                            <AccountCircleIcon />
+                        </ListItemIcon>
+                    </ListItemButton>)
+                }
+
                 {mainListItems}
             </List>
         </Drawer>
