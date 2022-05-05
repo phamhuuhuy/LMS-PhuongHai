@@ -225,7 +225,7 @@ const CustomerForm = () => {
                   style={{ width: "100%", marginTop: "20px" }}
                   onClick={handleOnSubmit}
                 >
-                  Thêm Mới
+                  Thêm Khách Hàng
                 </Button>
               </Box>
             </Box>
