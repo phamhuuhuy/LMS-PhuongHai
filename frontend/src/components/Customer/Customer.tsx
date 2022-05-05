@@ -3,6 +3,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Orders from './Orders';
+import CustomerTable from './CustomerTable';
 
 const Customer = () => {
   return (
@@ -11,7 +12,8 @@ const Customer = () => {
         {/* Recent Orders */}
         <Grid item xs={12}>
           <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-            <Orders />
+            {/* <Orders /> */}
+            <CustomerTable />
           </Paper>
         </Grid>
       </Grid>
