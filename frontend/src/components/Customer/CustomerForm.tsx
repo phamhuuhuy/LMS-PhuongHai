@@ -221,7 +221,7 @@ const CustomerForm = () => {
                 )}
                 <Button
                   variant="contained"
-                  color="secondary"
+                  color="primary"
                   style={{ width: "100%", marginTop: "20px" }}
                   onClick={handleOnSubmit}
                 >
