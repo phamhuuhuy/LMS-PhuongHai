@@ -1,72 +1,85 @@
-import * as React from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
+
+//icons
+import ListItemIcon from '@mui/material/ListItemIcon';
 import LayersIcon from '@mui/icons-material/Layers';
-import AssignmentIcon from '@mui/icons-material/Assignment';
+import HomeIcon from '@mui/icons-material/Home';
+import PeopleIcon from '@mui/icons-material/People';
+import WorkIcon from '@mui/icons-material/Work';
+import BuildIcon from '@mui/icons-material/Build';
+import HardwareIcon from '@mui/icons-material/Hardware';
+import ScienceIcon from '@mui/icons-material/Science';
+import DnsIcon from '@mui/icons-material/Dns';
+import BiotechIcon from '@mui/icons-material/Biotech';
+import GroupsIcon from '@mui/icons-material/Groups';
 
 export const mainListItems = (
-  <React.Fragment>
+  <>
     <ListItemButton>
       <ListItemIcon>
-        <DashboardIcon />
+        <HomeIcon />
       </ListItemIcon>
-      <ListItemText primary="Dashboard1" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Orders" />
+      <ListItemText primary="Trang Chủ" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Customers" />
+      <ListItemText primary="Khách Hàng" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <BarChartIcon />
+        <ScienceIcon />
       </ListItemIcon>
-      <ListItemText primary="Reports" />
+      <ListItemText primary="Mẫu" />
     </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
+        <WorkIcon />
+      </ListItemIcon>
+      <ListItemText primary="Công Việc" />
+    </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
+        <BuildIcon />
+      </ListItemIcon>
+      <ListItemText primary="Thiết Bị" />
+    </ListItemButton>
+
+    <ListItemButton>
+      <ListItemIcon>
+        <HardwareIcon />
+      </ListItemIcon>
+      <ListItemText primary="Vật Tư" />
+    </ListItemButton>
+
+    <ListItemButton>
+      <ListItemIcon>
+        <GroupsIcon />
+      </ListItemIcon>
+      <ListItemText primary="Nhân Sự" />
+    </ListItemButton>
+
+    <ListItemButton>
+      <ListItemIcon>
+        <BiotechIcon />
+      </ListItemIcon>
+      <ListItemText primary="Phòng Lab" />
+    </ListItemButton>
+
     <ListItemButton>
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
-      <ListItemText primary="Integrations" />
+      <ListItemText primary="Kết Quả" />
     </ListItemButton>
-  </React.Fragment>
-);
 
-export const secondaryListItems = (
-  <React.Fragment>
-    <ListSubheader component="div" inset>
-      Saved reports
-    </ListSubheader>
     <ListItemButton>
       <ListItemIcon>
-        <AssignmentIcon />
+        <DnsIcon />
       </ListItemIcon>
-      <ListItemText primary="Current month" />
+      <ListItemText primary="Hệ Thống" />
     </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItemButton>
-  </React.Fragment>
+  </>
 );
