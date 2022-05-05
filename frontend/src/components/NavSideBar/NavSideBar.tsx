@@ -2,12 +2,13 @@ import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { mainListItems } from "./listItems";
-import { Box, IconButton, Toolbar, Typography } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import MuiDrawer from "@mui/material/Drawer";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
+import { Box, IconButton, Toolbar } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import MuiDrawer from "@mui/material/Drawer";
+
 import Avatar from "@mui/material/Avatar";
 
 const drawerWidth: number = 240;

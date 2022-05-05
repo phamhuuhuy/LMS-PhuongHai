@@ -17,6 +17,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import CustomerForm from './components/Customer/CustomerForm';
 
 const drawerWidth: number = 240;
 
@@ -106,11 +107,12 @@ function App() {
               <BrowserRouter>
                 <Routes >
                   <Route path='/customer' element={<Customer />} />
+                  <Route path='/customer/create' element={<CustomerForm />} />
                 </Routes>
               </BrowserRouter>
             </Box>
 
-            <Box style={{ height: '6vh', backgroundColor: 'blue', marginTop: '1.2%' }}>
+            <Box style={{ height: '6vh', position: 'fixed', bottom: '0', width: '100%' }}>
               <Footer />
             </Box>
 
