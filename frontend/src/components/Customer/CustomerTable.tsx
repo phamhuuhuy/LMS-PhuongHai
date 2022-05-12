@@ -2,13 +2,20 @@ import React from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Edit, Delete, Search } from "@mui/icons-material";
 import { Typography, TextField, Button, Tooltip } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const CustomerTable = () => {
+  const navigate = useNavigate();
+
   const handleEdit = (id: string) => {
     console.log("Edit " + id);
   };
   const handleDelete = (id: string) => {
     console.log("Delete " + id);
+  };
+
+  const handleOnClick = () => {
+    navigate("/customer/create");
   };
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90 },
@@ -189,7 +196,9 @@ const CustomerTable = () => {
             Tìm <Search style={{ color: "#1976d2", marginLeft: "2px" }} />
           </Button>
         </div>
-        <Button variant="contained">+ Thêm KH</Button>
+        <Button variant="contained" onClick={handleOnClick}>
+          + Thêm KH
+        </Button>
       </div>
 
       <div style={{ height: "79%", width: "100%" }}>

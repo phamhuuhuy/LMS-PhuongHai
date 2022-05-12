@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  BrowserRouter,
   Routes,
   Route,
 } from "react-router-dom";
@@ -104,12 +103,10 @@ function App() {
             <Toolbar />
 
             <Box style={{ height: '80vh' }}>
-              <BrowserRouter>
                 <Routes >
                   <Route path='/customer' element={<Customer />} />
                   <Route path='/customer/create' element={<CustomerForm />} />
                 </Routes>
-              </BrowserRouter>
             </Box>
 
             <Box style={{ height: '6vh', position: 'fixed', bottom: '0', width: '100%' }}>
