@@ -17,6 +17,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import CustomerForm from './components/Customer/CustomerForm';
+import CustomerUpdateForm from './components/Customer/CustomerUpdateForm';
 
 const drawerWidth: number = 240;
 
@@ -54,12 +55,12 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={mdTheme}>
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: "flex" }}>
           <CssBaseline />
           <AppBar position="absolute" open={open}>
             <Toolbar
               sx={{
-                pr: '24px', // keep right padding when drawer closed
+                pr: "24px", // keep right padding when drawer closed
               }}
             >
               <IconButton
@@ -68,8 +69,8 @@ function App() {
                 aria-label="open drawer"
                 onClick={() => setOpen(!open)}
                 sx={{
-                  marginRight: '36px',
-                  ...(open && { display: 'none' }),
+                  marginRight: "36px",
+                  ...(open && { display: "none" }),
                 }}
               >
                 <MenuIcon />
@@ -91,28 +92,35 @@ function App() {
             component="main"
             sx={{
               backgroundColor: (theme) =>
-                theme.palette.mode === 'light'
+                theme.palette.mode === "light"
                   ? theme.palette.grey[100]
                   : theme.palette.grey[900],
               flexGrow: 1,
-              height: '100vh',
-              overflow: 'auto',
+              height: "100vh",
+              overflow: "auto",
             }}
             style={{}}
           >
             <Toolbar />
 
-            <Box style={{ height: '80vh' }}>
-                <Routes >
-                  <Route path='/customer' element={<Customer />} />
-                  <Route path='/customer/create' element={<CustomerForm />} />
-                </Routes>
+            <Box style={{ height: "80vh" }}>
+              <Routes>
+                <Route path="/customer" element={<Customer />} />
+                <Route path="/customer/create" element={<CustomerForm />} />
+                <Route path="/customer/:customerId" element={<CustomerUpdateForm />} />
+              </Routes>
             </Box>
 
-            <Box style={{ height: '6vh', position: 'fixed', bottom: '0', width: '100%' }}>
+            <Box
+              style={{
+                height: "6vh",
+                position: "fixed",
+                bottom: "0",
+                width: "100%",
+              }}
+            >
               <Footer />
             </Box>
-
           </Box>
         </Box>
       </ThemeProvider>

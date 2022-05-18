@@ -1,3 +1,5 @@
+import React from "react";
+import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -6,20 +8,20 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Alert, Paper } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-type Customer = {
-  customerName?: string;
-  customerType?: string;
-  customerContact?: string;
-  customerPhone?: string;
-  customerEmail?: string;
-  customerNote?: string;
-};
-
-const CustomerForm = () => {
+const CustomerUpdateForm = () => {
   const navigate = useNavigate();
+  let { customerId } = useParams();
+  type Customer = {
+    customerName?: string;
+    customerType?: string;
+    customerContact?: string;
+    customerPhone?: string;
+    customerEmail?: string;
+    customerNote?: string;
+  };
+
   const [customerData, setCustomerData] = useState<Customer>({
     customerName: "",
     customerType: "",
@@ -82,23 +84,43 @@ const CustomerForm = () => {
   const handleOnSubmit = async () => {
     if (handleValidation()) {
       try {
-        const response = await fetch("http://localhost:5000/customer", {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify(customerData),
-        });
-        console.log(response);
-        if (response.status === 201) {
-          navigate('/customer');
+        const response = await fetch(
+          `http://localhost:5000/customer/${customerId}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify(customerData),
+          }
+        );
+        if (response.status === 200) {
+          navigate("/customer");
         }
+        console.log(response);
       } catch (error) {
         if (error instanceof Error) {
           throw error.message;
         }
       }
     }
+  };
+
+  useEffect(() => {
+    fetchCustomerById();
+  }, []);
+
+  const fetchCustomerById = async () => {
+    const response = await fetch(
+      `http://localhost:5000/customer/${customerId}`,
+      {
+        method: "GET",
+      }
+    );
+    const result = await response.json();
+
+    let { id: string, ...filteredResult } = result;
+    setCustomerData({ ...filteredResult });
   };
 
   return (
@@ -125,7 +147,7 @@ const CustomerForm = () => {
               }}
             >
               <Typography component="h1" variant="h5">
-                Thêm Khách Hàng
+                Chỉnh sửa khách hàng
               </Typography>
               <Box component="form" noValidate sx={{ mt: 1 }}>
                 <TextField
@@ -243,7 +265,7 @@ const CustomerForm = () => {
                   style={{ width: "100%", marginTop: "20px" }}
                   onClick={handleOnSubmit}
                 >
-                  Thêm Khách Hàng
+                  Cập Nhật
                 </Button>
               </Box>
             </Box>
@@ -254,4 +276,4 @@ const CustomerForm = () => {
   );
 };
 
-export default CustomerForm;
+export default CustomerUpdateForm;
