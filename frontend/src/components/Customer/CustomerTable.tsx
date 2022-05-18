@@ -1,15 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Edit, Delete, Search } from "@mui/icons-material";
 import { Typography, TextField, Button, Tooltip } from "@mui/material";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { NavItem } from "reactstrap";
+import DialogAlert from "../../common/DialogAlert";
 
 const CustomerTable = () => {
+  const [data, setData] = useState([]);
+  const [id, setId] = useState('')
+  const [openDialog, setOpenDialog] = useState(false);
+  const [searchForm, setSearchForm]: any = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+
   const handleEdit = (id: string) => {
-    console.log("Edit " + id);
+    navigate(`/customer/${id}`);
   };
+
   const handleDelete = (id: string) => {
+    setOpenDialog(true);
     console.log("Delete " + id);
+    setId(id);
   };
+
+  const handleClose = (value: boolean) => {
+    setOpenDialog(value);
+  };
+
+  const handleOnClick = () => {
+    navigate("/customer/create");
+  };
+
+  const handleSearchClick = () => {
+    if (searchForm === "") {
+      setSearchForm(null);
+      navigate("/customer?name=null");
+      return;
+    }
+    navigate(`/customer?name=${searchForm}`);
+  };
+
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90 },
     {
@@ -76,89 +107,45 @@ const CustomerTable = () => {
     },
   ];
 
-  const rows = [
-    {
-      id: "3f8a2ef9-cb2b-4552-bab9-d4b87aca24bb",
-      customerName: "Nguyen Dinh Nhat Huy",
-      customerType: "VIP",
-      customerContact: "Nguyen Cat Tuong",
-      customerPhone: "0909764673",
-      customerEmail: "quochuynguyen17@gmail.com",
-      customerNote: "quoc huy map an nhieu",
-    },
-    {
-      id: "5e50c061-1fca-4ff3-afa3-727b0fc50a30",
-      customerName: "pham huu huy",
-      customerType: "VIP",
-      customerContact: "Nguyen Cat Tuong",
-      customerPhone: "0909764673",
-      customerEmail: "quochuynguyen17@gmail.com",
-      customerNote: "quoc huy map an nhieu",
-    },
-    {
-      id: "75c80c2f-c7cc-49f1-b0eb-09dae5b00965",
-      customerName: "nguyen quoc huy",
-      customerType: "VIP",
-      customerContact: "Nguyen Cat Tuong",
-      customerPhone: "0909764673",
-      customerEmail: "quochuynguyen17@gmail.com",
-      customerNote: "quoc huy map an nhieu",
-    },
-    {
-      id: "3f8a2ef9-cb2b-4552-bab9-d4b87aca24bb1",
-      customerName: "Nguyen Dinh Nhat Huy",
-      customerType: "VIP",
-      customerContact: "Nguyen Cat Tuong",
-      customerPhone: "0909764673",
-      customerEmail: "quochuynguyen17@gmail.com",
-      customerNote: "quoc huy map an nhieu",
-    },
-    {
-      id: "5e50c061-1fca-4ff3-afa3-727b0fc50a301",
-      customerName: "pham huu huy",
-      customerType: "VIP",
-      customerContact: "Nguyen Cat Tuong",
-      customerPhone: "0909764673",
-      customerEmail: "quochuynguyen17@gmail.com",
-      customerNote: "quoc huy map an nhieu",
-    },
-    {
-      id: "75c80c2f-c7cc-49f1-b0eb-09dae5b009651",
-      customerName: "nguyen quoc huy",
-      customerType: "VIP",
-      customerContact: "Nguyen Cat Tuong",
-      customerPhone: "0909764673",
-      customerEmail: "quochuynguyen17@gmail.com",
-      customerNote: "quoc huy map an nhieu",
-    },
-    {
-      id: "3f8a2ef9-cb2b-4552-bab9-d4b87aca24bb2",
-      customerName: "Nguyen Dinh Nhat Huy",
-      customerType: "VIP",
-      customerContact: "Nguyen Cat Tuong",
-      customerPhone: "0909764673",
-      customerEmail: "quochuynguyen17@gmail.com",
-      customerNote: "quoc huy map an nhieu",
-    },
-    {
-      id: "5e50c061-1fca-4ff3-afa3-727b0fc50a302",
-      customerName: "pham huu huy",
-      customerType: "VIP",
-      customerContact: "Nguyen Cat Tuong",
-      customerPhone: "0909764673",
-      customerEmail: "quochuynguyen17@gmail.com",
-      customerNote: "quoc huy map an nhieu",
-    },
-    {
-      id: "75c80c2f-c7cc-49f1-b0eb-09dae5b009652",
-      customerName: "nguyen quoc huy",
-      customerType: "VIP",
-      customerContact: "Nguyen Cat Tuong",
-      customerPhone: "0909764673",
-      customerEmail: "quochuynguyen17@gmail.com",
-      customerNote: "quoc huy map an nhieu",
-    },
-  ];
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const response = await fetch("http://localhost:5000/customer");
+    const value = await response.json();
+    setData(value);
+  };
+
+  const nullParams = () => {
+    return (
+      <div style={{ height: "79%", width: "100%" }}>
+        <DataGrid
+          rows={data}
+          columns={columns}
+          pageSize={7}
+          disableSelectionOnClick
+        />
+      </div>
+    );
+  };
+
+  const haveParams = () => {
+    const newData = data.filter((item: any) =>
+      item.customerName.includes(searchParams.get("name"))
+    );
+    return (
+      <div style={{ height: "79%", width: "100%" }}>
+        <DataGrid
+          rows={newData}
+          columns={columns}
+          pageSize={7}
+          disableSelectionOnClick
+        />
+      </div>
+    );
+  };
+
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <Typography
@@ -184,22 +171,23 @@ const CustomerTable = () => {
             label="Tên khách hàng"
             variant="outlined"
             size="small"
+            onChange={(e) => {
+              setSearchForm(e.target.value);
+            }}
           />
-          <Button variant="outlined">
+          <Button variant="outlined" onClick={handleSearchClick}>
             Tìm <Search style={{ color: "#1976d2", marginLeft: "2px" }} />
           </Button>
         </div>
-        <Button variant="contained">+ Thêm KH</Button>
+        <Button variant="contained" onClick={handleOnClick}>
+          + Thêm KH
+        </Button>
       </div>
+      <DialogAlert id={id} openDialog={openDialog} handleClose={handleClose} />
 
-      <div style={{ height: "79%", width: "100%" }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSize={7}
-          disableSelectionOnClick
-        />
-      </div>
+      {searchParams.get("name") === "null" || !searchParams.get("name")
+        ? nullParams()
+        : haveParams()}
     </div>
   );
 };
