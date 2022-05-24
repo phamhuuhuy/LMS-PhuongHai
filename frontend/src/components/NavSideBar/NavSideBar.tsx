@@ -1,7 +1,7 @@
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-// import ListItems from "./ListItems";
+import ListItems from "./ListItems";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -95,8 +95,7 @@ const NavSideBar = ({ handleOnClick, stateOpen }: any) => {
             </ListItemIcon>
           </ListItemButton>
         )}
-
-        {/* <ListItems /> */}
+        <ListItems />
       </List>
     </Drawer>
   );
