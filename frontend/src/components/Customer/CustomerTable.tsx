@@ -3,7 +3,6 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Edit, Delete, Search } from "@mui/icons-material";
 import { Typography, TextField, Button, Tooltip } from "@mui/material";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { NavItem } from "reactstrap";
 import DialogAlert from "../../common/DialogAlert";
 
 const CustomerTable = () => {
