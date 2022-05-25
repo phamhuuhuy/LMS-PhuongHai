@@ -8,15 +8,7 @@ import Container from "@mui/material/Container";
 import { Alert, Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-
-type Customer = {
-  customerName?: string;
-  customerType?: string;
-  customerContact?: string;
-  customerPhone?: string;
-  customerEmail?: string;
-  customerNote?: string;
-};
+import { Customer } from "./Customer.type";
 
 const CustomerForm = () => {
   const navigate = useNavigate();
@@ -79,6 +71,13 @@ const CustomerForm = () => {
     return validate;
   };
 
+  const handleOnChange = (event: any) => {
+    setCustomerData({
+      ...customerData,
+      [event.target.name]: event.target.value,
+    });
+  };
+
   const handleOnSubmit = async () => {
     if (handleValidation()) {
       try {
@@ -91,7 +90,7 @@ const CustomerForm = () => {
         });
         console.log(response);
         if (response.status === 201) {
-          navigate('/customer');
+          navigate("/customer");
         }
       } catch (error) {
         if (error instanceof Error) {
@@ -138,12 +137,7 @@ const CustomerForm = () => {
                   label="Tên Khách Hàng"
                   fullWidth
                   value={customerData?.customerName}
-                  onChange={(e) =>
-                    setCustomerData({
-                      ...customerData,
-                      customerName: e.target.value,
-                    })
-                  }
+                  onChange={handleOnChange}
                 />
                 {errorForm?.customerName && (
                   <Alert severity="warning">{errorForm.customerName}</Alert>
@@ -156,12 +150,7 @@ const CustomerForm = () => {
                   label="Nhóm Khách Hàng"
                   fullWidth
                   value={customerData?.customerType}
-                  onChange={(e) =>
-                    setCustomerData({
-                      ...customerData,
-                      customerType: e.target.value,
-                    })
-                  }
+                  onChange={handleOnChange}
                 />
                 {errorForm?.customerType && (
                   <Alert severity="warning">{errorForm.customerType}</Alert>
@@ -169,17 +158,12 @@ const CustomerForm = () => {
                 <TextField
                   required
                   margin="normal"
-                  name="customerType"
+                  name="customerContact"
                   variant="outlined"
                   label="Người Liên Hệ"
                   fullWidth
                   value={customerData?.customerContact}
-                  onChange={(e) =>
-                    setCustomerData({
-                      ...customerData,
-                      customerContact: e.target.value,
-                    })
-                  }
+                  onChange={handleOnChange}
                 />
                 {errorForm?.customerContact && (
                   <Alert severity="warning">{errorForm.customerContact}</Alert>
@@ -187,17 +171,12 @@ const CustomerForm = () => {
                 <TextField
                   required
                   margin="normal"
-                  name="customerType"
+                  name="customerPhone"
                   variant="outlined"
                   label="Số Điện Thoại"
                   fullWidth
                   value={customerData?.customerPhone}
-                  onChange={(e) =>
-                    setCustomerData({
-                      ...customerData,
-                      customerPhone: e.target.value,
-                    })
-                  }
+                  onChange={handleOnChange}
                 />
                 {errorForm?.customerPhone && (
                   <Alert severity="warning">{errorForm.customerPhone}</Alert>
@@ -205,34 +184,24 @@ const CustomerForm = () => {
                 <TextField
                   required
                   margin="normal"
-                  name="customerType"
+                  name="customerEmail"
                   variant="outlined"
                   label="Email"
                   fullWidth
                   value={customerData?.customerEmail}
-                  onChange={(e) =>
-                    setCustomerData({
-                      ...customerData,
-                      customerEmail: e.target.value,
-                    })
-                  }
+                  onChange={handleOnChange}
                 />
                 {errorForm?.customerEmail && (
                   <Alert severity="warning">{errorForm.customerEmail}</Alert>
                 )}
                 <TextField
                   margin="normal"
-                  name="customerType"
+                  name="customerNote"
                   variant="outlined"
                   label="Ghi Chú"
                   fullWidth
                   value={customerData?.customerNote}
-                  onChange={(e) =>
-                    setCustomerData({
-                      ...customerData,
-                      customerNote: e.target.value,
-                    })
-                  }
+                  onChange={handleOnChange}
                 />
                 {errorForm?.customerNote && (
                   <Alert severity="warning">{errorForm.customerNote}</Alert>
