@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -106,11 +106,7 @@ const CustomerUpdateForm = () => {
     }
   };
 
-  useEffect(() => {
-    fetchCustomerById();
-  }, []);
-
-  const fetchCustomerById = async () => {
+  const fetchCustomerById = useCallback( async () => {
     const response = await fetch(
       `http://localhost:5000/customer/${customerId}`,
       {
@@ -121,7 +117,13 @@ const CustomerUpdateForm = () => {
 
     let { id: string, ...filteredResult } = result;
     setCustomerData({ ...filteredResult });
-  };
+  }, [customerId]); 
+
+  useEffect(() => {
+    fetchCustomerById();
+  }, [fetchCustomerById]);
+
+  
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} style={{ height: "100%" }}>
