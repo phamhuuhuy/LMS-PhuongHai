@@ -18,8 +18,8 @@ export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 
   @Get('')
-  getAll(@Query('name') name: string) {
-    return this.customerService.getAll(name);
+  getAll() {
+    return this.customerService.getAll();
   }
 
   @Post('/')
