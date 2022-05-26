@@ -18,6 +18,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import CustomerForm from './components/Customer/CustomerForm';
 import CustomerUpdateForm from './components/Customer/CustomerUpdateForm';
+import Equipment from './components/Equipment/Equipment';
 
 const drawerWidth: number = 240;
 
@@ -108,6 +109,7 @@ function App() {
                 <Route path="/customer" element={<Customer />} />
                 <Route path="/customer/create" element={<CustomerForm />} />
                 <Route path="/customer/:customerId" element={<CustomerUpdateForm />} />
+                <Route path='/equipment' element={<Equipment/>}/>
               </Routes>
             </Box>
 

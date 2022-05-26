@@ -6,7 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-const DialogAlert = ({ openDialog, handleClose, id }: any) => {
+const DialogAlert = ({ openDialog, handleClose, id, msg }: any) => {
   const handleOnClose = () => {
     handleClose(false);
   };
@@ -39,7 +39,7 @@ const DialogAlert = ({ openDialog, handleClose, id }: any) => {
       <DialogTitle id="alert-dialog-title">Cảnh Báo</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Bạn có chắc muốn xoá user này ?
+          {msg}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
