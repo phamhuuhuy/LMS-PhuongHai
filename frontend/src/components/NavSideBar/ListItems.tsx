@@ -53,7 +53,10 @@ const ListItems = () => {
         </ListItemIcon>
         <ListItemText primary="Công Việc" />
       </ListItemButton>
-      <ListItemButton>
+
+      <ListItemButton onClick={() => {
+          navigate("/equipment");
+        }}>
         <ListItemIcon>
           <BuildIcon />
         </ListItemIcon>
