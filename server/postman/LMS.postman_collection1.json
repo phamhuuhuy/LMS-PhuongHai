@@ -1,0 +1,162 @@
+{
+	"info": {
+		"_postman_id": "5854fd4d-8c70-4071-84da-8263cbe4abd2",
+		"name": "LMS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "Get All Customer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/customer",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customerName\": \"pham huu huy\",\r\n    \"customerType\": \"VIP\",\r\n    \"customerContact\": \"Nguyen Cat Tuong\",\r\n    \"customerPhone\": \"0909764673\",\r\n    \"customerEmail\": \"quochuynguyen17@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/customer",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Customer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/customer/f4df2f6a-794f-4bd4-9c93-350645a897ac",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"customer",
+								"f4df2f6a-794f-4bd4-9c93-350645a897ac"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Instrument",
+			"item": [
+				{
+					"name": "Get All Instrument",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/instrument",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"instrument"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new instrument",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"instrumentName\": \"nhiet ke\",\r\n    \"instrumentModel\": \"E98123\",\r\n    \"instrumentSeriNo\": \"9187237\",\r\n    \"instrumentBuyDate\": \"2000-12-12\",\r\n    \"instrumentCalibrationDate\": \"2000-12-13\",\r\n    \"instrumentNextCalibrationDate\": \"2000-12-20\",\r\n    \"instrumentStatus\": \"dfasfsa\",\r\n    \"instrumentProvider\": \"fdsafsaf\",\r\n    \"instumentServer\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/instrument",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"instrument"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Instrument",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/instrument/d365dc2f-1bb2-4dff-be67-285c08f07f0e",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"instrument",
+								"d365dc2f-1bb2-4dff-be67-285c08f07f0e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "check health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000",
+					"host": [
+						"localhost"
+					],
+					"port": "3000"
+				}
+			},
+			"response": []
+		}
+	]
+}
