@@ -15,12 +15,7 @@ export class CustomerService {
     private customerRepository: Repository<Customer>,
   ) {}
 
-  async getAll(name: string): Promise<Customer[]> {
-    if (name) {
-      return await this.customerRepository.find({
-        where: { customerName: Like(`%${name}%`) },
-      });
-    }
+  async getAll(): Promise<Customer[]> {
     return await this.customerRepository.find();
   }
 
