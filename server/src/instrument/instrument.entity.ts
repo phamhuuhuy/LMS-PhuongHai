@@ -40,5 +40,5 @@ export class Instrument {
 
   @Column({ name: 'instrument_server' })
   @IsBoolean()
-  instumentServer: boolean;
+  instrumentServer: boolean;
 }
