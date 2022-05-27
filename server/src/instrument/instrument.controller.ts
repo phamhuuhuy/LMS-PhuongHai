@@ -23,6 +23,16 @@ export class InstrumentController {
     return this.instrumentService.create(instrument);
   }
 
+  @Get('/overDue')
+  getOverDue() {
+    return this.instrumentService.getOverDue();
+  }
+
+  @Get('/nextDue')
+  getNextDue() {
+    return this.instrumentService.getNextDue();
+  }
+
   @Get('/:uuid')
   getOne(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
     return this.instrumentService.getOne(uuid);
