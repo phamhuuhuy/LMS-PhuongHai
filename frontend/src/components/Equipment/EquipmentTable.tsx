@@ -34,7 +34,7 @@ const CustomerTable = () => {
   };
 
   const handleOnClick = () => {
-    navigate("/customer/create");
+    navigate("/equipment/create");
   };
 
 
