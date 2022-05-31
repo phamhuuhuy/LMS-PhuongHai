@@ -182,7 +182,7 @@ const CustomerTable = () => {
           + Thêm KH
         </Button>
       </div>
-      <DialogAlert id={id} openDialog={openDialog} handleClose={handleClose} />
+      <DialogAlert id={id} openDialog={openDialog} handleClose={handleClose} msg={'Bạn có chắc muốn xoá user này ?'} />
 
       {searchParams.get("name") === "null" || !searchParams.get("name")
         ? nullParams()
