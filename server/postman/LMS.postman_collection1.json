@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "9a0840ef-9f45-4550-8613-593aec465c40",
-		"name": "LMS Copy",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "15620887"
+		"_postman_id": "58ea31c1-957e-4c00-8700-cd58708524f9",
+		"name": "LMS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -143,38 +142,47 @@
 					"response": []
 				},
 				{
-					"name": "Get Over Due",
+					"name": "Update Instrument",
 					"request": {
-						"method": "GET",
+						"method": "PATCH",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"instrumentName\": \"nhiet ke1\",\n    \"instrumentModel\": \"E981231\",\n    \"instrumentSeriNo\": \"91872371\",\n    \"instrumentBuyDate\": \"2000-12-13\",\n    \"instrumentCalibrationDate\": \"2000-12-14\",\n    \"instrumentNextCalibrationDate\": \"2000-12-25\",\n    \"instrumentStatus\": \"dfasfsa1\",\n    \"instrumentProvider\": \"fdsafsaf1\",\n    \"instrumentServer\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "localhost:5000/instrument/over-due",
+							"raw": "localhost:5000/instrument/7c1dc9dd-36b2-4a3e-b8dd-09a3244cb79d",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"instrument",
-								"over-due"
+								"7c1dc9dd-36b2-4a3e-b8dd-09a3244cb79d"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Next Due",
+					"name": "Delete instrument",
 					"request": {
-						"method": "GET",
+						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/instrument/next-due",
+							"raw": "localhost:5000/instrument/7c1dc9dd-36b2-4a3e-b8dd-09a3244cb79d",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"instrument",
-								"next-due"
+								"7c1dc9dd-36b2-4a3e-b8dd-09a3244cb79d"
 							]
 						}
 					},

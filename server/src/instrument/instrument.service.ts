@@ -1,5 +1,6 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Between, LessThan, MoreThan, Repository } from 'typeorm';
+import { UpdateInstrument } from './dto';
 import { Instrument } from './instrument.entity';
 
 @Injectable()
@@ -47,5 +48,22 @@ export class InstrumentService {
         ),
       },
     });
+  }
+  async updateCustomer(
+    uuid: string,
+    updatedInstrument: UpdateInstrument,
+  ): Promise<Instrument> {
+    const instrumentFound = await this.getOne(uuid);
+    const instrument = await this.instrumentRepository.save({
+      ...instrumentFound,
+      ...updatedInstrument,
+    });
+    return instrument;
+  }
+
+  async deleteCustomer(uuid: string) {
+    const customer = await this.getOne(uuid);
+    await this.instrumentRepository.delete(customer.id);
+    return { msg: 'Sucessfully deleted instrument' };
   }
 }
