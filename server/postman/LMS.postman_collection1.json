@@ -2,7 +2,8 @@
 	"info": {
 		"_postman_id": "9a0840ef-9f45-4550-8613-593aec465c40",
 		"name": "LMS Copy",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15620887"
 	},
 	"item": [
 		{
@@ -145,7 +146,18 @@
 					"name": "Get Over Due",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/instrument/over-due",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"instrument",
+								"over-due"
+							]
+						}
 					},
 					"response": []
 				},
@@ -153,7 +165,18 @@
 					"name": "Next Due",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/instrument/next-due",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"instrument",
+								"next-due"
+							]
+						}
 					},
 					"response": []
 				}

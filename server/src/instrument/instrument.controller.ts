@@ -23,12 +23,12 @@ export class InstrumentController {
     return this.instrumentService.create(instrument);
   }
 
-  @Get('/overDue')
+  @Get('/over-due')
   getOverDue() {
     return this.instrumentService.getOverDue();
   }
 
-  @Get('/nextDue')
+  @Get('/next-due')
   getNextDue() {
     return this.instrumentService.getNextDue();
   }
