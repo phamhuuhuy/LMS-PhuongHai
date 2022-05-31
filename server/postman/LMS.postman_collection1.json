@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "58ea31c1-957e-4c00-8700-cd58708524f9",
+		"_postman_id": "f17af051-632b-4b18-853f-b671f52c86eb",
 		"name": "LMS",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15620887"
 	},
 	"item": [
 		{
@@ -102,7 +103,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"instrumentName\": \"nhiet ke\",\r\n    \"instrumentModel\": \"E98123\",\r\n    \"instrumentSeriNo\": \"9187237\",\r\n    \"instrumentBuyDate\": \"2000-12-12\",\r\n    \"instrumentCalibrationDate\": \"2000-12-13\",\r\n    \"instrumentNextCalibrationDate\": \"2000-12-20\",\r\n    \"instrumentStatus\": \"dfasfsa\",\r\n    \"instrumentProvider\": \"fdsafsaf\",\r\n    \"instumentServer\": true\r\n}",
+							"raw": "{\r\n    \"instrumentName\": \"nhiet ke\",\r\n    \"instrumentModel\": \"E98123\",\r\n    \"instrumentSeriNo\": \"9187237\",\r\n    \"instrumentBuyDate\": \"2000-12-12\",\r\n    \"instrumentCalibrationDate\": \"2000-12-13\",\r\n    \"instrumentNextCalibrationDate\": \"2000-12-20\",\r\n    \"instrumentStatus\": \"dfasfsa\",\r\n    \"instrumentProvider\": \"fdsafsaf\",\r\n    \"instrumentServer\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -187,6 +188,44 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "next-due",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/instrument/next-due",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"instrument",
+								"next-due"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "over-due",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/instrument/over-due",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"instrument",
+								"over-due"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -196,11 +235,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000",
+					"raw": "localhost:5000",
 					"host": [
 						"localhost"
 					],
-					"port": "3000"
+					"port": "5000"
 				}
 			},
 			"response": []
