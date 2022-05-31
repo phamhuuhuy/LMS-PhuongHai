@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5854fd4d-8c70-4071-84da-8263cbe4abd2",
+		"_postman_id": "58ea31c1-957e-4c00-8700-cd58708524f9",
 		"name": "LMS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -136,6 +136,53 @@
 							"path": [
 								"instrument",
 								"d365dc2f-1bb2-4dff-be67-285c08f07f0e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Instrument",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"instrumentName\": \"nhiet ke1\",\n    \"instrumentModel\": \"E981231\",\n    \"instrumentSeriNo\": \"91872371\",\n    \"instrumentBuyDate\": \"2000-12-13\",\n    \"instrumentCalibrationDate\": \"2000-12-14\",\n    \"instrumentNextCalibrationDate\": \"2000-12-25\",\n    \"instrumentStatus\": \"dfasfsa1\",\n    \"instrumentProvider\": \"fdsafsaf1\",\n    \"instrumentServer\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/instrument/7c1dc9dd-36b2-4a3e-b8dd-09a3244cb79d",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"instrument",
+								"7c1dc9dd-36b2-4a3e-b8dd-09a3244cb79d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete instrument",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/instrument/7c1dc9dd-36b2-4a3e-b8dd-09a3244cb79d",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"instrument",
+								"7c1dc9dd-36b2-4a3e-b8dd-09a3244cb79d"
 							]
 						}
 					},
