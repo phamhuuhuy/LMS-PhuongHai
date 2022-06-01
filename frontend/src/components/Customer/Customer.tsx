@@ -5,7 +5,7 @@ import Paper from "@mui/material/Paper";
 import CustomerTable from "./CustomerTable";
 
 
-const Customer = () => {
+const Customer: React.FC = () => {
   return (
     <Container
       maxWidth="lg"

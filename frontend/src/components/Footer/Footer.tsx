@@ -26,7 +26,6 @@ const data = [
 ];
 
 const chooseColor = (index: Number): string => {
-  console.log(index);
   if (index < 10) return "#00ff00";
   if (index < 20) return "#FFA600";
   if (index < 70) return "red";
@@ -37,8 +36,8 @@ const Footer = () => {
   return (
     <Container maxWidth="lg" style={{ height: "100%" }}>
       <Grid container spacing={2}>
-        {data.map((item) => (
-          <Grid item xs={2}>
+        {data.map((item, index) => (
+          <Grid key={index} item xs={2}>
             <Box
               style={{
                 display: "flex",

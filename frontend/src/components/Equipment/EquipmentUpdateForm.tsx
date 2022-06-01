@@ -12,25 +12,12 @@ import { Equipment, EquipmentError, EquipmentStatus } from "./Equipment.type";
 import MomentAdapter from "@material-ui/pickers/adapter/moment";
 import DatePicker from "@mui/lab/DatePicker";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import { makeStyles } from "@mui/styles";
-
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-
-const useStyles = makeStyles({
-  root: {
-    "& .MuiFormControl-root": {
-      backgroundColor: "red",
-    },
-  },
-});
-
-const EquipmentForm: React.FC = () => {
-  const classes = useStyles();
-  const navigate = useNavigate();
+const EquipmentUpdateForm = () => {
   const [equipmentData, setEquipmentData] = useState<Equipment>({
     equipmentName: "",
     equipmentModel: "",
@@ -44,8 +31,6 @@ const EquipmentForm: React.FC = () => {
   });
 
   const [errorForm, setErrorForm] = useState<EquipmentError>({});
-
-  const [age, setAge] = useState("");
 
   const handleValidation = () => {
     console.log(equipmentData);
@@ -151,7 +136,7 @@ const EquipmentForm: React.FC = () => {
               }}
             >
               <Typography component="h1" variant="h5">
-                Thêm Thiết Bị
+                Chỉnh Sửa Thiết Bị
               </Typography>
               <Box component="form" noValidate sx={{ mt: 1 }}>
                 <TextField
@@ -200,7 +185,6 @@ const EquipmentForm: React.FC = () => {
                   <div>
                     <DatePicker
                       label="Ngày Mua"
-                      className={classes.root}
                       value={equipmentData.dateBuy}
                       onChange={(e: any) => {
                         console.log(e.format("DD/MM/YYYY"));
@@ -312,7 +296,7 @@ const EquipmentForm: React.FC = () => {
                   style={{ width: "100%", marginTop: "20px" }}
                   onClick={handleOnSubmit}
                 >
-                  Thêm Thiết Bị
+                  Cập Nhật
                 </Button>
               </Box>
             </Box>
@@ -323,4 +307,4 @@ const EquipmentForm: React.FC = () => {
   );
 };
 
-export default EquipmentForm;
+export default EquipmentUpdateForm;
