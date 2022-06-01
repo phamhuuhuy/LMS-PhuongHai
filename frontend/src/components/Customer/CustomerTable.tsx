@@ -4,13 +4,15 @@ import { Edit, Delete, Search } from "@mui/icons-material";
 import { Typography, TextField, Button, Tooltip } from "@mui/material";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import DialogAlert from "../../common/DialogAlert";
+import { ICustomerFetch } from "./Customer.type";
 
-const CustomerTable = () => {
-  const [data, setData] = useState([]);
-  const [id, setId] = useState('')
-  const [openDialog, setOpenDialog] = useState(false);
-  const [searchForm, setSearchForm]: any = useState("");
-  const [searchParams, setSearchParams] = useSearchParams();
+const CustomerTable: React.FC = () => {
+  const [data, setData] = useState<ICustomerFetch[]>([]);
+  console.log(data)
+  const [id, setId] = useState<String>("");
+  const [openDialog, setOpenDialog] = useState<Boolean>(false);
+  const [searchForm, setSearchForm] = useState<String | null>("");
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   const handleEdit = (id: string) => {
@@ -182,7 +184,12 @@ const CustomerTable = () => {
           + Thêm KH
         </Button>
       </div>
-      <DialogAlert id={id} openDialog={openDialog} handleClose={handleClose} msg={'Bạn có chắc muốn xoá user này ?'} />
+      <DialogAlert
+        id={id}
+        openDialog={openDialog}
+        handleClose={handleClose}
+        msg={"Bạn có chắc muốn xoá user này ?"}
+      />
 
       {searchParams.get("name") === "null" || !searchParams.get("name")
         ? nullParams()

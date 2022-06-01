@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { Customer } from "./Customer.type";
 
-const CustomerForm = () => {
+const CustomerForm: React.FC = () => {
   const navigate = useNavigate();
   const [customerData, setCustomerData] = useState<Customer>({
     customerName: "",

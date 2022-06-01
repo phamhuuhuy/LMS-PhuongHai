@@ -11,7 +11,7 @@ import { Alert, Paper } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { Customer } from "./Customer.type";
 
-const CustomerUpdateForm = () => {
+const CustomerUpdateForm: React.FC = () => {
   const navigate = useNavigate();
   let { customerId } = useParams();
 
@@ -106,7 +106,7 @@ const CustomerUpdateForm = () => {
     }
   };
 
-  const fetchCustomerById = useCallback( async () => {
+  const fetchCustomerById = useCallback(async () => {
     const response = await fetch(
       `http://localhost:5000/customer/${customerId}`,
       {
@@ -117,13 +117,11 @@ const CustomerUpdateForm = () => {
 
     let { id: string, ...filteredResult } = result;
     setCustomerData({ ...filteredResult });
-  }, [customerId]); 
+  }, [customerId]);
 
   useEffect(() => {
     fetchCustomerById();
   }, [fetchCustomerById]);
-
-  
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} style={{ height: "100%" }}>
