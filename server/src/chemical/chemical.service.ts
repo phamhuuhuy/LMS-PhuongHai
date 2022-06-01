@@ -1,5 +1,5 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { LessThan, Repository } from 'typeorm';
+import { Between, LessThan, Repository } from 'typeorm';
 import { Chemical } from './chemical.entity';
 import { UpdateChemical } from './dto';
 
@@ -31,6 +31,17 @@ export class ChemicalService {
     return await this.chemicalRepository.find({
       where: {
         chemicalDueDate: LessThan(today.toISOString()),
+      },
+    });
+  }
+
+  async getNextDue(): Promise<Chemical[]> {
+    var today = new Date();
+    var nextWeek = new Date(today);
+    nextWeek.setDate(nextWeek.getDate() + 7);
+    return await this.chemicalRepository.find({
+      where: {
+        chemicalDueDate: Between(today.toISOString(), nextWeek.toISOString()),
       },
     });
   }

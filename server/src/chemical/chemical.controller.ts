@@ -31,6 +31,11 @@ export class ChemicalController {
     return this.chemicalService.getOverDue();
   }
 
+  @Get('/next-due')
+  getNextDue() {
+    return this.chemicalService.getNextDue();
+  }
+
   @Get('/:uuid')
   getOne(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
     return this.chemicalService.getOne(uuid);
