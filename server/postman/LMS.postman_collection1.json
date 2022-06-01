@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "f17af051-632b-4b18-853f-b671f52c86eb",
+		"_postman_id": "c18ab923-b641-46bf-9467-5f094a7f2c1b",
 		"name": "LMS",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "15620887"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -221,6 +220,141 @@
 							"port": "5000",
 							"path": [
 								"instrument",
+								"over-due"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chemical",
+			"item": [
+				{
+					"name": "Get All Chemical",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/chemical",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"chemical"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new chemical",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"chemicalName\": \"Chemical A\",\r\n  \"chemicalModel\": \"hehe\",\r\n  \"chemicalUnit\": \"hehe\",\r\n  \"chemicalImportDate\": \"2000-12-03\",\r\n  \"chemicalQuantity\": 12.41232,\r\n  \"chemicalDueDate\": \"2022-12-10\",\r\n  \"chemicalExportDate\": \"2022-10-20\",\r\n  \"chemicalReceiver\": \"hehee\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/chemical",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"chemical"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Chemical",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/chemical/047e7cdf-0b44-455a-8b4c-86c7c6a352a1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"chemical",
+								"047e7cdf-0b44-455a-8b4c-86c7c6a352a1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Chemical",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"chemicalName\": \"Chemical B\",\r\n  \"chemicalModel\": \"c\",\r\n  \"chemicalUnit\": \"cc\",\r\n  \"chemicalImportDate\": \"2000-12-12\",\r\n  \"chemicalQuantity\": 12.41232123,\r\n  \"chemicalDueDate\": \"2022-05-12\",\r\n  \"chemicalExportDate\": \"2022-01-20\",\r\n  \"chemicalReceiver\": \"ccc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/chemical/047e7cdf-0b44-455a-8b4c-86c7c6a352a1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"chemical",
+								"047e7cdf-0b44-455a-8b4c-86c7c6a352a1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Chemical",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/chemical/047e7cdf-0b44-455a-8b4c-86c7c6a352a1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"chemical",
+								"047e7cdf-0b44-455a-8b4c-86c7c6a352a1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "over-due",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/chemical/over-due",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"chemical",
 								"over-due"
 							]
 						}
