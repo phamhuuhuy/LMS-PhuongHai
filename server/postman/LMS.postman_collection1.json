@@ -256,7 +256,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"chemicalName\": \"Chemical A\",\r\n  \"chemicalModel\": \"hehe\",\r\n  \"chemicalUnit\": \"hehe\",\r\n  \"chemicalImportDate\": \"2000-12-03\",\r\n  \"chemicalQuantity\": 12.41232,\r\n  \"chemicalDueDate\": \"2022-12-10\",\r\n  \"chemicalExportDate\": \"2022-10-20\",\r\n  \"chemicalReceiver\": \"hehee\"\r\n}",
+							"raw": "{\r\n  \"chemicalName\": \"Chemical A\",\r\n  \"chemicalModel\": \"hehe\",\r\n  \"chemicalUnit\": \"hehe\",\r\n  \"chemicalImportDate\": \"2000-12-03\",\r\n  \"chemicalQuantity\": 12.41232,\r\n  \"chemicalDueDate\": \"2022-05-04\",\r\n  \"chemicalExportDate\": \"2022-10-20\",\r\n  \"chemicalReceiver\": \"hehee\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -356,6 +356,25 @@
 							"path": [
 								"chemical",
 								"over-due"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "next-due",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/chemical/next-due",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"chemical",
+								"next-due"
 							]
 						}
 					},
