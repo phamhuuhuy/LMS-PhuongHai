@@ -38,6 +38,10 @@ export class Instrument {
   @IsString()
   instrumentProvider: string;
 
+  @Column({ name: 'instrument_supervisor' })
+  @IsString()
+  instrumentSupervisor: string;
+
   @Column({ name: 'instrument_server' })
   @IsBoolean()
   instrumentServer: boolean;
