@@ -203,10 +203,10 @@ const EquipmentForm: React.FC = () => {
                       className={classes.root}
                       value={equipmentData.dateBuy}
                       onChange={(e: any) => {
-                        console.log(e.format("DD/MM/YYYY"));
+                        console.log(e.format("MM/DD/YYYY"));
                         setEquipmentData({
                           ...equipmentData,
-                          dateBuy: e.format("DD/MM/YYYY"),
+                          dateBuy: e.format("MM/DD/YYYY"),
                         });
                       }}
                       renderInput={(params) => <TextField {...params} />}
@@ -222,10 +222,10 @@ const EquipmentForm: React.FC = () => {
                       label="Ngày Hiệu Chuẩn"
                       value={equipmentData.dateCalibrate}
                       onChange={(e: any) => {
-                        console.log(e.format("DD/MM/YYYY"));
+                        console.log(e.format("MM/DD/YYYY"));
                         setEquipmentData({
                           ...equipmentData,
-                          dateCalibrate: e.format("DD/MM/YYYY"),
+                          dateCalibrate: e.format("MM/DD/YYYY"),
                         });
                       }}
                       renderInput={(params) => <TextField {...params} />}
@@ -241,10 +241,10 @@ const EquipmentForm: React.FC = () => {
                       label="Ngày Hiệu Chuẩn Kế Tiếp"
                       value={equipmentData.dateRecalibrate}
                       onChange={(e: any) => {
-                        console.log(e.format("DD/MM/YYYY"));
+                        console.log(e.format("MM/DD/YYYY"));
                         setEquipmentData({
                           ...equipmentData,
-                          dateRecalibrate: e.format("DD/MM/YYYY"),
+                          dateRecalibrate: e.format("MM/DD/YYYY"),
                         });
                       }}
                       renderInput={(params) => <TextField {...params} />}
