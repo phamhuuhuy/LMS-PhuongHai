@@ -1,4 +1,4 @@
-import { IsBoolean, IsDateString, IsString } from 'class-validator';
+import { IsBoolean, IsDateString, IsOptional, IsString } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -42,7 +42,8 @@ export class Instrument {
   @IsString()
   instrumentSupervisor: string;
 
-  @Column({ name: 'instrument_server' })
+  @Column({ name: 'instrument_server', nullable: true })
   @IsBoolean()
+  @IsOptional()
   instrumentServer: boolean;
 }
