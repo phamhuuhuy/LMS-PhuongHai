@@ -14,16 +14,16 @@ export class InstrumentService {
     return await this.instrumentRepository.find();
   }
 
-  async create(newInstrument: Instrument): Promise<Instrument> {
+  async createInstrument(newInstrument: Instrument): Promise<Instrument> {
     return this.instrumentRepository.save(newInstrument);
   }
 
   async getOne(uuid: string): Promise<Instrument> {
-    const customer = await this.instrumentRepository.findOneBy({ id: uuid });
-    if (!customer) {
-      throw new NotFoundException('Customer id is not exist');
+    const instrument = await this.instrumentRepository.findOneBy({ id: uuid });
+    if (!instrument) {
+      throw new NotFoundException('Instrument id is not exist');
     }
-    return customer;
+    return instrument;
   }
 
   async getOverDue(): Promise<Instrument[]> {
@@ -48,7 +48,7 @@ export class InstrumentService {
       },
     });
   }
-  async updateCustomer(
+  async updateInstrument(
     uuid: string,
     updatedInstrument: UpdateInstrument,
   ): Promise<Instrument> {
@@ -60,9 +60,9 @@ export class InstrumentService {
     return instrument;
   }
 
-  async deleteCustomer(uuid: string) {
-    const customer = await this.getOne(uuid);
-    await this.instrumentRepository.delete(customer.id);
+  async deleteInstrument(uuid: string) {
+    const instrument = await this.getOne(uuid);
+    await this.instrumentRepository.delete(instrument);
     return { msg: 'Sucessfully deleted instrument' };
   }
 }

@@ -22,8 +22,8 @@ export class InstrumentController {
   }
 
   @Post('')
-  createCustomer(@Body() instrument: Instrument) {
-    return this.instrumentService.create(instrument);
+  createInstrument(@Body() instrument: Instrument) {
+    return this.instrumentService.createInstrument(instrument);
   }
 
   @Get('/over-due')
@@ -42,15 +42,15 @@ export class InstrumentController {
   }
 
   @Delete('/:uuid')
-  deleteCustomer(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
-    return this.instrumentService.deleteCustomer(uuid);
+  deleteInstrument(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
+    return this.instrumentService.deleteInstrument(uuid);
   }
 
   @Patch('/:uuid')
-  updateCustomer(
+  updateInstrument(
     @Param('uuid', new ParseUUIDPipe()) uuid: string,
-    @Body() customer: UpdateInstrument,
+    @Body() instrument: UpdateInstrument,
   ) {
-    return this.instrumentService.updateCustomer(uuid, customer);
+    return this.instrumentService.updateInstrument(uuid, instrument);
   }
 }
