@@ -8,7 +8,7 @@ export type Instrument = {
   instrumentStatus?: InstrumentStatus | "";
   instrumentProvider?: string;
   instrumentSupervisor?: string;
-  instrumentServer?: string;
+  instrumentServer?: boolean;
 };
 
 export type InstrumentError = {
@@ -21,7 +21,7 @@ export type InstrumentError = {
   instrumentStatus?: string | "";
   instrumentProvider?: string;
   instrumentSupervisor?: string;
-  instrumentServer?: string;
+  instrumentServer?: boolean;
 };
 
 export enum InstrumentStatus {

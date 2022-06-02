@@ -43,8 +43,6 @@ const EquipmentForm: React.FC = () => {
     instrumentNextCalibrationDate: null,
     instrumentStatus: "",
     instrumentProvider: "",
-
-    instrumentServer: "",
   });
 
   const [errorForm, setErrorForm] = useState<InstrumentError>({});
@@ -127,7 +125,7 @@ const EquipmentForm: React.FC = () => {
   const handleOnSubmit = async () => {
     console.log(handleValidation());
     if (handleValidation()) {
-      console.log(instrumentData);
+      console.log("form", instrumentData);
       try {
         const response = await fetch("http://localhost:5000/instrument", {
           method: "POST",
@@ -225,7 +223,7 @@ const EquipmentForm: React.FC = () => {
                       onChange={(e: any) => {
                         setInstrumentData({
                           ...instrumentData,
-                          instrumentBuyDate: e.format("MM/DD/YYYY"),
+                          instrumentBuyDate: e.format("YYYY-MM-DD"),
                         });
                       }}
                       renderInput={(params) => <TextField {...params} />}
@@ -245,7 +243,7 @@ const EquipmentForm: React.FC = () => {
                       onChange={(e: any) => {
                         setInstrumentData({
                           ...instrumentData,
-                          instrumentCalibrationDate: e.format("MM/DD/YYYY"),
+                          instrumentCalibrationDate: e.format("YYYY-MM-DD"),
                         });
                       }}
                       renderInput={(params) => <TextField {...params} />}
@@ -265,7 +263,7 @@ const EquipmentForm: React.FC = () => {
                       onChange={(e: any) => {
                         setInstrumentData({
                           ...instrumentData,
-                          instrumentNextCalibrationDate: e.format("MM/DD/YYYY"),
+                          instrumentNextCalibrationDate: e.format("YYYY-MM-DD"),
                         });
                       }}
                       renderInput={(params) => <TextField {...params} />}
