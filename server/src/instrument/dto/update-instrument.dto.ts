@@ -33,6 +33,10 @@ export class UpdateInstrument {
   @IsOptional()
   instrumentProvider: string;
 
+  @IsString()
+  @IsOptional()
+  instrumentSupervisor: string;
+
   @IsBoolean()
   @IsOptional()
   instrumentServer: boolean;
