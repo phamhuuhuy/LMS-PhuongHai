@@ -28,10 +28,9 @@ export class InstrumentService {
 
   async getOverDue(): Promise<Instrument[]> {
     var today = new Date();
-    console.log(today);
     return await this.instrumentRepository.find({
       where: {
-        instrumentNextCalibrationDate: LessThan(today.toISOString()),
+        instrumentCalibrationDate: LessThan(today.toISOString()),
       },
     });
   }

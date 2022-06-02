@@ -6,21 +6,19 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-const DialogAlert = ({ openDialog, handleClose, id, msg }: any) => {
+const DialogAlert = ({ openDialog, handleClose, id, msg, item }: any) => {
   const handleOnClose = () => {
     handleClose(false);
   };
 
   const handleDeleteUser = async () => {
     handleClose(false);
-    console.log(id);
     if (id !== "") {
       try {
-        const response = await fetch(`http://localhost:5000/customer/${id}`, {
+        const response = await fetch(process.env.REACT_APP_API_BASE+`/${item}/${id}`, {
           method: "DELETE",
         });
         const result = await response.json();
-        console.log(result);
         window.location.reload();
       } catch (error) {
         if (error instanceof Error) {

@@ -81,14 +81,13 @@ const CustomerForm: React.FC = () => {
   const handleOnSubmit = async () => {
     if (handleValidation()) {
       try {
-        const response = await fetch("http://localhost:5000/customer", {
+        const response = await fetch(process.env.REACT_APP_API_BASE+"/customer", {
           method: "POST",
           headers: {
             "Content-type": "application/json",
           },
           body: JSON.stringify(customerData),
         });
-        console.log(response);
         if (response.status === 201) {
           navigate("/customer");
         }
