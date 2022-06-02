@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -6,97 +7,79 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Alert, Paper } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { Equipment, EquipmentError, EquipmentStatus } from "./Equipment.type";
+import { Chemical, ChemicalError } from "./Chemical.type";
 import MomentAdapter from "@material-ui/pickers/adapter/moment";
 import DatePicker from "@mui/lab/DatePicker";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import { makeStyles } from "@mui/styles";
 
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-
-
-const useStyles = makeStyles({
-  root: {
-    "& .MuiFormControl-root": {
-      backgroundColor: "red",
-    },
-  },
-});
-
-const EquipmentForm: React.FC = () => {
-  const classes = useStyles();
-  const navigate = useNavigate();
-  const [equipmentData, setEquipmentData] = useState<Equipment>({
-    equipmentName: "",
-    equipmentModel: "",
-    seriNumber: "",
-    dateBuy: null,
-    dateCalibrate: null,
-    dateRecalibrate: null,
-    equipmentStatus: "",
-    infoProvider: "",
-    employeeManagement: "",
+const ChemicalForm: React.FC = () => {
+  const [chemicalData, setChemicalData] = useState<Chemical>({
+    chemicalName: "",
+    chemicalModel: "",
+    chemicalUnit: "",
+    chemicalImportDate: null,
+    chemicalQuantity: "",
+    chemicalDueDate: null,
+    chemicalExportDate: null,
+    chemicalReceiver: "",
   });
 
-  const [errorForm, setErrorForm] = useState<EquipmentError>({});
+  const [errorForm, setErrorForm] = useState<ChemicalError>({});
 
   const handleValidation = () => {
-    console.log(equipmentData);
-    var error: EquipmentError = {};
+    console.log(chemicalData);
+    var error: ChemicalError = {};
     var validate = true;
+    var reg = new RegExp("^[0-9]+$");
 
-    if (!equipmentData.equipmentName) {
-      error.equipmentName = "Bắt Buộc";
-      validate = false;
-    }
-    if (!equipmentData.equipmentModel) {
-      error.equipmentModel = "Bắt Buộc";
-      validate = false;
-    }
-    if (!equipmentData.seriNumber) {
-      error.seriNumber = "Bắt Buộc";
-      validate = false;
-    }
-    if (!equipmentData.dateBuy) {
-      error.dateBuy = "Bắt Buộc";
-      validate = false;
-    }
-    if (!equipmentData.dateCalibrate) {
-      error.dateCalibrate = "Bắt Buộc";
+    if (!reg.test(chemicalData.chemicalQuantity)) {
+      error.chemicalQuantity = "Chỉ nhập số";
       validate = false;
     }
 
-    if (!equipmentData.dateRecalibrate) {
-      error.dateRecalibrate = "Bắt Buộc";
+    if (!chemicalData.chemicalName) {
+      error.chemicalName = "Bắt Buộc";
+      validate = false;
+    }
+    if (!chemicalData.chemicalModel) {
+      error.chemicalModel = "Bắt Buộc";
+      validate = false;
+    }
+    if (!chemicalData.chemicalUnit) {
+      error.chemicalUnit = "Bắt Buộc";
+      validate = false;
+    }
+    if (!chemicalData.chemicalImportDate) {
+      error.chemicalImportDate = "Bắt Buộc";
+      validate = false;
+    }
+    if (!chemicalData.chemicalQuantity) {
+      error.chemicalQuantity = "Bắt Buộc";
       validate = false;
     }
 
-    if (!equipmentData.equipmentStatus) {
-      error.equipmentStatus = "Bắt Buộc";
+    if (!chemicalData.chemicalDueDate) {
+      error.chemicalDueDate = "Bắt Buộc";
       validate = false;
     }
 
-    if (!equipmentData.infoProvider) {
-      error.infoProvider = "Bắt Buộc";
+    if (!chemicalData.chemicalExportDate) {
+      error.chemicalExportDate = "Bắt Buộc";
       validate = false;
     }
 
-    if (!equipmentData.employeeManagement) {
-      error.employeeManagement = "Bắt Buộc";
+    if (!chemicalData.chemicalReceiver) {
+      error.chemicalReceiver = "Bắt Buộc";
       validate = false;
     }
+
     setErrorForm(error);
     return validate;
   };
 
   const handleOnChange = (event: any) => {
-    setEquipmentData({
-      ...equipmentData,
+    setChemicalData({
+      ...chemicalData,
       [event.target.name]: event.target.value,
     });
   };
@@ -122,9 +105,8 @@ const EquipmentForm: React.FC = () => {
     //     }
     //   }
     handleValidation();
-    console.log(equipmentData);
+    console.log(chemicalData);
   };
-
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} style={{ height: "100%" }}>
       <Grid container spacing={3} style={{ height: "100%", overflowY: "auto" }}>
@@ -149,7 +131,7 @@ const EquipmentForm: React.FC = () => {
               }}
             >
               <Typography component="h1" variant="h5">
-                Thêm Thiết Bị
+                Thêm Vật Tư
               </Typography>
               <Box component="form" noValidate sx={{ mt: 1 }}>
                 <TextField
@@ -157,101 +139,104 @@ const EquipmentForm: React.FC = () => {
                   autoComplete="name"
                   autoFocus
                   margin="normal"
-                  name="equipmentName"
+                  name="chemicalName"
                   variant="outlined"
-                  label="Tên Thiết Bị"
+                  label="Tên Vật Tư"
                   fullWidth
-                  value={equipmentData?.equipmentName}
+                  value={chemicalData?.chemicalName}
                   onChange={handleOnChange}
                 />
-                {errorForm?.equipmentName && (
-                  <Alert severity="warning">{errorForm.equipmentName}</Alert>
+                {errorForm?.chemicalName && (
+                  <Alert severity="warning">{errorForm.chemicalName}</Alert>
                 )}
                 <TextField
                   required
                   margin="normal"
-                  name="equipmentModel"
+                  name="chemicalModel"
                   variant="outlined"
-                  label="Model"
+                  label="Mã Số"
                   fullWidth
-                  value={equipmentData?.equipmentModel}
+                  value={chemicalData?.chemicalModel}
                   onChange={handleOnChange}
                 />
-                {errorForm?.equipmentModel && (
-                  <Alert severity="warning">{errorForm.equipmentModel}</Alert>
+                {errorForm?.chemicalModel && (
+                  <Alert severity="warning">{errorForm.chemicalModel}</Alert>
                 )}
                 <TextField
                   required
                   margin="normal"
-                  name="seriNumber"
+                  name="chemicalUnit"
                   variant="outlined"
-                  label="Seri No."
+                  label="Đơn Vị Tính"
                   fullWidth
-                  value={equipmentData?.seriNumber}
+                  value={chemicalData?.chemicalUnit}
                   onChange={handleOnChange}
                 />
-                {errorForm?.seriNumber && (
-                  <Alert severity="warning">{errorForm.seriNumber}</Alert>
+                {errorForm?.chemicalUnit && (
+                  <Alert severity="warning">{errorForm.chemicalUnit}</Alert>
                 )}
 
                 <LocalizationProvider dateAdapter={MomentAdapter}>
                   <div>
                     <DatePicker
-                      label="Ngày Mua"
-                      className={classes.root}
-                      value={equipmentData.dateBuy}
+                      label="Ngày Nhập"
+                      value={chemicalData?.chemicalImportDate}
                       onChange={(e: any) => {
                         console.log(e.format("MM/DD/YYYY"));
-                        setEquipmentData({
-                          ...equipmentData,
-                          dateBuy: e.format("MM/DD/YYYY"),
+                        setChemicalData({
+                          ...chemicalData,
+                          chemicalImportDate: e.format("MM/DD/YYYY"),
                         });
                       }}
                       renderInput={(params) => <TextField {...params} />}
                     />
 
-                    {errorForm?.dateBuy && (
-                      <Alert severity="warning">{errorForm.dateBuy}</Alert>
+                    {errorForm?.chemicalImportDate && (
+                      <Alert severity="warning">
+                        {errorForm.chemicalImportDate}
+                      </Alert>
                     )}
                   </div>
 
                   <div style={{ marginTop: "10px" }}>
                     <DatePicker
-                      label="Ngày Hiệu Chuẩn"
-                      value={equipmentData.dateCalibrate}
+                      label="Hạn Sử Dụng"
+                      value={chemicalData?.chemicalDueDate}
                       onChange={(e: any) => {
                         console.log(e.format("MM/DD/YYYY"));
-                        setEquipmentData({
-                          ...equipmentData,
-                          dateCalibrate: e.format("MM/DD/YYYY"),
+                        setChemicalData({
+                          ...chemicalData,
+                          chemicalDueDate: e.format("MM/DD/YYYY"),
                         });
                       }}
                       renderInput={(params) => <TextField {...params} />}
                     />
                   </div>
 
-                  {errorForm?.dateCalibrate && (
-                    <Alert severity="warning">{errorForm.dateCalibrate}</Alert>
+                  {errorForm?.chemicalDueDate && (
+                    <Alert severity="warning">
+                      {errorForm.chemicalDueDate}
+                    </Alert>
                   )}
 
                   <div style={{ marginTop: "10px" }}>
                     <DatePicker
-                      label="Ngày Hiệu Chuẩn Kế Tiếp"
-                      value={equipmentData.dateRecalibrate}
+                      label="Ngày Xuất Kho"
+                      value={chemicalData?.chemicalExportDate}
                       onChange={(e: any) => {
                         console.log(e.format("MM/DD/YYYY"));
-                        setEquipmentData({
-                          ...equipmentData,
-                          dateRecalibrate: e.format("MM/DD/YYYY"),
+                        setChemicalData({
+                          ...chemicalData,
+                          chemicalExportDate: e.format("MM/DD/YYYY"),
                         });
                       }}
                       renderInput={(params) => <TextField {...params} />}
                     />
                   </div>
 
-                  {errorForm?.dateRecalibrate && (
+                  {errorForm?.chemicalExportDate && (
                     <Alert severity="warning">
-                      {errorForm.dateRecalibrate}
+                      {errorForm.chemicalExportDate}
                     </Alert>
                   )}
                 </LocalizationProvider>
@@ -259,58 +244,38 @@ const EquipmentForm: React.FC = () => {
                 <TextField
                   required
                   margin="normal"
-                  name="infoProvider"
+                  name="chemicalQuantity"
                   variant="outlined"
-                  label="Thông Tin Nhà Cung Cấp"
+                  label="Số Lượng"
                   fullWidth
-                  value={equipmentData?.infoProvider}
+                  value={chemicalData?.chemicalQuantity}
                   onChange={handleOnChange}
                 />
-                {errorForm?.infoProvider && (
-                  <Alert severity="warning">{errorForm.infoProvider}</Alert>
-                )}
-
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">
-                    Tình Trạng Thiết Bị
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    name="equipmentStatus"
-                    id="demo-simple-select"
-                    value={equipmentData?.equipmentStatus}
-                    label="Tình Trạng Thiết Bị"
-                    onChange={handleOnChange}
-                  >
-                    <MenuItem value={EquipmentStatus.good}>Tốt</MenuItem>
-                    <MenuItem value={EquipmentStatus.bad}>Xấu</MenuItem>
-                  </Select>
-                </FormControl>
-                {errorForm?.equipmentStatus && (
-                  <Alert severity="warning">{errorForm.equipmentStatus}</Alert>
+                {errorForm?.chemicalQuantity && (
+                  <Alert severity="warning">{errorForm.chemicalQuantity}</Alert>
                 )}
 
                 <TextField
+                  required
                   margin="normal"
-                  name="employeeManagement"
+                  name="chemicalReceiver"
                   variant="outlined"
-                  label="Nhân Viên Quản Lí Trực Tiếp"
+                  label="Người Nhận"
                   fullWidth
-                  value={equipmentData?.employeeManagement}
+                  value={chemicalData?.chemicalReceiver}
                   onChange={handleOnChange}
                 />
-                {errorForm?.employeeManagement && (
-                  <Alert severity="warning">
-                    {errorForm.employeeManagement}
-                  </Alert>
+                {errorForm?.chemicalReceiver && (
+                  <Alert severity="warning">{errorForm.chemicalReceiver}</Alert>
                 )}
+
                 <Button
                   variant="contained"
                   color="primary"
                   style={{ width: "100%", marginTop: "20px" }}
                   onClick={handleOnSubmit}
                 >
-                  Thêm Thiết Bị
+                  Thêm Vật Tư
                 </Button>
               </Box>
             </Box>
@@ -321,4 +286,4 @@ const EquipmentForm: React.FC = () => {
   );
 };
 
-export default EquipmentForm;
+export default ChemicalForm;

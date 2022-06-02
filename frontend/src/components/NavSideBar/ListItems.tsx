@@ -63,7 +63,9 @@ const ListItems = () => {
         <ListItemText primary="Thiết Bị" />
       </ListItemButton>
 
-      <ListItemButton>
+      <ListItemButton onClick={() => {
+          navigate("/chemical");
+        }}>
         <ListItemIcon>
           <HardwareIcon />
         </ListItemIcon>
