@@ -1,51 +1,23 @@
 import React, { useState } from "react";
+import { Typography, Button, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import { Edit, Delete } from "@mui/icons-material";
-import { Typography, Button, Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import DialogAlert from "../../common/DialogAlert";
 
-const CustomerTable: React.FC = () => {
+const ChemicalTable: React.FC = () => {
   const [data, setData] = useState<GridRowsProp>([
     // mock data
     {
       id: 1,
-      equipmentName: "Quạt Trần",
-      equipmentModel: "FGH3L",
-      seriNumber: "12465",
-      dateBuy: "02/01/2001",
-      dateCalibrate: "30/04/2022",
-      dateRecalibrate: "30/04/2030",
-      equipmentStatus: "Tốt",
-      infoProvider: "Amigoes",
-      employeeManagement: "s3815059",
-      server: "Connected",
-    },
-    {
-      id: 2,
-      equipmentName: "Cối xay gió",
-      equipmentModel: "FDA3G",
-      seriNumber: "12465",
-      dateBuy: "02/01/2001",
-      dateCalibrate: "30/04/2022",
-      dateRecalibrate: "30/04/2030",
-      equipmentStatus: "Xấu",
-      infoProvider: "Cooper",
-      employeeManagement: "s3815059",
-      server: "Connected",
-    },
-    {
-      id: 3,
-      equipmentName: "Bản ủi",
-      equipmentModel: "SKT1K",
-      seriNumber: "12465",
-      dateBuy: "02/01/2001",
-      dateCalibrate: "30/04/2022",
-      dateRecalibrate: "30/04/2030",
-      equipmentStatus: "Tốt",
-      infoProvider: "Nilon",
-      employeeManagement: "s3815059",
-      server: "Connected",
+      chemicalName: "abc",
+      chemicalModel: "abc",
+      chemicalUnit: "abc",
+      chemicalImportDate: "abc",
+      chemicalQuantity: "abc",
+      chemicalDueDate: "abc",
+      chemicalExportDate: "abc",
+      chemicalReceiver: "abc",
     },
   ]);
   const [id, setId] = useState("");
@@ -53,7 +25,7 @@ const CustomerTable: React.FC = () => {
   const navigate = useNavigate();
 
   const handleEdit = (id: string) => {
-    navigate(`/equipment/${id}`);
+    navigate(`/chemical/${id}`);
   };
 
   const handleDelete = (id: string) => {
@@ -67,61 +39,51 @@ const CustomerTable: React.FC = () => {
   };
 
   const handleOnClick = () => {
-    navigate("/equipment/create");
+    navigate("/chemical/create");
   };
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 60 },
     {
-      field: "equipmentName",
-      headerName: "Tên TB",
+      field: "chemicalName",
+      headerName: "Tên hoá chất vật tư",
       width: 150,
     },
     {
-      field: "equipmentModel",
+      field: "chemicalModel",
       headerName: "Model",
       width: 80,
     },
 
     {
-      field: "seriNumber",
-      headerName: "Seri no.",
-      width: 80,
-    },
-    {
-      field: "dateBuy",
-      headerName: "Ngày mua",
-      width: 120,
-    },
-    {
-      field: "dateCalibrate",
-      headerName: "Ngày hiệu chuẩn",
-      width: 150,
-    },
-    {
-      field: "dateRecalibrate",
-      headerName: "Ngày HC kế tiếp",
-      width: 150,
-    },
-    {
-      field: "equipmentStatus",
-      headerName: "Tình trạng TB",
+      field: "chemicalUnit",
+      headerName: "Đơn vị tính",
       width: 100,
     },
     {
-      field: "infoProvider",
-      headerName: "Nhà cung cấp",
+      field: "chemicalImportDate",
+      headerName: "Ngày nhập",
       width: 120,
     },
     {
-      field: "employeeManagement",
-      headerName: "NV quản lí trực tiếp",
-      width: 150,
+      field: "chemicalQuantity",
+      headerName: "Số lượng",
+      width: 100,
     },
     {
-      field: "server",
-      headerName: "Server",
-      width: 100,
+      field: "chemicalDueDate",
+      headerName: "Hạn sử dụng",
+      width: 120,
+    },
+    {
+      field: "chemicalExportDate",
+      headerName: "Ngày xuất kho",
+      width: 120,
+    },
+    {
+      field: "chemicalReceiver",
+      headerName: "Người nhận",
+      width: 120,
     },
     {
       field: "action",
@@ -155,7 +117,6 @@ const CustomerTable: React.FC = () => {
       },
     },
   ];
-
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <Typography
@@ -164,7 +125,7 @@ const CustomerTable: React.FC = () => {
         color="primary"
         style={{ marginBottom: "20px" }}
       >
-        Bảng Thiết bị
+        Bảng Vật Tư
       </Typography>
       <div
         style={{
@@ -178,7 +139,7 @@ const CustomerTable: React.FC = () => {
         <div
           style={{
             flexGrow: "1",
-            marginRight: '50px',
+            marginRight: "50px",
             width: "500px",
             padding: "10px 15px",
             backgroundColor: "#d7ecf7",
@@ -202,7 +163,7 @@ const CustomerTable: React.FC = () => {
               fontSize: "14px",
             }}
           >
-            Thiết bị
+            Vật tư
             <span
               style={{
                 color: "#4D7180",
@@ -211,7 +172,7 @@ const CustomerTable: React.FC = () => {
                 marginLeft: "10px",
               }}
             >
-              Thiết bị đo vi khí hậu (Testo 645){" "}
+              Vật tư abc (Pablo 145)
             </span>
             quá hạn hiểu chuẩn 28 ngày
           </div>
@@ -223,7 +184,7 @@ const CustomerTable: React.FC = () => {
               marginLeft: "10px",
             }}
           >
-            Thiết bị sắp hiệu chuẩn
+            Vật tư sắp hiệu chuẩn
           </div>
           <div
             style={{
@@ -244,7 +205,7 @@ const CustomerTable: React.FC = () => {
               02/02/2001{" "}
             </span>{" "}
             sẽ hiệu chuẩn{" "}
-            <span>thiết bị đo điện từ trường (HOLADAY INDUSTRY, INC)</span>
+            <span>vật tư điện từ trường (SUNIE INDUSTRY, INC)</span>
           </div>
         </div>
         <Button
@@ -252,14 +213,14 @@ const CustomerTable: React.FC = () => {
           variant="contained"
           onClick={handleOnClick}
         >
-          + Thêm Thiết Bị
+          + Thêm Vật Tư
         </Button>
       </div>
       <DialogAlert
         id={id}
         openDialog={openDialog}
         handleClose={handleClose}
-        msg={"Bạn có chắc muốn xoá thiết bị này ?"}
+        msg={"Bạn có chắc muốn xoá vật tư này ?"}
       />
 
       <div style={{ height: "79%", width: "100%" }}>
@@ -274,4 +235,4 @@ const CustomerTable: React.FC = () => {
   );
 };
 
-export default CustomerTable;
+export default ChemicalTable;
