@@ -5,11 +5,11 @@ import { Typography, Button, Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import DialogAlert from "../../common/DialogAlert";
 import axios from "axios";
-import { Equipment } from "./Equipment.type";
+import { Instrument } from "./Equipment.type";
 const CustomerTable: React.FC = () => {
-  const [data, setData] = useState<Equipment[]>([]);
-  const [overDueData, setOverDueData] = useState<Equipment[]>();
-  const [nextDueData, setNextDueData] = useState<Equipment[]>();
+  const [data, setData] = useState<Instrument[]>([]);
+  const [overDueData, setOverDueData] = useState<Instrument[]>();
+  const [nextDueData, setNextDueData] = useState<Instrument[]>();
   const [id, setId] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
@@ -106,7 +106,7 @@ const CustomerTable: React.FC = () => {
       width: 120,
     },
     {
-      field: "employeeManagement",
+      field: "instrumentSupervisor",
       headerName: "NV quản lí trực tiếp",
       width: 150,
     },

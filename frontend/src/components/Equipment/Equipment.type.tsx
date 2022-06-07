@@ -1,30 +1,30 @@
-export type Equipment = {
-  id?: string;
+export type Instrument = {
   instrumentName?: string;
   instrumentModel?: string;
   instrumentSeriNo?: string;
   instrumentBuyDate?: string | null;
   instrumentCalibrationDate?: string | null;
   instrumentNextCalibrationDate?: string | null;
-  instrumentStatus?: EquipmentStatus | "";
+  instrumentStatus?: InstrumentStatus | "";
   instrumentProvider?: string;
   instrumentSupervisor?: string;
-  instrumentServer?: string;
+  instrumentServer?: boolean;
 };
 
-export type EquipmentError = {
-  equipmentName?: string;
-  equipmentModel?: string;
-  seriNumber?: string;
-  dateBuy?: string;
-  dateCalibrate?: string;
-  dateRecalibrate?: string;
-  equipmentStatus?: string;
-  infoProvider?: string;
-  employeeManagement?: string;
+export type InstrumentError = {
+  instrumentName?: string;
+  instrumentModel?: string;
+  instrumentSeriNo?: string;
+  instrumentBuyDate?: string | null;
+  instrumentCalibrationDate?: string | null;
+  instrumentNextCalibrationDate?: string | null;
+  instrumentStatus?: string | "";
+  instrumentProvider?: string;
+  instrumentSupervisor?: string;
+  instrumentServer?: boolean;
 };
 
-export enum EquipmentStatus {
+export enum InstrumentStatus {
   good = "GOOD",
   bad = "BAD",
 }
