@@ -1,56 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import { Edit, Delete } from "@mui/icons-material";
 import { Typography, Button, Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import DialogAlert from "../../common/DialogAlert";
-
+import axios from "axios";
+import { Equipment } from "./Equipment.type";
 const CustomerTable: React.FC = () => {
-  const [data, setData] = useState<GridRowsProp>([
-    // mock data
-    {
-      id: 1,
-      equipmentName: "Quạt Trần",
-      equipmentModel: "FGH3L",
-      seriNumber: "12465",
-      dateBuy: "02/01/2001",
-      dateCalibrate: "30/04/2022",
-      dateRecalibrate: "30/04/2030",
-      equipmentStatus: "Tốt",
-      infoProvider: "Amigoes",
-      employeeManagement: "s3815059",
-      server: "Connected",
-    },
-    {
-      id: 2,
-      equipmentName: "Cối xay gió",
-      equipmentModel: "FDA3G",
-      seriNumber: "12465",
-      dateBuy: "02/01/2001",
-      dateCalibrate: "30/04/2022",
-      dateRecalibrate: "30/04/2030",
-      equipmentStatus: "Xấu",
-      infoProvider: "Cooper",
-      employeeManagement: "s3815059",
-      server: "Connected",
-    },
-    {
-      id: 3,
-      equipmentName: "Bản ủi",
-      equipmentModel: "SKT1K",
-      seriNumber: "12465",
-      dateBuy: "02/01/2001",
-      dateCalibrate: "30/04/2022",
-      dateRecalibrate: "30/04/2030",
-      equipmentStatus: "Tốt",
-      infoProvider: "Nilon",
-      employeeManagement: "s3815059",
-      server: "Connected",
-    },
-  ]);
+  const [data, setData] = useState<Equipment[]>([]);
+  const [overDueData, setOverDueData] = useState<Equipment[]>();
+  const [nextDueData, setNextDueData] = useState<Equipment[]>();
   const [id, setId] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
+
+  const getData = async () => {
+    const dataAPI = await axios.get(
+      process.env.REACT_APP_API_BASE + "/instrument"
+    );
+
+    const { data } = dataAPI;
+    setData(data);
+  };
+
+  const getOverDueData = async () => {
+    const dataAPI = await axios.get(
+      process.env.REACT_APP_API_BASE + "/instrument/over-due"
+    );
+    const { data } = dataAPI;
+    setOverDueData(data);
+  };
+
+  const getNextDueData = async () => {
+    const dataAPI = await axios.get(
+      process.env.REACT_APP_API_BASE + "/instrument/next-due"
+    );
+    const { data } = dataAPI;
+    setNextDueData(data);
+  };
+
+  useEffect(() => {
+    getData();
+    getOverDueData();
+    getNextDueData();
+  }, []);
 
   const handleEdit = (id: string) => {
     navigate(`/equipment/${id}`);
@@ -58,7 +51,6 @@ const CustomerTable: React.FC = () => {
 
   const handleDelete = (id: string) => {
     setOpenDialog(true);
-    console.log("Delete " + id);
     setId(id);
   };
 
@@ -73,43 +65,43 @@ const CustomerTable: React.FC = () => {
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 60 },
     {
-      field: "equipmentName",
+      field: "instrumentName",
       headerName: "Tên TB",
       width: 150,
     },
     {
-      field: "equipmentModel",
+      field: "instrumentModel",
       headerName: "Model",
       width: 80,
     },
 
     {
-      field: "seriNumber",
+      field: "instrumentSeriNo",
       headerName: "Seri no.",
       width: 80,
     },
     {
-      field: "dateBuy",
+      field: "instrumentBuyDate",
       headerName: "Ngày mua",
       width: 120,
     },
     {
-      field: "dateCalibrate",
+      field: "instrumentCalibrationDate",
       headerName: "Ngày hiệu chuẩn",
       width: 150,
     },
     {
-      field: "dateRecalibrate",
+      field: "instrumentNextCalibrationDate",
       headerName: "Ngày HC kế tiếp",
       width: 150,
     },
     {
-      field: "equipmentStatus",
+      field: "instrumentStatus",
       headerName: "Tình trạng TB",
       width: 100,
     },
     {
-      field: "infoProvider",
+      field: "instrumentProvider",
       headerName: "Nhà cung cấp",
       width: 120,
     },
@@ -119,7 +111,7 @@ const CustomerTable: React.FC = () => {
       width: 150,
     },
     {
-      field: "server",
+      field: "instrumentServer",
       headerName: "Server",
       width: 100,
     },
@@ -156,6 +148,16 @@ const CustomerTable: React.FC = () => {
     },
   ];
 
+  const getDates = (date: string): number => {
+    const date1 = new Date();
+    const date2 = new Date(date);
+    // To calculate the time difference of two dates
+    var Difference_In_Time = date1.getTime() - date2.getTime();
+
+    // To calculate the no. of days between two dates
+    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+    return Math.round(Difference_In_Days);
+  };
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <Typography
@@ -178,10 +180,12 @@ const CustomerTable: React.FC = () => {
         <div
           style={{
             flexGrow: "1",
-            marginRight: '50px',
+            marginRight: "50px",
             width: "500px",
+            height: "100px",
             padding: "10px 15px",
             backgroundColor: "#d7ecf7",
+            overflowY: "scroll",
           }}
         >
           <div style={{ color: "#8296A5" }}>Thông báo</div>
@@ -195,26 +199,40 @@ const CustomerTable: React.FC = () => {
           >
             Cảnh báo quá hạn
           </div>
-          <div
-            style={{
-              color: "#7E93A0",
-              fontWeight: "400",
-              fontSize: "14px",
-            }}
-          >
-            Thiết bị
-            <span
+          {overDueData?.map((item) => (
+            <div
               style={{
-                color: "#4D7180",
-                fontWeight: "700",
+                color: "#7E93A0",
+                fontWeight: "400",
                 fontSize: "14px",
-                marginLeft: "10px",
               }}
             >
-              Thiết bị đo vi khí hậu (Testo 645){" "}
-            </span>
-            quá hạn hiểu chuẩn 28 ngày
-          </div>
+              Thiết bị
+              <span
+                style={{
+                  color: "#4D7180",
+                  fontWeight: "700",
+                  fontSize: "14px",
+                  marginLeft: "10px",
+                }}
+              >
+                {item.instrumentName + " " + item.instrumentModel}{" "}
+              </span>
+              quá hạn hiểu chuẩn
+              <span
+                style={{
+                  color: "#4D7180",
+                  fontWeight: "700",
+                  fontSize: "14px",
+                  marginLeft: "10px",
+                }}
+              >
+                {item.instrumentCalibrationDate &&
+                  getDates(item.instrumentCalibrationDate)}{" "}
+              </span>
+              ngày
+            </div>
+          ))}
           <div
             style={{
               color: "#4D7180",
@@ -225,27 +243,38 @@ const CustomerTable: React.FC = () => {
           >
             Thiết bị sắp hiệu chuẩn
           </div>
-          <div
-            style={{
-              color: "#7E93A0",
-              fontWeight: "400",
-              fontSize: "14px",
-            }}
-          >
-            Ngày
-            <span
+          {nextDueData?.map((item) => (
+            <div
               style={{
-                color: "#4D7180",
-                fontWeight: "700",
+                color: "#7E93A0",
+                fontWeight: "400",
                 fontSize: "14px",
-                marginLeft: "10px",
               }}
             >
-              02/02/2001{" "}
-            </span>{" "}
-            sẽ hiệu chuẩn{" "}
-            <span>thiết bị đo điện từ trường (HOLADAY INDUSTRY, INC)</span>
-          </div>
+              Ngày
+              <span
+                style={{
+                  color: "#4D7180",
+                  fontWeight: "700",
+                  fontSize: "14px",
+                  marginLeft: "10px",
+                }}
+              >
+                {item.instrumentNextCalibrationDate}{" "}
+              </span>{" "}
+              sẽ hiệu chuẩn
+              <span
+                style={{
+                  color: "#4D7180",
+                  fontWeight: "700",
+                  fontSize: "14px",
+                  marginLeft: "10px",
+                }}
+              >
+                {item.instrumentName + " " + item.instrumentModel}
+              </span>
+            </div>
+          ))}
         </div>
         <Button
           style={{ alignSelf: "flex-end" }}
@@ -260,13 +289,14 @@ const CustomerTable: React.FC = () => {
         openDialog={openDialog}
         handleClose={handleClose}
         msg={"Bạn có chắc muốn xoá thiết bị này ?"}
+        item={"instrument"}
       />
 
-      <div style={{ height: "79%", width: "100%" }}>
+      <div style={{ height: "70%", width: "100%" }}>
         <DataGrid
           rows={data}
           columns={columns}
-          pageSize={7}
+          pageSize={5}
           disableSelectionOnClick
         />
       </div>

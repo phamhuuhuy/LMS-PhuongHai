@@ -1,14 +1,15 @@
 export type Equipment = {
-  equipmentName?: string;
-  equipmentModel?: string;
-  seriNumber?: string;
-  dateBuy?: string | null;
-  dateCalibrate?: string | null;
-  dateRecalibrate?: string | null;
-  equipmentStatus?: EquipmentStatus | "";
-  infoProvider?: string;
-  employeeManagement?: string;
-  server?: string;
+  id?: string;
+  instrumentName?: string;
+  instrumentModel?: string;
+  instrumentSeriNo?: string;
+  instrumentBuyDate?: string | null;
+  instrumentCalibrationDate?: string | null;
+  instrumentNextCalibrationDate?: string | null;
+  instrumentStatus?: EquipmentStatus | "";
+  instrumentProvider?: string;
+  instrumentSupervisor?: string;
+  instrumentServer?: string;
 };
 
 export type EquipmentError = {

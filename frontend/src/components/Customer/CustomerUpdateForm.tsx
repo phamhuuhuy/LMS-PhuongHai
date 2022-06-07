@@ -85,7 +85,7 @@ const CustomerUpdateForm: React.FC = () => {
     if (handleValidation()) {
       try {
         const response = await fetch(
-          `http://localhost:5000/customer/${customerId}`,
+          process.env.REACT_APP_API_BASE + `/customer/${customerId}`,
           {
             method: "PATCH",
             headers: {
@@ -97,7 +97,6 @@ const CustomerUpdateForm: React.FC = () => {
         if (response.status === 200) {
           navigate("/customer");
         }
-        console.log(response);
       } catch (error) {
         if (error instanceof Error) {
           throw error.message;
@@ -108,7 +107,7 @@ const CustomerUpdateForm: React.FC = () => {
 
   const fetchCustomerById = useCallback(async () => {
     const response = await fetch(
-      `http://localhost:5000/customer/${customerId}`,
+      process.env.REACT_APP_API_BASE + `/customer/${customerId}`,
       {
         method: "GET",
       }
