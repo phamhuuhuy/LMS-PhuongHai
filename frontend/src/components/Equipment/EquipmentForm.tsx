@@ -46,31 +46,10 @@
 
 //   const [age, setAge] = useState("");
 
-//   const handleValidation = () => {
-//     console.log(equipmentData);
-//     var error: EquipmentError = {};
-//     var validate = true;
-
-//     if (!equipmentData.equipmentName) {
-//       error.equipmentName = "Bắt Buộc";
-//       validate = false;
-//     }
-//     if (!equipmentData.equipmentModel) {
-//       error.equipmentModel = "Bắt Buộc";
-//       validate = false;
-//     }
-//     if (!equipmentData.seriNumber) {
-//       error.seriNumber = "Bắt Buộc";
-//       validate = false;
-//     }
-//     if (!equipmentData.dateBuy) {
-//       error.dateBuy = "Bắt Buộc";
-//       validate = false;
-//     }
-//     if (!equipmentData.dateCalibrate) {
-//       error.dateCalibrate = "Bắt Buộc";
-//       validate = false;
-//     }
+  // const handleValidation = () => {
+  //   console.log(equipmentData);
+  //   var error: EquipmentError = {};
+  //   var validate = true;
 
 //     if (!equipmentData.dateRecalibrate) {
 //       error.dateRecalibrate = "Bắt Buộc";
