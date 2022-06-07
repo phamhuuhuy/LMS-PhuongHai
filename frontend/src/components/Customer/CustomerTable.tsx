@@ -8,7 +8,6 @@ import { ICustomerFetch } from "./Customer.type";
 
 const CustomerTable: React.FC = () => {
   const [data, setData] = useState<ICustomerFetch[]>([]);
-  console.log(data)
   const [id, setId] = useState<String>("");
   const [openDialog, setOpenDialog] = useState<Boolean>(false);
   const [searchForm, setSearchForm] = useState<String | null>("");
@@ -21,7 +20,6 @@ const CustomerTable: React.FC = () => {
 
   const handleDelete = (id: string) => {
     setOpenDialog(true);
-    console.log("Delete " + id);
     setId(id);
   };
 
@@ -113,7 +111,7 @@ const CustomerTable: React.FC = () => {
   }, []);
 
   const fetchData = async () => {
-    const response = await fetch("http://localhost:5000/customer");
+    const response = await fetch(process.env.REACT_APP_API_BASE + "/customer");
     const value = await response.json();
     setData(value);
   };
@@ -189,6 +187,7 @@ const CustomerTable: React.FC = () => {
         openDialog={openDialog}
         handleClose={handleClose}
         msg={"Bạn có chắc muốn xoá user này ?"}
+        item={"customer"}
       />
 
       {searchParams.get("name") === "null" || !searchParams.get("name")

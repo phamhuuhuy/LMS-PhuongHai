@@ -43,11 +43,15 @@ const EquipmentForm: React.FC = () => {
     instrumentNextCalibrationDate: null,
     instrumentStatus: "",
     instrumentProvider: "",
+    instrumentServer: true,
   });
 
   const [errorForm, setErrorForm] = useState<InstrumentError>({});
 
-  const [age, setAge] = useState("");
+  // const handleValidation = () => {
+  //   console.log(equipmentData);
+  //   var error: EquipmentError = {};
+  //   var validate = true;
 
   const handleValidation = () => {
     var error: InstrumentError = {};

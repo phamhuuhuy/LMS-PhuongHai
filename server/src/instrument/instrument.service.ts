@@ -30,7 +30,7 @@ export class InstrumentService {
     var today = new Date();
     return await this.instrumentRepository.find({
       where: {
-        instrumentNextCalibrationDate: LessThan(today.toISOString()),
+        instrumentCalibrationDate: LessThan(today.toISOString()),
       },
     });
   }
