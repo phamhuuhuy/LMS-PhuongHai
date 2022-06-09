@@ -11,8 +11,10 @@ import { Chemical, ChemicalError } from "./Chemical.type";
 import MomentAdapter from "@material-ui/pickers/adapter/moment";
 import DatePicker from "@mui/lab/DatePicker";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import { useNavigate } from "react-router-dom";
 
 const ChemicalForm: React.FC = () => {
+  const navigate = useNavigate();
   const [chemicalData, setChemicalData] = useState<Chemical>({
     chemicalName: "",
     chemicalModel: "",
@@ -52,7 +54,16 @@ const ChemicalForm: React.FC = () => {
     if (!chemicalData.chemicalImportDate) {
       error.chemicalImportDate = "Bắt Buộc";
       validate = false;
+    } else {
+      if (
+        Date.parse(chemicalData.chemicalImportDate) >
+        Date.parse(chemicalData.chemicalExportDate || "")
+      ) {
+        error.chemicalImportDate = "Ngày Nhập Kho Không Được Sau Ngày Xuất Kho";
+        validate = false;
+      }
     }
+
     if (!chemicalData.chemicalQuantity) {
       error.chemicalQuantity = "Bắt Buộc";
       validate = false;
@@ -66,6 +77,15 @@ const ChemicalForm: React.FC = () => {
     if (!chemicalData.chemicalExportDate) {
       error.chemicalExportDate = "Bắt Buộc";
       validate = false;
+    } else {
+      if (
+        Date.parse(chemicalData.chemicalExportDate) <
+        Date.parse(chemicalData.chemicalImportDate || "")
+      ) {
+        error.chemicalExportDate =
+          "Ngày Xuất Kho Không Được Trước Ngày Nhập Kho";
+        validate = false;
+      }
     }
 
     if (!chemicalData.chemicalReceiver) {
@@ -85,26 +105,28 @@ const ChemicalForm: React.FC = () => {
   };
 
   const handleOnSubmit = async () => {
-    //   if (handleValidation()) {
-    //     try {
-    //       const response = await fetch("http://localhost:5000/customer", {
-    //         method: "POST",
-    //         headers: {
-    //           "Content-type": "application/json",
-    //         },
-    //         body: JSON.stringify(customerData),
-    //       });
-    //       console.log(response);
-    //       if (response.status === 201) {
-    //         navigate("/customer");
-    //       }
-    //     } catch (error) {
-    //       if (error instanceof Error) {
-    //         throw error.message;
-    //       }
-    //     }
-    //   }
-    handleValidation();
+    if (handleValidation()) {
+      try {
+        const response = await fetch("http://localhost:5000/chemical", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            ...chemicalData,
+            chemicalQuantity: parseInt(chemicalData.chemicalQuantity),
+          }),
+        });
+        console.log(response);
+        if (response.status === 201) {
+          navigate("/chemical");
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          throw error.message;
+        }
+      }
+    }
     console.log(chemicalData);
   };
   return (
@@ -185,7 +207,7 @@ const ChemicalForm: React.FC = () => {
                         console.log(e.format("MM/DD/YYYY"));
                         setChemicalData({
                           ...chemicalData,
-                          chemicalImportDate: e.format("MM/DD/YYYY"),
+                          chemicalImportDate: e.format("YYYY-MM-DD"),
                         });
                       }}
                       renderInput={(params) => <TextField {...params} />}
@@ -206,7 +228,7 @@ const ChemicalForm: React.FC = () => {
                         console.log(e.format("MM/DD/YYYY"));
                         setChemicalData({
                           ...chemicalData,
-                          chemicalDueDate: e.format("MM/DD/YYYY"),
+                          chemicalDueDate: e.format("YYYY-MM-DD"),
                         });
                       }}
                       renderInput={(params) => <TextField {...params} />}
@@ -227,7 +249,7 @@ const ChemicalForm: React.FC = () => {
                         console.log(e.format("MM/DD/YYYY"));
                         setChemicalData({
                           ...chemicalData,
-                          chemicalExportDate: e.format("MM/DD/YYYY"),
+                          chemicalExportDate: e.format("YYYY-MM-DD"),
                         });
                       }}
                       renderInput={(params) => <TextField {...params} />}
@@ -243,12 +265,12 @@ const ChemicalForm: React.FC = () => {
 
                 <TextField
                   required
+                  type="text"
                   margin="normal"
                   name="chemicalQuantity"
                   variant="outlined"
                   label="Số Lượng"
                   fullWidth
-                  value={chemicalData?.chemicalQuantity}
                   onChange={handleOnChange}
                 />
                 {errorForm?.chemicalQuantity && (

@@ -1,21 +1,21 @@
 export type Chemical = {
-  chemicalName: String;
-  chemicalModel: String;
-  chemicalUnit: String;
-  chemicalImportDate: String | null;
+  chemicalName: string;
+  chemicalModel: string;
+  chemicalUnit: string;
+  chemicalImportDate: string | null;
   chemicalQuantity: string;
-  chemicalDueDate: String | null;
-  chemicalExportDate: String | null;
-  chemicalReceiver: String;
+  chemicalDueDate: string | null;
+  chemicalExportDate: string | null;
+  chemicalReceiver: string;
 };
 
 export type ChemicalError = {
-  chemicalName?: String;
-  chemicalModel?: String;
-  chemicalUnit?: String;
-  chemicalImportDate?: String;
-  chemicalQuantity?: String;
-  chemicalDueDate?: String;
-  chemicalExportDate?: String;
-  chemicalReceiver?: String;
+  chemicalName?: string;
+  chemicalModel?: string;
+  chemicalUnit?: string;
+  chemicalImportDate?: string;
+  chemicalQuantity?: string;
+  chemicalDueDate?: string;
+  chemicalExportDate?: string;
+  chemicalReceiver?: string;
 };
