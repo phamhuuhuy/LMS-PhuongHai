@@ -1,25 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Typography, Button, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import { Edit, Delete } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import DialogAlert from "../../common/DialogAlert";
+import { Chemical } from "./Chemical.type";
+import axios from "axios";
 
 const ChemicalTable: React.FC = () => {
-  const [data, setData] = useState<GridRowsProp>([
-    // mock data
-    {
-      id: 1,
-      chemicalName: "abc",
-      chemicalModel: "abc",
-      chemicalUnit: "abc",
-      chemicalImportDate: "abc",
-      chemicalQuantity: "abc",
-      chemicalDueDate: "abc",
-      chemicalExportDate: "abc",
-      chemicalReceiver: "abc",
-    },
-  ]);
+  const [data, setData] = useState<Chemical[]>([]);
+  const [overDueData, setOverDueData] = useState<Chemical[]>();
+  const [nextDueData, setNextDueData] = useState<Chemical[]>();
   const [id, setId] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
@@ -42,6 +33,46 @@ const ChemicalTable: React.FC = () => {
     navigate("/chemical/create");
   };
 
+  const getData = async () => {
+    const dataAPI = await axios.get(
+      process.env.REACT_APP_API_BASE + "/chemical"
+    );
+
+    const { data } = dataAPI;
+    setData(data);
+  };
+
+  const getOverDueData = async () => {
+    const dataAPI = await axios.get(
+      process.env.REACT_APP_API_BASE + "/chemical/over-due"
+    );
+    const { data } = dataAPI;
+    setOverDueData(data);
+  };
+
+  const getNextDueData = async () => {
+    const dataAPI = await axios.get(
+      process.env.REACT_APP_API_BASE + "/chemical/next-due"
+    );
+    const { data } = dataAPI;
+    console.log(data);
+    setNextDueData(data);
+  };
+  const getDates = (date: string): number => {
+    const date1 = new Date();
+    const date2 = new Date(date);
+    // To calculate the time difference of two dates
+    var Difference_In_Time = date1.getTime() - date2.getTime();
+
+    // To calculate the no. of days between two dates
+    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+    return Math.round(Difference_In_Days);
+  };
+  useEffect(() => {
+    getData();
+    getOverDueData();
+    getNextDueData();
+  }, []);
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 60 },
     {
@@ -141,8 +172,10 @@ const ChemicalTable: React.FC = () => {
             flexGrow: "1",
             marginRight: "50px",
             width: "500px",
+            height: "100px",
             padding: "10px 15px",
             backgroundColor: "#d7ecf7",
+            overflowY: "scroll",
           }}
         >
           <div style={{ color: "#8296A5" }}>Thông báo</div>
@@ -156,26 +189,39 @@ const ChemicalTable: React.FC = () => {
           >
             Cảnh báo quá hạn
           </div>
-          <div
-            style={{
-              color: "#7E93A0",
-              fontWeight: "400",
-              fontSize: "14px",
-            }}
-          >
-            Vật tư
-            <span
+          {overDueData?.map((item) => (
+            <div
               style={{
-                color: "#4D7180",
-                fontWeight: "700",
+                color: "#7E93A0",
+                fontWeight: "400",
                 fontSize: "14px",
-                marginLeft: "10px",
               }}
             >
-              Vật tư abc (Pablo 145)
-            </span>
-            quá hạn hiểu chuẩn 28 ngày
-          </div>
+              Thiết bị
+              <span
+                style={{
+                  color: "#4D7180",
+                  fontWeight: "700",
+                  fontSize: "14px",
+                  marginLeft: "10px",
+                }}
+              >
+                {item.chemicalName + " " + item.chemicalModel}{" "}
+              </span>
+              quá hạn hiểu chuẩn
+              <span
+                style={{
+                  color: "#4D7180",
+                  fontWeight: "700",
+                  fontSize: "14px",
+                  marginLeft: "10px",
+                }}
+              >
+                {item.chemicalDueDate && getDates(item.chemicalDueDate)}{" "}
+              </span>
+              ngày
+            </div>
+          ))}
           <div
             style={{
               color: "#4D7180",
@@ -186,27 +232,39 @@ const ChemicalTable: React.FC = () => {
           >
             Vật tư sắp hiệu chuẩn
           </div>
-          <div
-            style={{
-              color: "#7E93A0",
-              fontWeight: "400",
-              fontSize: "14px",
-            }}
-          >
-            Ngày
-            <span
+          {nextDueData?.map((item) => (
+            <div
               style={{
-                color: "#4D7180",
-                fontWeight: "700",
+                color: "#7E93A0",
+                fontWeight: "400",
                 fontSize: "14px",
-                marginLeft: "10px",
               }}
             >
-              02/02/2001{" "}
-            </span>{" "}
-            sẽ hiệu chuẩn{" "}
-            <span>vật tư điện từ trường (SUNIE INDUSTRY, INC)</span>
-          </div>
+              Ngày
+              <span
+                style={{
+                  color: "#4D7180",
+                  fontWeight: "700",
+                  fontSize: "14px",
+                  marginLeft: "10px",
+                }}
+              >
+                {item.chemicalDueDate}
+                {","}
+              </span>
+              <span
+                style={{
+                  color: "#4D7180",
+                  fontWeight: "700",
+                  fontSize: "14px",
+                  marginLeft: "10px",
+                }}
+              >
+                {item.chemicalName + " " + item.chemicalModel}
+              </span>{" "}
+              sẽ hết hạn
+            </div>
+          ))}
         </div>
         <Button
           style={{ alignSelf: "flex-end" }}
@@ -221,13 +279,14 @@ const ChemicalTable: React.FC = () => {
         openDialog={openDialog}
         handleClose={handleClose}
         msg={"Bạn có chắc muốn xoá vật tư này ?"}
+        item={"chemical"}
       />
 
-      <div style={{ height: "79%", width: "100%" }}>
+      <div style={{ height: "70%", width: "100%" }}>
         <DataGrid
           rows={data}
           columns={columns}
-          pageSize={7}
+          pageSize={5}
           disableSelectionOnClick
         />
       </div>
