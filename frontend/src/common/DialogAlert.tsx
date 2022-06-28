@@ -15,9 +15,12 @@ const DialogAlert = ({ openDialog, handleClose, id, msg, item }: any) => {
     handleClose(false);
     if (id !== "") {
       try {
-        const response = await fetch(process.env.REACT_APP_API_BASE+`/${item}/${id}`, {
-          method: "DELETE",
-        });
+        const response = await fetch(
+          process.env.REACT_APP_API_BASE + `/${item}/${id}`,
+          {
+            method: "DELETE",
+          }
+        );
         const result = await response.json();
         window.location.reload();
       } catch (error) {
