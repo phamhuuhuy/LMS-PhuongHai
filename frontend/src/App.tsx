@@ -21,6 +21,9 @@ import EquipmentUpdateForm from "./components/Equipment/EquipmentUpdateForm";
 import Chemical from "./components/Chemical/Chemical";
 import ChemicalForm from "./components/Chemical/ChemicalForm";
 import ChemicalUpdateForm from "./components/Chemical/ChemicalUpdateForm";
+import Staff from "./components/Staff/Staff";
+import StaffForm from "./components/Staff/StaffForm";
+import StaffUpdateForm from "./components/Staff/StaffUpdateForm";
 
 const drawerWidth: number = 240;
 
@@ -120,7 +123,14 @@ function App() {
                 />
                 <Route path="/chemical" element={<Chemical />} />
                 <Route path="/chemical/create" element={<ChemicalForm />} />
-                <Route path="/chemical/:chemicalId" element={<ChemicalUpdateForm />} />
+                <Route
+                  path="/chemical/:chemicalId"
+                  element={<ChemicalUpdateForm />}
+                />
+
+                <Route path="/staff" element={<Staff />} />
+                <Route path="/staff/create" element={<StaffForm />} />
+                <Route path="/staff/:staffId" element={<StaffUpdateForm />} />
               </Routes>
             </Box>
 
