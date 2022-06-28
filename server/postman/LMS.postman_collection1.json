@@ -102,7 +102,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"instrumentName\": \"nhiet ke\",\r\n    \"instrumentModel\": \"E98123\",\r\n    \"instrumentSeriNo\": \"9187237\",\r\n    \"instrumentBuyDate\": \"2000-12-12\",\r\n    \"instrumentCalibrationDate\": \"2000-12-13\",\r\n    \"instrumentNextCalibrationDate\": \"2000-12-20\",\r\n    \"instrumentStatus\": \"dfasfsa\",\r\n    \"instrumentProvider\": \"fdsafsaf\",\r\n    \"instrumentServer\": true\r\n}",
+							"raw": "{\r\n    \"instrumentName\": \"nhiet ke\",\r\n    \"instrumentModel\": \"E98123\",\r\n    \"instrumentSeriNo\": \"9187237\",\r\n    \"instrumentBuyDate\": \"2000-12-12\",\r\n    \"instrumentCalibrationDate\": \"2000-12-13\",\r\n    \"instrumentNextCalibrationDate\": \"2000-12-20\",\r\n    \"instrumentStatus\": \"dfasfsa\",\r\n    \"instrumentProvider\": \"fdsafsaf\",\r\n    \"instrumentSupervisor\": \"Tuong\",\r\n    \"instrumentServer\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -375,6 +375,103 @@
 							"path": [
 								"chemical",
 								"next-due"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Staff",
+			"item": [
+				{
+					"name": "get all staff",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/staff",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"staff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new Staff",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"employeeUserName\": \"qhnguyen17\",\r\n    \"employeePassword\": \"huy\",\r\n    \"employeeName\": \"quoc huy\",\r\n    \"employeeLab\": \"Lab B\",\r\n    \"isManager\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/staff",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"staff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Staff",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"employeeUserName\": \"huuhuy123\",\r\n    \"employeePassword\": \"qh\",\r\n    \"employeeName\": \"huu huy\",\r\n    \"employeeLab\": \"Lab C\",\r\n    \"isManager\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/staff/113f5c2f-56b0-4c67-87c3-329f5871634d",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"staff",
+								"113f5c2f-56b0-4c67-87c3-329f5871634d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get one staff",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/staff/113f5c2f-56b0-4c67-87c3-329f5871634d",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"staff",
+								"113f5c2f-56b0-4c67-87c3-329f5871634d"
 							]
 						}
 					},
