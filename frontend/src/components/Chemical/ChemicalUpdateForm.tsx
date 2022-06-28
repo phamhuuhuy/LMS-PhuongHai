@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -11,8 +11,11 @@ import { Chemical, ChemicalError } from "./Chemical.type";
 import MomentAdapter from "@material-ui/pickers/adapter/moment";
 import DatePicker from "@mui/lab/DatePicker";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ChemicalUpdateForm: React.FC = () => {
+  let { chemicalId } = useParams();
+  const navigate = useNavigate();
   const [chemicalData, setChemicalData] = useState<Chemical>({
     chemicalName: "",
     chemicalModel: "",
@@ -52,6 +55,14 @@ const ChemicalUpdateForm: React.FC = () => {
     if (!chemicalData.chemicalImportDate) {
       error.chemicalImportDate = "Bắt Buộc";
       validate = false;
+    } else {
+      if (
+        Date.parse(chemicalData.chemicalImportDate) >
+        Date.parse(chemicalData.chemicalExportDate || "")
+      ) {
+        error.chemicalImportDate = "Ngày Nhập Kho Không Được Sau Ngày Xuất Kho";
+        validate = false;
+      }
     }
     if (!chemicalData.chemicalQuantity) {
       error.chemicalQuantity = "Bắt Buộc";
@@ -66,8 +77,16 @@ const ChemicalUpdateForm: React.FC = () => {
     if (!chemicalData.chemicalExportDate) {
       error.chemicalExportDate = "Bắt Buộc";
       validate = false;
+    } else {
+      if (
+        Date.parse(chemicalData.chemicalExportDate) <
+        Date.parse(chemicalData.chemicalImportDate || "")
+      ) {
+        error.chemicalExportDate =
+          "Ngày Xuất Kho Không Được Trước Ngày Nhập Kho";
+        validate = false;
+      }
     }
-
     if (!chemicalData.chemicalReceiver) {
       error.chemicalReceiver = "Bắt Buộc";
       validate = false;
@@ -85,28 +104,49 @@ const ChemicalUpdateForm: React.FC = () => {
   };
 
   const handleOnSubmit = async () => {
-    //   if (handleValidation()) {
-    //     try {
-    //       const response = await fetch("http://localhost:5000/customer", {
-    //         method: "POST",
-    //         headers: {
-    //           "Content-type": "application/json",
-    //         },
-    //         body: JSON.stringify(customerData),
-    //       });
-    //       console.log(response);
-    //       if (response.status === 201) {
-    //         navigate("/customer");
-    //       }
-    //     } catch (error) {
-    //       if (error instanceof Error) {
-    //         throw error.message;
-    //       }
-    //     }
-    //   }
-    handleValidation();
-    console.log(chemicalData);
+    if (handleValidation()) {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/chemical/${chemicalId}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+              ...chemicalData,
+              chemicalQuantity: parseInt(chemicalData.chemicalQuantity),
+            }),
+          }
+        );
+        console.log(response);
+        if (response.status === 200) {
+          navigate("/chemical");
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          throw error.message;
+        }
+      }
+    }
   };
+
+  const fetchChemicalById = useCallback(async () => {
+    const response = await fetch(
+      `http://localhost:5000/chemical/${chemicalId}`,
+      {
+        method: "GET",
+      }
+    );
+    const result = await response.json();
+
+    let { id: string, ...filteredResult } = result;
+    setChemicalData({ ...filteredResult });
+  }, [chemicalId]);
+
+  useEffect(() => {
+    fetchChemicalById();
+  }, [fetchChemicalById]);
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} style={{ height: "100%" }}>
       <Grid container spacing={3} style={{ height: "100%", overflowY: "auto" }}>
@@ -185,7 +225,7 @@ const ChemicalUpdateForm: React.FC = () => {
                         console.log(e.format("MM/DD/YYYY"));
                         setChemicalData({
                           ...chemicalData,
-                          chemicalImportDate: e.format("MM/DD/YYYY"),
+                          chemicalImportDate: e.format("YYYY-MM-DD"),
                         });
                       }}
                       renderInput={(params) => <TextField {...params} />}
@@ -206,7 +246,7 @@ const ChemicalUpdateForm: React.FC = () => {
                         console.log(e.format("MM/DD/YYYY"));
                         setChemicalData({
                           ...chemicalData,
-                          chemicalDueDate: e.format("MM/DD/YYYY"),
+                          chemicalDueDate: e.format("YYYY-MM-DD"),
                         });
                       }}
                       renderInput={(params) => <TextField {...params} />}
@@ -227,7 +267,7 @@ const ChemicalUpdateForm: React.FC = () => {
                         console.log(e.format("MM/DD/YYYY"));
                         setChemicalData({
                           ...chemicalData,
-                          chemicalExportDate: e.format("MM/DD/YYYY"),
+                          chemicalExportDate: e.format("YYYY-MM-DD"),
                         });
                       }}
                       renderInput={(params) => <TextField {...params} />}

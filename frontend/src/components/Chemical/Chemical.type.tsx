@@ -10,12 +10,12 @@ export type Chemical = {
 };
 
 export type ChemicalError = {
-  chemicalName?: String;
-  chemicalModel?: String;
-  chemicalUnit?: String;
-  chemicalImportDate?: String;
-  chemicalQuantity?: String;
-  chemicalDueDate?: String;
-  chemicalExportDate?: String;
-  chemicalReceiver?: String;
+  chemicalName?: string;
+  chemicalModel?: string;
+  chemicalUnit?: string;
+  chemicalImportDate?: string;
+  chemicalQuantity?: string;
+  chemicalDueDate?: string;
+  chemicalExportDate?: string;
+  chemicalReceiver?: string;
 };
