@@ -131,13 +131,16 @@ const EquipmentForm: React.FC = () => {
     if (handleValidation()) {
       console.log("form", instrumentData);
       try {
-        const response = await fetch("http://localhost:5000/instrument", {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify(instrumentData),
-        });
+        const response = await fetch(
+          process.env.REACT_APP_API_BASE + "/instrument",
+          {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify(instrumentData),
+          }
+        );
         if (response.status === 201) {
           navigate("/equipment");
         }

@@ -107,7 +107,7 @@ const ChemicalUpdateForm: React.FC = () => {
     if (handleValidation()) {
       try {
         const response = await fetch(
-          `http://localhost:5000/chemical/${chemicalId}`,
+          process.env.REACT_APP_API_BASE + `/chemical/${chemicalId}`,
           {
             method: "PATCH",
             headers: {

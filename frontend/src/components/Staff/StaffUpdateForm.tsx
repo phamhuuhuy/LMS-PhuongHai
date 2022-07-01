@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -14,6 +14,7 @@ import { Staff } from "./Staff.type";
 
 const StaffUpdateForm: React.FC = () => {
   const navigate = useNavigate();
+  const passwordRef = useRef<HTMLInputElement>(null);
   let { staffId } = useParams();
 
   const [employeeData, setEmployeeData] = useState<Staff>({
@@ -27,18 +28,17 @@ const StaffUpdateForm: React.FC = () => {
   const [errorForm, setErrorForm] = useState<Staff>({});
 
   const handleValidation = () => {
+    console.log("ref", passwordRef.current?.value);
     var error: Staff = {};
     var validate = true;
     if (!employeeData.employeeUserName) {
       error.employeeUserName = "Bắt Buộc";
       validate = false;
     }
-    if (!employeeData.employeePassword) {
-      error.employeePassword = "Bắt Buộc";
-      validate = false;
-    } else {
+
+    if (passwordRef.current?.value) {
       if (
-        !employeeData.employeePassword.match(
+        !employeeData?.employeePassword?.match(
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}/
         )
       ) {
@@ -47,6 +47,7 @@ const StaffUpdateForm: React.FC = () => {
         validate = false;
       }
     }
+
     if (!employeeData.employeeName) {
       error.employeeName = "Bắt Buộc";
       validate = false;
@@ -73,18 +74,21 @@ const StaffUpdateForm: React.FC = () => {
   const handleOnSubmit = async () => {
     if (handleValidation()) {
       try {
+        const { employeePassword, ...restEmployee } = employeeData;
         const response = await fetch(
-          process.env.REACT_APP_API_BASE + `/customer/${staffId}`,
+          process.env.REACT_APP_API_BASE + `/staff/${staffId}`,
           {
             method: "PATCH",
             headers: {
               "Content-type": "application/json",
             },
-            body: JSON.stringify(employeeData),
+            body: JSON.stringify(
+              passwordRef.current?.value ? employeeData : restEmployee
+            ),
           }
         );
         if (response.status === 200) {
-          navigate("/customer");
+          navigate("/staff");
         }
       } catch (error) {
         if (error instanceof Error) {
@@ -158,9 +162,10 @@ const StaffUpdateForm: React.FC = () => {
                   margin="normal"
                   name="employeePassword"
                   variant="outlined"
+                  type="password"
                   label="Mật Khẩu"
                   fullWidth
-                  value={employeeData?.employeePassword}
+                  inputRef={passwordRef}
                   onChange={handleOnChange}
                 />
                 {errorForm?.employeePassword && (
