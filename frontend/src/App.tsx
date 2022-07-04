@@ -24,6 +24,10 @@ import ChemicalUpdateForm from "./components/Chemical/ChemicalUpdateForm";
 import Staff from "./components/Staff/Staff";
 import StaffForm from "./components/Staff/StaffForm";
 import StaffUpdateForm from "./components/Staff/StaffUpdateForm";
+import System from "./components/System/System";
+import Lab from "./components/System/Lab/Lab";
+import LabForm from "./components/System/Lab/LabForm";
+import LabUpdateForm from "./components/System/Lab/LabUpdateForm";
 
 const drawerWidth: number = 240;
 
@@ -131,6 +135,12 @@ function App() {
                 <Route path="/staff" element={<Staff />} />
                 <Route path="/staff/create" element={<StaffForm />} />
                 <Route path="/staff/:staffId" element={<StaffUpdateForm />} />
+
+                <Route path="/system" element={<System />} />
+
+                <Route path="/lab" element={<Lab />} />
+                <Route path="/lab/create" element={<LabForm />} />
+                <Route path="/lab/:labId" element={<LabUpdateForm />} />
               </Routes>
             </Box>
 

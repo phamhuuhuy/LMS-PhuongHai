@@ -76,11 +76,7 @@ const ListItems = () => {
         <ListItemText primary="Vật Tư" />
       </ListItemButton>
 
-      <ListItemButton
-        onClick={() => {
-          navigate("/staff");
-        }}
-      >
+      <ListItemButton>
         <ListItemIcon>
           <GroupsIcon />
         </ListItemIcon>
@@ -101,7 +97,11 @@ const ListItems = () => {
         <ListItemText primary="Kết Quả" />
       </ListItemButton>
 
-      <ListItemButton>
+      <ListItemButton
+        onClick={() => {
+          navigate("/system");
+        }}
+      >
         <ListItemIcon>
           <DnsIcon />
         </ListItemIcon>
