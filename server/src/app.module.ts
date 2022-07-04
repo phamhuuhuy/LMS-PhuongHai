@@ -5,9 +5,16 @@ import { CustomerModule } from './customer/customer.module';
 import { InstrumentModule } from './instrument/instrument.module';
 import { ChemicalModule } from './chemical/chemical.module';
 import { StaffModule } from './staff/staff.module';
+import { LabModule } from './lab/lab.module';
 
 @Module({
-  imports: [CustomerModule, InstrumentModule, ChemicalModule, StaffModule],
+  imports: [
+    CustomerModule,
+    InstrumentModule,
+    ChemicalModule,
+    StaffModule,
+    LabModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

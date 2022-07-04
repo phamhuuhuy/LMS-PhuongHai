@@ -476,6 +476,148 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "delete staff",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/staff/9a668e2e-2a3c-451c-98ce-f9e91594e6ea",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"staff",
+								"9a668e2e-2a3c-451c-98ce-f9e91594e6ea"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lab",
+			"item": [
+				{
+					"name": "get all lab",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/lab",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"lab"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create new lab",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"labName\": \"hehe\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/lab",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"lab"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete lab",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/lab/e6852099-1e90-4c93-8bf2-7d897d94a9f9",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"lab",
+								"e6852099-1e90-4c93-8bf2-7d897d94a9f9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/lab/b8624979-8465-45fd-b894-70aa23aa3ab9",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"lab",
+								"b8624979-8465-45fd-b894-70aa23aa3ab9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update lab",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"labName\": \"lab 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/lab/b8624979-8465-45fd-b894-70aa23aa3ab9",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"lab",
+								"b8624979-8465-45fd-b894-70aa23aa3ab9"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
