@@ -41,17 +41,22 @@ const LabTable: React.FC = () => {
     {
       field: "employeeName",
       headerName: "Trưởng phòng",
-      width: 180,
+      width: 190,
+    },
+    {
+      field: "subLab",
+      headerName: "Bộ phận con",
+      width: 190,
     },
     {
       field: "ceritificationName",
       headerName: "Chứng chỉ",
-      width: 160,
+      width: 180,
     },
     {
       field: "action",
       headerName: "Hành Động",
-      width: 100,
+      width: 140,
       renderCell: (params) => {
         return (
           <>
