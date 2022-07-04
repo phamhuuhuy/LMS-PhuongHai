@@ -9,4 +9,12 @@ export class Lab {
   @Column({ name: 'lab_name' })
   @IsString()
   labName: string;
+
+  @Column({ name: 'sub_lab' })
+  @IsString()
+  subLab: string;
+
+  @Column({ name: 'certification' })
+  @IsString()
+  certification: string;
 }
