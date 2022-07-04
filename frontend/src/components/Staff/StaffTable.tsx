@@ -131,6 +131,7 @@ const StaffTable: React.FC = () => {
         id={id}
         openDialog={openDialog}
         handleClose={handleClose}
+        item="staff"
         msg={"Bạn có chắc muốn xoá nhân viên này ?"}
       />
 
