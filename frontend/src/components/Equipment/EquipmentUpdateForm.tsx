@@ -115,7 +115,7 @@ const EquipmentUpdateForm = () => {
     if (handleValidation()) {
       try {
         const response = await fetch(
-          `http://localhost:5000/instrument/${equipmentId}`,
+          process.env.REACT_APP_API_BASE + `/instrument/${equipmentId}`,
           {
             method: "PATCH",
             headers: {

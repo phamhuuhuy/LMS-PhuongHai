@@ -107,16 +107,19 @@ const ChemicalForm: React.FC = () => {
   const handleOnSubmit = async () => {
     if (handleValidation()) {
       try {
-        const response = await fetch("http://localhost:5000/chemical", {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify({
-            ...chemicalData,
-            chemicalQuantity: parseInt(chemicalData.chemicalQuantity),
-          }),
-        });
+        const response = await fetch(
+          process.env.REACT_APP_API_BASE + "/chemical",
+          {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+              ...chemicalData,
+              chemicalQuantity: parseInt(chemicalData.chemicalQuantity),
+            }),
+          }
+        );
         console.log(response);
         if (response.status === 201) {
           navigate("/chemical");

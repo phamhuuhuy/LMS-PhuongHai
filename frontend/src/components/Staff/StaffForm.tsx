@@ -145,6 +145,7 @@ const StaffForm: React.FC = () => {
                   margin="normal"
                   name="employeePassword"
                   variant="outlined"
+                  type="password"
                   label="Mật Khẩu"
                   fullWidth
                   value={employeeData?.employeePassword}
