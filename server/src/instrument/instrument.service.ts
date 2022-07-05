@@ -11,7 +11,11 @@ export class InstrumentService {
   ) {}
 
   async getAll(): Promise<Instrument[]> {
-    return await this.instrumentRepository.find();
+    return await this.instrumentRepository.find({
+      relations: {
+        instrumentMethod: true,
+      },
+    });
   }
 
   async createInstrument(newInstrument: Instrument): Promise<Instrument> {
@@ -19,7 +23,14 @@ export class InstrumentService {
   }
 
   async getOne(uuid: string): Promise<Instrument> {
-    const instrument = await this.instrumentRepository.findOneBy({ id: uuid });
+    const instrument = await this.instrumentRepository.findOne({
+      where: {
+        id: uuid,
+      },
+      relations: {
+        instrumentMethod: true,
+      },
+    });
     if (!instrument) {
       throw new NotFoundException('Instrument id is not exist');
     }
