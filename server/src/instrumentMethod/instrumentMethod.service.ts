@@ -87,7 +87,7 @@ export class InstrumentMethodService {
         },
       },
     );
-    const instrumentMethod = await this.instrumentMethodRepository.save({
+    await this.instrumentMethodRepository.save({
       ...instrumentMethodFound,
       ...mapped,
     });
