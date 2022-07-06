@@ -8,13 +8,10 @@ export class InstrumentMethod {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => Method, (method: Method) => method.instrumentMethod)
+  @ManyToOne(() => Method, (method: Method) => method.id)
   method: Method;
 
-  @ManyToOne(
-    () => Instrument,
-    (instrument: Instrument) => instrument.instrumentMethod,
-  )
+  @ManyToOne(() => Instrument, (instrument: Instrument) => instrument.id)
   instrument: Instrument;
 
   @Column({ name: 'note' })
