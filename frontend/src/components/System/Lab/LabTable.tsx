@@ -1,14 +1,12 @@
-import React, { useState } from "react";
-import { Typography, Button, Tooltip } from "@mui/material";
-import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
-import { Edit, Delete } from "@mui/icons-material";
+import { Delete, Edit, Preview } from "@mui/icons-material";
+import { Button, Tooltip, Typography } from "@mui/material";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DialogAlert from "../../../common/DialogAlert";
 
 const LabTable: React.FC = () => {
-  const [data, setData] = useState<any[]>([
-    
-  ]);
+  const [data, setData] = useState<any[]>([]);
   const [id, setId] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
@@ -18,7 +16,7 @@ const LabTable: React.FC = () => {
   };
 
   const handleEdit = (id: string) => {
-    navigate(`/staff/${id}`);
+    navigate(`/lab/${id}`);
   };
 
   const handleDelete = (id: string) => {
@@ -49,7 +47,7 @@ const LabTable: React.FC = () => {
       width: 190,
     },
     {
-      field: "ceritificationName",
+      field: "certification",
       headerName: "Chứng chỉ",
       width: 180,
     },
@@ -68,7 +66,7 @@ const LabTable: React.FC = () => {
                 />
               </Tooltip>
             </div>
-            <div>
+            <div style={{ marginRight: "20px" }}>
               <Tooltip title="Xoá">
                 <Delete
                   style={{ color: "red" }}
@@ -76,11 +74,26 @@ const LabTable: React.FC = () => {
                 />
               </Tooltip>
             </div>
+            <div>
+              <Tooltip title="Phân Công">
+                <Preview style={{ color: "red" }} onClick={() => {}} />
+              </Tooltip>
+            </div>
           </>
         );
       },
     },
   ];
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const response = await fetch(process.env.REACT_APP_API_BASE + "/lab");
+    const value = await response.json();
+    setData(value);
+  };
 
   return (
     <div style={{ height: "100%", width: "100%" }}>
@@ -111,6 +124,7 @@ const LabTable: React.FC = () => {
       </div>
       <DialogAlert
         id={id}
+        item="lab"
         openDialog={openDialog}
         handleClose={handleClose}
         msg={"Bạn có chắc muốn xoá danh mục phòng Lab này ?"}

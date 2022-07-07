@@ -1,28 +1,22 @@
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
+import { Alert } from "@mui/material";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import {
-  Alert,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Paper,
-  Select,
-} from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import CssBaseline from "@mui/material/CssBaseline";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Lab } from "./Lab.type";
 
 const LabForm: React.FC = () => {
   const navigate = useNavigate();
   const [labData, setLabData] = useState<Lab>({
     labName: "",
-    employeeName: "",
-    ceritificationName: "",
+    subLab: "",
+    certification: "",
   });
   const [errorForm, setErrorForm] = useState<Lab>({});
 
@@ -33,13 +27,13 @@ const LabForm: React.FC = () => {
       error.labName = "Bắt Buộc";
       validate = false;
     }
-    if (!labData.employeeName) {
-      error.employeeName = "Bắt Buộc";
+    if (!labData.subLab) {
+      error.subLab = "Bắt Buộc";
       validate = false;
     }
 
-    if (!labData.ceritificationName) {
-      error.ceritificationName = "Bắt Buộc";
+    if (!labData.certification) {
+      error.certification = "Bắt Buộc";
       validate = false;
     }
     setErrorForm(error);
@@ -119,30 +113,28 @@ const LabForm: React.FC = () => {
                 <TextField
                   required
                   margin="normal"
-                  name="employeeName"
+                  name="subLab"
                   variant="outlined"
-                  label="Trưởng Phòng"
+                  label="Bộ Phận Con"
                   fullWidth
-                  value={labData?.employeeName}
+                  value={labData?.subLab}
                   onChange={handleOnChange}
                 />
-                {errorForm?.employeeName && (
-                  <Alert severity="warning">{errorForm.employeeName}</Alert>
+                {errorForm?.subLab && (
+                  <Alert severity="warning">{errorForm.subLab}</Alert>
                 )}
                 <TextField
                   required
                   margin="normal"
-                  name="ceritificationName"
+                  name="certification"
                   variant="outlined"
                   label="Chứng Chỉ"
                   fullWidth
-                  value={labData?.ceritificationName}
+                  value={labData?.certification}
                   onChange={handleOnChange}
                 />
-                {errorForm?.ceritificationName && (
-                  <Alert severity="warning">
-                    {errorForm.ceritificationName}
-                  </Alert>
+                {errorForm?.certification && (
+                  <Alert severity="warning">{errorForm.certification}</Alert>
                 )}
 
                 <Button
