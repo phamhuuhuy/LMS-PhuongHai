@@ -20,7 +20,7 @@ const System: React.FC = () => {
     },
     {
       content: "4. Thiết lập phương pháp phân tích",
-      onClickFuc: () => console.log("hello4"),
+      onClickFuc: () => navigate("/method"),
     },
   ];
 
