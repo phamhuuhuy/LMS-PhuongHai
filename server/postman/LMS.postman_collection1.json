@@ -225,6 +225,15 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "get all instrument not in method",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
 				}
 			]
 		},
@@ -715,6 +724,15 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "get one method",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
 				}
 			]
 		},
@@ -799,6 +817,15 @@
 								"instrument-method"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
 					},
 					"response": []
 				}
