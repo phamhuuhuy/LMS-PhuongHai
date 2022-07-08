@@ -54,7 +54,7 @@ export class InstrumentMethodService {
   async createInstrumentMethod(newInstrumentMethod: InstrumentMethodRequest) {
     try {
       const mapped = await this.mappingRequestToDTO(newInstrumentMethod);
-      await this.instrumentMethodRepository.save(mapped);
+      const added = await this.instrumentMethodRepository.save(mapped);
       return { msg: 'Sucessfully add instrument to method' };
     } catch (error) {
       return error.response;
@@ -92,5 +92,28 @@ export class InstrumentMethodService {
       ...mapped,
     });
     return { msg: 'Sucessfully update instrument in method' };
+  }
+
+  async getOne(uuid: string) {
+    const method = (await this.methodRepository.findOne({
+      where: {
+        id: uuid,
+      },
+      relations: {
+        instrumentMethod: true,
+      },
+    })) as Method;
+    const instrumentMethod = await this.instrumentMethodRepository.find({
+      where: {
+        method: method,
+      },
+      relations: {
+        instrument: true,
+      },
+    });
+    const instruments: Instrument[] = instrumentMethod.map(
+      (value) => value.instrument,
+    );
+    return { method, instruments };
   }
 }

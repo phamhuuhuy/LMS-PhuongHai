@@ -8,6 +8,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { InstrumentMethodService } from 'src/instrumentMethod/instrumentMethod.service';
 import { UpdateMethod } from './dto';
 import { Method } from './method.entity';
 import { MethodService } from './method.service';

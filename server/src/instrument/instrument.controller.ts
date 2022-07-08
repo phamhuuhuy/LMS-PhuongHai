@@ -16,6 +16,11 @@ import { InstrumentService } from './instrument.service';
 export class InstrumentController {
   constructor(private readonly instrumentService: InstrumentService) {}
 
+  @Get('/not-in-method/:uuid')
+  getAllNotInMethod(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
+    return this.instrumentService.getAllNotInMethod(uuid);
+  }
+
   @Get('')
   getAll() {
     return this.instrumentService.getAll();

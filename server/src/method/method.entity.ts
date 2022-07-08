@@ -1,4 +1,5 @@
 import { IsBoolean, IsDateString, IsOptional, IsString } from 'class-validator';
+import { Instrument } from 'src/instrument/instrument.entity';
 import { InstrumentMethod } from 'src/instrumentMethod/instrumentMethod.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
