@@ -7,7 +7,7 @@ export class InstrumentMethodController {
   constructor(private readonly methodService: InstrumentMethodService) {}
 
   @Delete('')
-  removeInstrumentMethod(@Body() newInstrumentMethod: InstrumentMethodRequest) {
+  removeInstrumentMethod(@Body() newInstrumentMethod: InstrumentMethodUpdate) {
     return this.methodService.removeInstrumentMethod(newInstrumentMethod);
   }
 

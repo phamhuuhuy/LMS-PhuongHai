@@ -61,14 +61,12 @@ export class InstrumentMethodService {
     }
   }
 
-  async removeInstrumentMethod(newInstrumentMethod: InstrumentMethodRequest) {
+  async removeInstrumentMethod(newInstrumentMethod: InstrumentMethodUpdate) {
     const mapped = await this.mappingRequestToDTO(newInstrumentMethod);
     const instrumentMethod = await this.instrumentMethodRepository.findOne({
       where: {
         method: mapped.method,
         instrument: mapped.instrument,
-        quantity: mapped.quantity,
-        note: mapped.note,
       },
     });
     await this.instrumentMethodRepository.delete(instrumentMethod);

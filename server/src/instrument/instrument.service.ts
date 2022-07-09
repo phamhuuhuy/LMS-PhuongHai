@@ -31,7 +31,8 @@ export class InstrumentService {
     const result = [];
     for (const instrument of instruments) {
       if (instrument.instrumentMethod.length == 0) {
-        break;
+        result.push(instrument);
+        continue;
       }
       const methodId = instrument.instrumentMethod.find((instrumentMethod) => {
         return instrumentMethod.method_id == uuid;
@@ -47,8 +48,7 @@ export class InstrumentService {
         },
       });
       if (instrument.id == instrumentMethod.instrument_id) {
-        console.log('hehe');
-        break;
+        continue;
       }
       result.push(instrument);
     }
