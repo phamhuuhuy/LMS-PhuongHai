@@ -102,7 +102,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"instrumentName\": \"nhiet ke\",\r\n    \"instrumentModel\": \"E98123\",\r\n    \"instrumentSeriNo\": \"9187237\",\r\n    \"instrumentBuyDate\": \"2000-12-12\",\r\n    \"instrumentCalibrationDate\": \"2000-12-13\",\r\n    \"instrumentNextCalibrationDate\": \"2000-12-20\",\r\n    \"instrumentStatus\": \"dfasfsa\",\r\n    \"instrumentProvider\": \"fdsafsaf\",\r\n    \"instrumentSupervisor\": \"Tuong\",\r\n    \"instrumentServer\": true\r\n}",
+							"raw": "{\r\n    \"instrumentName\": \"hehehee\",\r\n    \"instrumentModel\": \"E98123\",\r\n    \"instrumentSeriNo\": \"9187237\",\r\n    \"instrumentBuyDate\": \"2000-12-12\",\r\n    \"instrumentCalibrationDate\": \"2000-12-13\",\r\n    \"instrumentNextCalibrationDate\": \"2000-12-20\",\r\n    \"instrumentStatus\": \"dfasfsa\",\r\n    \"instrumentProvider\": \"fdsafsaf\",\r\n    \"instrumentSupervisor\": \"Tuong\",\r\n    \"instrumentServer\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -231,7 +231,18 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "localhost:5000/instrument/not-in-method/256be668-0013-4538-a664-a03d04634018",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"instrument",
+								"not-in-method",
+								"256be668-0013-4538-a664-a03d04634018"
+							]
+						}
 					},
 					"response": []
 				}
@@ -730,7 +741,17 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "localhost:5000/method/256be668-0013-4538-a664-a03d04634018",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"method",
+								"256be668-0013-4538-a664-a03d04634018"
+							]
+						}
 					},
 					"response": []
 				}
@@ -746,7 +767,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"methodId\": \"f2a2ed01-5869-4786-9bd3-63f038cb99d0\",\r\n    \"instrumentId\": \"146952f1-8e7b-4dbe-944b-d3ed20c33055\",\r\n    \"note\": \"hehee\",\r\n    \"quantity\": 123\r\n}",
+							"raw": "{\r\n    \"methodId\": \"256be668-0013-4538-a664-a03d04634018\",\r\n    \"instrumentId\": \"6babe449-fab8-44e7-bd92-be3672f37551\",\r\n    \"note\": \"hehee\",\r\n    \"quantity\": 123\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -773,7 +794,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"methodId\": \"f2a2ed01-5869-4786-9bd3-63f038cb99d0\",\r\n    \"instrumentId\": \"146952f1-8e7b-4dbe-944b-d3ed20c33055\",\r\n    \"note\": \"hehee\",\r\n    \"quantity\": 123\r\n}",
+							"raw": "{\r\n    \"methodId\": \"56aa3fe2-0b5a-4eb2-9acd-6b6cf9b349ff\",\r\n    \"instrumentId\": \"231351c6-6645-4319-ac23-a33428076949\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -825,7 +846,16 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "localhost:5000/instrument-method",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"instrument-method"
+							]
+						}
 					},
 					"response": []
 				}
