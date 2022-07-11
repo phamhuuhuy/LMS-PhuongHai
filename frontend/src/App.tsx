@@ -28,6 +28,9 @@ import System from "./components/System/System";
 import Lab from "./components/System/Lab/Lab";
 import LabForm from "./components/System/Lab/LabForm";
 import LabUpdateForm from "./components/System/Lab/LabUpdateForm";
+import Method from "./components/System/Method/Method";
+import MethodForm from "./components/System/Method/MethodForm";
+import MethodUpdateForm from "./components/System/Method/MethodUpdateForm";
 
 const drawerWidth: number = 240;
 
@@ -141,6 +144,13 @@ function App() {
                 <Route path="/lab" element={<Lab />} />
                 <Route path="/lab/create" element={<LabForm />} />
                 <Route path="/lab/:labId" element={<LabUpdateForm />} />
+
+                <Route path="/method" element={<Method />} />
+                <Route path="/method/create" element={<MethodForm />} />
+                <Route
+                  path="/method/:methodId"
+                  element={<MethodUpdateForm />}
+                />
               </Routes>
             </Box>
 
