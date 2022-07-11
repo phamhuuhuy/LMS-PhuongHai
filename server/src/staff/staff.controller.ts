@@ -21,7 +21,7 @@ export class StaffController {
   }
 
   @Post('')
-  createInstrument(@Body() staff: Staff) {
+  createStaff(@Body() staff: Staff) {
     return this.staffService.createStaff(staff);
   }
 
@@ -31,12 +31,12 @@ export class StaffController {
   }
 
   @Delete('/:uuid')
-  deleteInstrument(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
+  deleteStaff(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
     return this.staffService.deleteStaff(uuid);
   }
 
   @Patch('/:uuid')
-  updateInstrument(
+  updateStaff(
     @Param('uuid', new ParseUUIDPipe()) uuid: string,
     @Body() staff: UpdateStaff,
   ) {

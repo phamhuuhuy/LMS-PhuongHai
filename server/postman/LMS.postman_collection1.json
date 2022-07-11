@@ -128,14 +128,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/instrument/d365dc2f-1bb2-4dff-be67-285c08f07f0e",
+							"raw": "localhost:5000/instrument/146952f1-8e7b-4dbe-944b-d3ed20c33055",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"instrument",
-								"d365dc2f-1bb2-4dff-be67-285c08f07f0e"
+								"146952f1-8e7b-4dbe-944b-d3ed20c33055"
 							]
 						}
 					},
@@ -223,6 +223,15 @@
 								"over-due"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all instrument not in method",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
 					},
 					"response": []
 				}
@@ -533,7 +542,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"labName\": \"hehe\"\r\n}",
+							"raw": "{\r\n    \"labName\": \"hehe\",\r\n    \"subLab\": \"hehe\",\r\n    \"certification\": \"hehe\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -598,7 +607,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"labName\": \"lab 1\"\r\n}",
+							"raw": "{\r\n    \"labName\": \"lab 1\",\r\n    \"subLab\": \"hihi\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -606,16 +615,217 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:5000/lab/b8624979-8465-45fd-b894-70aa23aa3ab9",
+							"raw": "localhost:5000/lab/1dff05fb-e60e-435f-87fb-f31b095abe9e",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"lab",
-								"b8624979-8465-45fd-b894-70aa23aa3ab9"
+								"1dff05fb-e60e-435f-87fb-f31b095abe9e"
 							]
 						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Method",
+			"item": [
+				{
+					"name": "get all method",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/method",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"method"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create new method",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"methodTargets\": \"hehe\",\r\n    \"methodName\": \"hehe\",\r\n    \"methodDetail\": \"hehe\",\r\n    \"methodScope\": \"hehe\",\r\n    \"methodFileUrl\": \"hehe\",\r\n    \"methodTime\": \"2000-12-13\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/method",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"method"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update method",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"methodTargets\": \"hehe\",\r\n    \"methodName\": \"321421\",\r\n    \"methodDetail\": \"hehe\",\r\n    \"methodScope\": \"213421343\",\r\n    \"methodFileUrl\": \"h2143214321ehe\",\r\n    \"methodTime\": \"2000-12-13\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/method/f2a2ed01-5869-4786-9bd3-63f038cb99d0",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"method",
+								"f2a2ed01-5869-4786-9bd3-63f038cb99d0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete method",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/method/f2a2ed01-5869-4786-9bd3-63f038cb99d0",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"method",
+								"f2a2ed01-5869-4786-9bd3-63f038cb99d0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one method",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "method instrument",
+			"item": [
+				{
+					"name": "add new instrument to method",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"methodId\": \"f2a2ed01-5869-4786-9bd3-63f038cb99d0\",\r\n    \"instrumentId\": \"146952f1-8e7b-4dbe-944b-d3ed20c33055\",\r\n    \"note\": \"hehee\",\r\n    \"quantity\": 123\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/instrument-method",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"instrument-method"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove instrument",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"methodId\": \"f2a2ed01-5869-4786-9bd3-63f038cb99d0\",\r\n    \"instrumentId\": \"146952f1-8e7b-4dbe-944b-d3ed20c33055\",\r\n    \"note\": \"hehee\",\r\n    \"quantity\": 123\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/instrument-method",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"instrument-method"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update method instrument",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"methodId\": \"f2a2ed01-5869-4786-9bd3-63f038cb99d0\",\r\n    \"instrumentId\": \"146952f1-8e7b-4dbe-944b-d3ed20c33055\",\r\n    \"note\": \"fdasfdsafdsafdsaf\",\r\n    \"quantity\": 2145\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/instrument-method",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"instrument-method"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
 					},
 					"response": []
 				}

@@ -3,10 +3,15 @@ import { InstrumentProvider } from './instrument.provider';
 import { InstrumentService } from './instrument.service';
 import { InstrumentController } from './instrument.controller';
 import { DatabaseModule } from 'src/database/database.module';
+import { InstrumentMethodProvider } from 'src/instrumentMethod/instrumentMethod.provider';
 
 @Module({
   imports: [DatabaseModule],
-  providers: [...InstrumentProvider, InstrumentService],
+  providers: [
+    ...InstrumentProvider,
+    ...InstrumentMethodProvider,
+    InstrumentService,
+  ],
   controllers: [InstrumentController],
 })
 export class InstrumentModule {}
