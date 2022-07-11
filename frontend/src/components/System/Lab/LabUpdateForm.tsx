@@ -18,8 +18,8 @@ const LabUpdateForm: React.FC = () => {
 
   const [labData, setLabData] = useState<Lab>({
     labName: "",
-    employeeName: "",
-    ceritificationName: "",
+    subLab: "",
+    certification: "",
   });
 
   const [errorForm, setErrorForm] = useState<Lab>({});
@@ -31,13 +31,13 @@ const LabUpdateForm: React.FC = () => {
       error.labName = "Bắt Buộc";
       validate = false;
     }
-    if (!labData.employeeName) {
-      error.employeeName = "Bắt Buộc";
+    if (!labData.subLab) {
+      error.subLab = "Bắt Buộc";
       validate = false;
     }
 
-    if (!labData.ceritificationName) {
-      error.ceritificationName = "Bắt Buộc";
+    if (!labData.certification) {
+      error.certification = "Bắt Buộc";
       validate = false;
     }
     setErrorForm(error);
@@ -137,30 +137,28 @@ const LabUpdateForm: React.FC = () => {
                 <TextField
                   required
                   margin="normal"
-                  name="employeeName"
+                  name="subLab"
                   variant="outlined"
                   label="Trưởng Phòng"
                   fullWidth
-                  value={labData?.employeeName}
+                  value={labData?.subLab}
                   onChange={handleOnChange}
                 />
-                {errorForm?.employeeName && (
-                  <Alert severity="warning">{errorForm.employeeName}</Alert>
+                {errorForm?.subLab && (
+                  <Alert severity="warning">{errorForm.subLab}</Alert>
                 )}
                 <TextField
                   required
                   margin="normal"
-                  name="ceritificationName"
+                  name="certification"
                   variant="outlined"
                   label="Chứng Chỉ"
                   fullWidth
-                  value={labData?.ceritificationName}
+                  value={labData?.certification}
                   onChange={handleOnChange}
                 />
-                {errorForm?.ceritificationName && (
-                  <Alert severity="warning">
-                    {errorForm.ceritificationName}
-                  </Alert>
+                {errorForm?.certification && (
+                  <Alert severity="warning">{errorForm.certification}</Alert>
                 )}
                 <Button
                   variant="contained"
