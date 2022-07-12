@@ -21,6 +21,11 @@ export class ChemicalController {
     return this.chemicalService.getAll();
   }
 
+  @Get('/not-in-method/:uuid')
+  getAllNotInMethod(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
+    return this.chemicalService.getAllNotInMethod(uuid);
+  }
+
   @Post('')
   createInstrument(@Body() chemical: Chemical) {
     return this.chemicalService.createChemical(chemical);

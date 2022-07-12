@@ -1,8 +1,9 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Chemical } from 'src/chemical/chemical.entity';
+import { ChemicalMethod } from 'src/chemicalMethod/chemicalMethod.entity';
 import { Instrument } from 'src/instrument/instrument.entity';
 import { InstrumentMethod } from 'src/instrumentMethod/instrumentMethod.entity';
-import EncryptValue from 'src/utils/encrypt.util';
-import { createQueryBuilder, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { MethodResponse, UpdateMethod } from './dto';
 import { Method } from './method.entity';
 
@@ -14,14 +15,13 @@ export class MethodService {
 
     @Inject('INSTRUMENT_METHOD_REPOSITORY')
     private instrumentMethodRepository: Repository<InstrumentMethod>,
+
+    @Inject('CHEMICAL_METHOD_REPOSITORY')
+    private chemicalMethodRepository: Repository<ChemicalMethod>,
   ) {}
 
   async getAll(): Promise<Method[]> {
-    return await this.methodRepository.find({
-      relations: {
-        instrumentMethod: true,
-      },
-    });
+    return await this.methodRepository.find();
   }
 
   async createMethod(newMethod: Method): Promise<Method> {
@@ -35,6 +35,7 @@ export class MethodService {
       },
       relations: {
         instrumentMethod: true,
+        chemicalMethod: true,
       },
     });
     if (!method) {
@@ -48,8 +49,20 @@ export class MethodService {
         instrument: true,
       },
     });
+    const chemicalMethod = await this.chemicalMethodRepository.find({
+      where: {
+        method: method,
+      },
+      relations: {
+        chemical: true,
+      },
+    });
     const instruments: Instrument[] = instrumentMethod.map(
-      (value) => value.instrument,
+      (value: InstrumentMethod) => value.instrument,
+    );
+
+    const chemicals: Chemical[] = chemicalMethod.map(
+      (value: ChemicalMethod) => value.chemical,
     );
     return {
       id: method.id,
@@ -60,6 +73,7 @@ export class MethodService {
       methodTime: method.methodTime,
       methodFileUrl: method.methodFileUrl,
       instruments,
+      chemicals,
     };
   }
 
