@@ -1,5 +1,6 @@
 import { IsDateString, IsNumber, IsOptional, IsString } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { ChemicalMethod } from 'src/chemicalMethod/chemicalMethod.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Chemical {
@@ -37,4 +38,10 @@ export class Chemical {
   @Column({ name: 'chemical_receiver' })
   @IsString()
   chemicalReceiver: string;
+
+  @OneToMany(
+    () => ChemicalMethod,
+    (chemicalMethod: ChemicalMethod) => chemicalMethod.chemical,
+  )
+  chemicalMethod: ChemicalMethod[];
 }

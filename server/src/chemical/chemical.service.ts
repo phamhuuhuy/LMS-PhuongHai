@@ -1,4 +1,5 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { ChemicalMethod } from 'src/chemicalMethod/chemicalMethod.entity';
 import { Between, LessThan, Repository } from 'typeorm';
 import { Chemical } from './chemical.entity';
 import { UpdateChemical } from './dto';
@@ -8,10 +9,47 @@ export class ChemicalService {
   constructor(
     @Inject('CHEMICAL_REPOSITORY')
     private chemicalRepository: Repository<Chemical>,
+
+    @Inject('CHEMICAL_METHOD_REPOSITORY')
+    private chemicalMethodRepository: Repository<ChemicalMethod>,
   ) {}
 
   async getAll(): Promise<Chemical[]> {
     return await this.chemicalRepository.find();
+  }
+
+  async getAllNotInMethod(uuid: String): Promise<Chemical[]> {
+    const chemicals = await this.chemicalRepository.find({
+      relations: {
+        chemicalMethod: true,
+      },
+    });
+    const result = [];
+    for (const chemical of chemicals) {
+      if (chemical.chemicalMethod.length == 0) {
+        result.push(chemical);
+        continue;
+      }
+      const methodId = chemical.chemicalMethod.find((chemicalMethod) => {
+        return chemicalMethod.method_id == uuid;
+      });
+      if (methodId == undefined) {
+        result.push(chemical);
+        continue;
+      }
+
+      const chemicalMethod = await this.chemicalMethodRepository.findOne({
+        where: {
+          method_id: methodId.method_id,
+        },
+      });
+      if (chemical.id == chemicalMethod.chemical_id) {
+        continue;
+      }
+      result.push(chemical);
+    }
+
+    return result;
   }
 
   async createChemical(newChemical: Chemical): Promise<Chemical> {
@@ -50,12 +88,12 @@ export class ChemicalService {
     uuid: string,
     updatedChemical: UpdateChemical,
   ): Promise<Chemical> {
-    const instrumentFound = await this.getOne(uuid);
-    const instrument = await this.chemicalRepository.save({
-      ...instrumentFound,
+    const chemicalFound = await this.getOne(uuid);
+    const chemical = await this.chemicalRepository.save({
+      ...chemicalFound,
       ...updatedChemical,
     });
-    return instrument;
+    return chemical;
   }
 
   async deleteChemical(uuid: string) {
