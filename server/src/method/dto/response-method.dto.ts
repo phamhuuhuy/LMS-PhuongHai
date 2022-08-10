@@ -1,3 +1,4 @@
+import { Chemical } from 'src/chemical/chemical.entity';
 import { Instrument } from 'src/instrument/instrument.entity';
 
 export class MethodResponse {
@@ -15,4 +16,5 @@ export class MethodResponse {
 
   methodFileUrl: string;
   instruments: Instrument[];
+  chemicals: Chemical[];
 }

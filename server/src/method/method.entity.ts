@@ -1,4 +1,5 @@
 import { IsBoolean, IsDateString, IsOptional, IsString } from 'class-validator';
+import { ChemicalMethod } from 'src/chemicalMethod/chemicalMethod.entity';
 import { Instrument } from 'src/instrument/instrument.entity';
 import { InstrumentMethod } from 'src/instrumentMethod/instrumentMethod.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
@@ -37,4 +38,10 @@ export class Method {
     (instrumentMethod: InstrumentMethod) => instrumentMethod.method,
   )
   instrumentMethod: InstrumentMethod[];
+
+  @OneToMany(
+    () => ChemicalMethod,
+    (chemicalMethod: ChemicalMethod) => chemicalMethod.method,
+  )
+  chemicalMethod: ChemicalMethod[];
 }

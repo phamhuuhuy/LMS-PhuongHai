@@ -8,6 +8,7 @@ import { StaffModule } from './staff/staff.module';
 import { LabModule } from './lab/lab.module';
 import { MethodModule } from './method/method.module';
 import { InstrumentMethodModule } from './instrumentMethod/instrumentMethod.module';
+import { ChemicalMethodModule } from './chemicalMethod/chemicalMethod.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { InstrumentMethodModule } from './instrumentMethod/instrumentMethod.modu
     LabModule,
     MethodModule,
     InstrumentMethodModule,
+    ChemicalMethodModule,
   ],
   controllers: [AppController],
   providers: [AppService],
