@@ -13,7 +13,17 @@ import { useNavigate } from "react-router-dom";
 import DialogAlert from "../../../common/DialogAlert";
 
 const MethodTableChemical: React.FC = () => {
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<any[]>([
+    {
+      id: "id",
+      chemicalName: "chemicalName",
+      chemicalModel: "chemicalModel",
+      chemicalQuantity: "chemicalQuantity",
+      chemicalUnit: "chemicalUnit",
+      note: "this is note",
+    },
+  ]);
+  
   const [id, setId] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
@@ -67,10 +77,6 @@ const MethodTableChemical: React.FC = () => {
   ];
 
   const handleOnChange = (event: any) => {
-    // setEmployeeData({
-    //   ...employeeData,
-    //   [event.target.name]: event.target.value,
-    // });
     console.log("first");
   };
 
