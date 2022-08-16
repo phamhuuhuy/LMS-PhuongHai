@@ -18,7 +18,7 @@ const LabTable: React.FC = () => {
   };
 
   const handleEdit = (id: string) => {
-    navigate(`/staff/${id}`);
+    navigate(`/lab/${id}`);
   };
 
   const handleDelete = (id: string) => {
