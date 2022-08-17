@@ -5,9 +5,10 @@ import { InstrumentMethodService } from './instrumentMethod.service';
 import { InstrumentMethodController } from './instrumentMethod.controller';
 import { MethodProvider } from 'src/method/method.provider';
 import { InstrumentProvider } from 'src/instrument/instrument.provider';
+import { StaffLabModule } from 'src/staffLab/staffLab.module';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [DatabaseModule, StaffLabModule],
   providers: [
     ...InstrumentMethodProvider,
     ...MethodProvider,

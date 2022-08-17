@@ -1,5 +1,6 @@
 import { IsString } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { StaffLab } from 'src/staffLab/staffLab.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Lab {
@@ -17,4 +18,7 @@ export class Lab {
   @Column({ name: 'certification' })
   @IsString()
   certification: string;
+
+  @OneToMany(() => StaffLab, (staffLab: StaffLab) => staffLab.lab)
+  staffLab: StaffLab[];
 }

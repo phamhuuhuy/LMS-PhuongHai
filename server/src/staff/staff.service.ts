@@ -28,6 +28,14 @@ export class StaffService {
     return staff;
   }
 
+  async findOne(userName: string): Promise<Staff> {
+    const staff = await this.staffRepository.findOneBy({
+      employeeUserName: userName,
+    });
+
+    return staff;
+  }
+
   async updateStaff(uuid: string, updatedStaff: UpdateStaff): Promise<Staff> {
     if (updatedStaff.employeePassword) {
       updatedStaff.employeePassword = await EncryptValue(

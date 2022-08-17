@@ -1,5 +1,6 @@
 import { IsBoolean, IsDateString, IsOptional, IsString } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { StaffLab } from 'src/staffLab/staffLab.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Staff {
@@ -25,4 +26,7 @@ export class Staff {
   @Column({ name: 'is_manager' })
   @IsBoolean()
   isManager: boolean;
+
+  @OneToMany(() => StaffLab, (staffLab: StaffLab) => staffLab.staff)
+  staffLab: StaffLab[];
 }
