@@ -1,25 +1,20 @@
-import { Delete, Edit, Preview } from "@mui/icons-material";
-import { Button, Tooltip, Typography } from "@mui/material";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import DialogAlert from "../../../common/DialogAlert";
 
-const LabTable: React.FC = () => {
-  const [data, setData] = useState<any[]>([]);
+import React, { useState } from "react";
+import { Typography, Button, Tooltip } from "@mui/material";
+import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
+import { Edit, Delete } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import DialogAlert from "../../../../common/DialogAlert";
+
+
+const StaffTableOneLab: React.FC = () => {
+  const [data, setData] = useState([]);
   const [id, setId] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
 
-  const handleOnClick = () => {
-    navigate("/lab/create");
-  };
-
   const handleEdit = (id: string) => {
-    navigate(`/lab/${id}`);
-  };
-  const handleDetail = (id: string) => {
-    navigate(`/labDetail/${id}`);
+    navigate(`/staff/${id}`);
   };
 
   const handleDelete = (id: string) => {
@@ -32,32 +27,42 @@ const LabTable: React.FC = () => {
     setOpenDialog(value);
   };
 
+  const handleOnClick = () => {
+    navigate("/staff/create");
+  };
+
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 100 },
     {
-      field: "labName",
-      headerName: "Tên phòng lab",
-      width: 180,
-    },
-    {
       field: "employeeName",
-      headerName: "Trưởng phòng",
-      width: 190,
-    },
-    {
-      field: "subLab",
-      headerName: "Bộ phận con",
-      width: 190,
-    },
-    {
-      field: "certification",
-      headerName: "Chứng chỉ",
+      headerName: "Tên người dùng",
       width: 180,
+    },
+    {
+      field: "employeeUserName",
+      headerName: "Tên tài khoản",
+      width: 180,
+    },
+    {
+      field: "employeePassword",
+      headerName: "Mật khẩu",
+      width: 180,
+    },
+
+    {
+      field: "employeeLab",
+      headerName: "Phòng Lab",
+      width: 160,
+    },
+    {
+      field: "isManager",
+      headerName: "Chức danh",
+      width: 150,
     },
     {
       field: "action",
       headerName: "Hành Động",
-      width: 140,
+      width: 100,
       renderCell: (params) => {
         return (
           <>
@@ -69,7 +74,7 @@ const LabTable: React.FC = () => {
                 />
               </Tooltip>
             </div>
-            <div style={{ marginRight: "20px" }}>
+            <div>
               <Tooltip title="Xoá">
                 <Delete
                   style={{ color: "red" }}
@@ -77,30 +82,25 @@ const LabTable: React.FC = () => {
                 />
               </Tooltip>
             </div>
-            <div>
-              <Tooltip title="Phân Công">
-                <Preview
-                  style={{ color: "red" }}
-                  onClick={() => handleDetail(params.row.id)}
-                />
-              </Tooltip>
-            </div>
+            {/* <Link to={`/user/${params.row._id}`}>
+                            <button className="userListEdit">Edit</button>
+                        </Link>
+                        <DeleteOutline className="userListDelete" onClick={() => handleDelete(params.row._id)} /> */}
           </>
         );
       },
     },
   ];
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    const response = await fetch(process.env.REACT_APP_API_BASE + "/lab");
+    const response = await fetch(process.env.REACT_APP_API_BASE + "/staff");
     const value = await response.json();
     setData(value);
   };
-
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <Typography
@@ -109,7 +109,7 @@ const LabTable: React.FC = () => {
         color="primary"
         style={{ marginBottom: "20px" }}
       >
-        Thiết lập danh mục phòng Lab
+       Danh sách nhân viên của phòng lab
       </Typography>
       <div
         style={{
@@ -125,15 +125,15 @@ const LabTable: React.FC = () => {
           variant="contained"
           onClick={handleOnClick}
         >
-          + Thêm danh mục phòng Lab
+          + Thêm Nhân Viên
         </Button>
       </div>
       <DialogAlert
         id={id}
-        item="lab"
         openDialog={openDialog}
         handleClose={handleClose}
-        msg={"Bạn có chắc muốn xoá danh mục phòng Lab này ?"}
+        item="staff"
+        msg={"Bạn có chắc muốn xoá nhân viên này ?"}
       />
 
       <div style={{ height: "79%", width: "100%" }}>
@@ -148,4 +148,4 @@ const LabTable: React.FC = () => {
   );
 };
 
-export default LabTable;
+export default StaffTableOneLab;

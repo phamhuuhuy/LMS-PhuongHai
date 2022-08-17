@@ -6,17 +6,7 @@ import { useNavigate } from "react-router-dom";
 import DialogAlert from "../../../common/DialogAlert";
 
 const MethodTable: React.FC = () => {
-  const [data, setData] = useState<any[]>([
-    {
-      id: "hello",
-      methodTargets: "hello",
-      methodName: "hello",
-      methodDetail: "hello",
-      methodScope: "hello",
-      methodTime: "hello",
-      methodFileUrl: "hello",
-    },
-  ]);
+  const [data, setData] = useState<any[]>([]);
   const [id, setId] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
