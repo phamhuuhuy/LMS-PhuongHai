@@ -111,7 +111,7 @@ export class InstrumentService {
 
   async deleteInstrument(uuid: string) {
     const instrument = await this.getOne(uuid);
-    await this.instrumentRepository.delete(instrument);
+    await this.instrumentRepository.delete(instrument.id);
     return { msg: 'Sucessfully deleted instrument' };
   }
 }

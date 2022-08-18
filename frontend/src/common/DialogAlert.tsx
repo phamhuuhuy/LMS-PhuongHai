@@ -5,6 +5,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import axios from "axios";
+import { setHeader } from "./utils/common";
 
 const DialogAlert = ({ openDialog, handleClose, id, msg, item }: any) => {
   const handleOnClose = () => {
@@ -15,13 +17,11 @@ const DialogAlert = ({ openDialog, handleClose, id, msg, item }: any) => {
     handleClose(false);
     if (id !== "") {
       try {
-        const response = await fetch(
+        const response = await axios.delete(
           process.env.REACT_APP_API_BASE + `/${item}/${id}`,
-          {
-            method: "DELETE",
-          }
+          setHeader()
         );
-        const result = await response.json();
+     
         window.location.reload();
       } catch (error) {
         if (error instanceof Error) {

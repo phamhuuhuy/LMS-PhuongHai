@@ -113,7 +113,7 @@ const CustomerTable: React.FC = () => {
   }, []);
 
   const fetchData = async () => {
-    const { data } = await axios(
+    const { data } = await axios.get(
       process.env.REACT_APP_API_BASE + "/customer",
       setHeader()
     );
