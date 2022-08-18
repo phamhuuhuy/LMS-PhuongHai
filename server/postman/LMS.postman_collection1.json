@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c131d933-a7cb-45d2-8c6e-6b0aed9bef7d",
+		"_postman_id": "db9f802f-5e15-42bc-b12b-a91746538624",
 		"name": "LMS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1082,9 +1082,28 @@
 				{
 					"name": "login",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"quochuyne1\",\n    \"password\" : \"Hellocacban1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
 					},
 					"response": []
 				}
