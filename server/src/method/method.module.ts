@@ -7,9 +7,10 @@ import { InstrumentMethodProvider } from 'src/instrumentMethod/instrumentMethod.
 import { InstrumentMethodModule } from 'src/instrumentMethod/instrumentMethod.module';
 import { InstrumentService } from 'src/instrument/instrument.service';
 import { ChemicalMethodProvider } from 'src/chemicalMethod/chemicalMethod.provider';
+import { StaffLabModule } from 'src/staffLab/staffLab.module';
 
 @Module({
-  imports: [DatabaseModule, InstrumentMethodModule],
+  imports: [DatabaseModule, InstrumentMethodModule, StaffLabModule],
   providers: [
     ...MethodProvider,
     ...InstrumentMethodProvider,

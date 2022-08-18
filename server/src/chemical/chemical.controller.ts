@@ -7,11 +7,17 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Role } from 'src/auth/Role/role.enum';
+import { RolesGuard } from 'src/auth/Role/roles.guard';
+import { Roles } from 'src/decorator/role.decorator';
 import { Chemical } from './chemical.entity';
 import { ChemicalService } from './chemical.service';
 import { UpdateChemical } from './dto';
-
+@UseGuards(RolesGuard)
+@UseGuards(JwtAuthGuard)
 @Controller('chemical')
 export class ChemicalController {
   constructor(private readonly chemicalService: ChemicalService) {}
@@ -22,11 +28,13 @@ export class ChemicalController {
   }
 
   @Get('/not-in-method/:uuid')
+  @Roles(Role.ADMIN, Role.LEAD)
   getAllNotInMethod(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
     return this.chemicalService.getAllNotInMethod(uuid);
   }
 
   @Post('')
+  @Roles(Role.ADMIN)
   createInstrument(@Body() chemical: Chemical) {
     return this.chemicalService.createChemical(chemical);
   }
@@ -47,11 +55,13 @@ export class ChemicalController {
   }
 
   @Delete('/:uuid')
+  @Roles(Role.ADMIN)
   deleteChemical(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
     return this.chemicalService.deleteChemical(uuid);
   }
 
   @Patch('/:uuid')
+  @Roles(Role.ADMIN)
   updateChemical(
     @Param('uuid', new ParseUUIDPipe()) uuid: string,
     @Body() chemical: UpdateChemical,

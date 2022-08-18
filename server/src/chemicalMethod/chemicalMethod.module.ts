@@ -5,9 +5,10 @@ import { MethodProvider } from 'src/method/method.provider';
 import { ChemicalMethodService } from './chemicalMethod.service';
 import { ChemicalMethodController } from './chemicalMethod.controller';
 import { ChemicalProvider } from 'src/chemical/chemical.provider';
+import { StaffLabModule } from 'src/staffLab/staffLab.module';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [DatabaseModule, StaffLabModule],
   providers: [
     ...ChemicalMethodProvider,
     ...MethodProvider,

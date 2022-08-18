@@ -4,9 +4,10 @@ import { InstrumentService } from './instrument.service';
 import { InstrumentController } from './instrument.controller';
 import { DatabaseModule } from 'src/database/database.module';
 import { InstrumentMethodProvider } from 'src/instrumentMethod/instrumentMethod.provider';
+import { StaffLabModule } from 'src/staffLab/staffLab.module';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [DatabaseModule, StaffLabModule],
   providers: [
     ...InstrumentProvider,
     ...InstrumentMethodProvider,

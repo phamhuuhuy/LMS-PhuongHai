@@ -7,10 +7,19 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  UseGuards,
+  Request,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Role } from 'src/auth/Role/role.enum';
+import { RolesGuard } from 'src/auth/Role/roles.guard';
+import { GetUser } from 'src/decorator';
+import { Roles } from 'src/decorator/role.decorator';
 import { UpdateStaff } from './dto';
 import { Staff } from './staff.entity';
 import { StaffService } from './staff.service';
+@UseGuards(RolesGuard)
+@UseGuards(JwtAuthGuard)
 @Controller('staff')
 export class StaffController {
   constructor(private readonly staffService: StaffService) {}
@@ -20,7 +29,18 @@ export class StaffController {
     return this.staffService.getAll();
   }
 
+  @Get('/not-in-lab/:uuid')
+  getAllNotInLab(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
+    return this.staffService.getAllStaffNotInLab(uuid, false);
+  }
+
+  @Get('/not-in-lab/lead/:uuid')
+  getAllLeadNotInLab(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
+    return this.staffService.getAllStaffNotInLab(uuid, true);
+  }
+
   @Post('')
+  @Roles(Role.ADMIN, Role.LEAD)
   createStaff(@Body() staff: Staff) {
     return this.staffService.createStaff(staff);
   }
@@ -31,6 +51,7 @@ export class StaffController {
   }
 
   @Delete('/:uuid')
+  @Roles(Role.ADMIN, Role.LEAD)
   deleteStaff(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
     return this.staffService.deleteStaff(uuid);
   }

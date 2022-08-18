@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c18ab923-b641-46bf-9467-5f094a7f2c1b",
+		"_postman_id": "db9f802f-5e15-42bc-b12b-a91746538624",
 		"name": "LMS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -444,13 +444,54 @@
 					"response": []
 				},
 				{
+					"name": "get all staff not in lab",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/staff/not-in-lab/36883c23-1ea7-444d-9ce4-e5b36b27b716",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"staff",
+								"not-in-lab",
+								"36883c23-1ea7-444d-9ce4-e5b36b27b716"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all lead not in lab",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/staff/not-in-lab/lead/36883c23-1ea7-444d-9ce4-e5b36b27b716",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"staff",
+								"not-in-lab",
+								"lead",
+								"36883c23-1ea7-444d-9ce4-e5b36b27b716"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create new Staff",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"employeeUserName\": \"qhnguyen17\",\r\n    \"employeePassword\": \"huy\",\r\n    \"employeeName\": \"quoc huy\",\r\n    \"employeeLab\": \"Lab B\",\r\n    \"isManager\": true\r\n}",
+							"raw": "{\r\n    \"employeeUserName\": \"qhnguyen17\",\r\n    \"employeePassword\": \"huy\",\r\n    \"employeeName\": \"Nhat Huy\",\r\n    \"isManager\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -504,14 +545,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/staff/113f5c2f-56b0-4c67-87c3-329f5871634d",
+							"raw": "localhost:5000/staff/311866d9-60e2-4edc-97da-47c82103c915",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"staff",
-								"113f5c2f-56b0-4c67-87c3-329f5871634d"
+								"311866d9-60e2-4edc-97da-47c82103c915"
 							]
 						}
 					},
@@ -573,7 +614,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"labName\": \"hehe\",\r\n    \"subLab\": \"hehe\",\r\n    \"certification\": \"hehe\"\r\n}",
+							"raw": "{\r\n    \"labName\": \"lab 2\",\r\n    \"subLab\": \"hehe\",\r\n    \"certification\": \"hehe\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -618,14 +659,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/lab/b8624979-8465-45fd-b894-70aa23aa3ab9",
+							"raw": "localhost:5000/lab/36883c23-1ea7-444d-9ce4-e5b36b27b716",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"lab",
-								"b8624979-8465-45fd-b894-70aa23aa3ab9"
+								"36883c23-1ea7-444d-9ce4-e5b36b27b716"
 							]
 						}
 					},
@@ -942,6 +983,125 @@
 							"port": "5000",
 							"path": [
 								"chemical-method"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "staff lab",
+			"item": [
+				{
+					"name": "add new staff to lab",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"staffId\": \"ec8d3101-38bb-4a2f-afde-ac6a6db0e87e\",\r\n    \"labId\": \"8bb4f71f-7f28-43d4-b122-6d19ec8ce91e\",\r\n    \"isLead\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/staff-lab",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"staff-lab"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove staff lab",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"staffId\": \"ec8d3101-38bb-4a2f-afde-ac6a6db0e87e\",\r\n    \"labId\": \"8bb4f71f-7f28-43d4-b122-6d19ec8ce91e\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/staff-lab",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"staff-lab"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update staff lab",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"methodId\": \"256be668-0013-4538-a664-a03d04634018\",\r\n    \"chemicalId\": \"77099256-0d25-486c-8c02-2cb4907506d0\",\r\n    \"note\": \"fdasfdsafdsafdsaf\",\r\n    \"quantity\": 2145\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/staff-lab",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"staff-lab"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"quochuyne1\",\n    \"password\" : \"Hellocacban1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"login"
 							]
 						}
 					},
