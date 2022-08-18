@@ -4,10 +4,11 @@ import { StaffService } from './staff.service';
 import { StaffController } from './staff.controller';
 import { DatabaseModule } from 'src/database/database.module';
 import { StaffLabModule } from 'src/staffLab/staffLab.module';
+import { StaffLabProvider } from 'src/staffLab/staffLab.provider';
 
 @Module({
   imports: [DatabaseModule, StaffLabModule],
-  providers: [...StaffProvider, StaffService],
+  providers: [...StaffProvider, ...StaffLabProvider, StaffService],
   controllers: [StaffController],
   exports: [StaffService],
 })

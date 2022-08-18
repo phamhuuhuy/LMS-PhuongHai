@@ -1,13 +1,21 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Staff } from 'src/staff/staff.entity';
+import { StaffLab } from 'src/staffLab/staffLab.entity';
 import { Repository } from 'typeorm';
-import { UpdateLab } from './dto';
+import { LabResponse, UpdateLab } from './dto';
 import { Lab } from './lab.entity';
 
 @Injectable()
 export class LabService {
   constructor(
+    @Inject('STAFF_REPOSITORY')
+    private staffRepository: Repository<Staff>,
+
     @Inject('LAB_REPOSITORY')
     private labRepository: Repository<Lab>,
+
+    @Inject('STAFF_LAB_REPOSITORY')
+    private staffLabRepository: Repository<StaffLab>,
   ) {}
 
   async getAll(): Promise<Lab[]> {
@@ -18,12 +26,36 @@ export class LabService {
     return this.labRepository.save(newLab);
   }
 
-  async getOne(uuid: string): Promise<Lab> {
-    const lab = await this.labRepository.findOneBy({ id: uuid });
+  async getOne(uuid: string): Promise<LabResponse> {
+    const lab = await this.labRepository.findOne({
+      where: {
+        id: uuid,
+      },
+      relations: {
+        staffLab: true,
+      },
+    });
     if (!lab) {
       throw new NotFoundException('Lab id is not exist');
     }
-    return lab;
+    const staffLab = await this.staffLabRepository.find({
+      where: {
+        lab: lab,
+      },
+      relations: {
+        staff: true,
+      },
+    });
+    const lead: Staff = staffLab.find((staffLab) => staffLab.isLead).staff;
+    const staffs: Staff[] = staffLab.map((value: StaffLab) => value.staff);
+    return {
+      id: lab.id,
+      labName: lab.labName,
+      subLab: lab.subLab,
+      certification: lab.certification,
+      lead: lead,
+      staffs,
+    };
   }
 
   async updateLab(uuid: string, updatedLab: UpdateLab): Promise<Lab> {

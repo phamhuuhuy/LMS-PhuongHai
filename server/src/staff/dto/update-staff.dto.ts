@@ -13,10 +13,6 @@ export class UpdateStaff {
   @IsOptional()
   employeeName: string;
 
-  @IsString()
-  @IsOptional()
-  employeeLab: string;
-
   @IsBoolean()
   @IsOptional()
   isManager: boolean;

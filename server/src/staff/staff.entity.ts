@@ -19,10 +19,6 @@ export class Staff {
   @IsString()
   employeeName: string;
 
-  @Column({ name: 'employee_lab' })
-  @IsString()
-  employeeLab: string;
-
   @Column({ name: 'is_manager' })
   @IsBoolean()
   isManager: boolean;
