@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "50aa1992-a4a9-45f8-8943-95ffa98364ad",
+		"_postman_id": "c131d933-a7cb-45d2-8c6e-6b0aed9bef7d",
 		"name": "LMS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1071,6 +1071,20 @@
 								"staff-lab"
 							]
 						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
 					},
 					"response": []
 				}
