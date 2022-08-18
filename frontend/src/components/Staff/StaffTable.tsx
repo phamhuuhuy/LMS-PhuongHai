@@ -47,12 +47,6 @@ const StaffTable: React.FC = () => {
       headerName: "Mật khẩu",
       width: 180,
     },
-
-    {
-      field: "employeeLab",
-      headerName: "Phòng Lab",
-      width: 160,
-    },
     {
       field: "isManager",
       headerName: "Chức danh",
