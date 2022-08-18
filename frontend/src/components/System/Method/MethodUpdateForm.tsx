@@ -20,12 +20,12 @@ import { Method } from "./Method.type";
 const MethodUpdateForm: React.FC = () => {
   const navigate = useNavigate();
   const [data, setData] = useState<Method>({
-    methodTargets: "hello",
-    methodName: "hello",
-    methodDetail: "hello",
-    methodScope: "hello",
-    methodTime: "hello",
-    methodFileUrl: "hello",
+    methodTargets: "",
+    methodName: "",
+    methodDetail: "",
+    methodScope: "",
+    methodTime: "",
+    methodFileUrl: "",
   });
   const [errorForm, setErrorForm] = useState<Method>({});
 
@@ -190,7 +190,7 @@ const MethodUpdateForm: React.FC = () => {
                   margin="normal"
                   name="methodFileUrl"
                   variant="outlined"
-                  label="Thời gian phân tích chuẩn"
+                  label="File Url"
                   fullWidth
                   value={data?.methodFileUrl}
                   onChange={handleOnChange}

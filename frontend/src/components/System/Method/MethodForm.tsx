@@ -190,7 +190,7 @@ const MethodForm: React.FC = () => {
                   margin="normal"
                   name="methodFileUrl"
                   variant="outlined"
-                  label="Thời gian phân tích chuẩn"
+                  label="File Url"
                   fullWidth
                   value={data?.methodFileUrl}
                   onChange={handleOnChange}
