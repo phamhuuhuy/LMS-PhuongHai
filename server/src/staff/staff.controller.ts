@@ -18,8 +18,8 @@ import { Roles } from 'src/decorator/role.decorator';
 import { UpdateStaff } from './dto';
 import { Staff } from './staff.entity';
 import { StaffService } from './staff.service';
-// @UseGuards(RolesGuard)
-// @UseGuards(JwtAuthGuard)
+@UseGuards(RolesGuard)
+@UseGuards(JwtAuthGuard)
 @Controller('staff')
 export class StaffController {
   constructor(private readonly staffService: StaffService) {}
@@ -40,7 +40,7 @@ export class StaffController {
   }
 
   @Post('')
-  // @Roles(Role.ADMIN, Role.LEAD)
+  @Roles(Role.ADMIN, Role.LEAD)
   createStaff(@Body() staff: Staff) {
     return this.staffService.createStaff(staff);
   }
