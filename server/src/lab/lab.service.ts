@@ -33,6 +33,7 @@ export class LabService {
       },
       relations: {
         staffLab: true,
+        samples: true,
       },
     });
     if (!lab) {
@@ -54,6 +55,7 @@ export class LabService {
       subLab: lab.subLab,
       certification: lab.certification,
       lead: lead,
+      samples: lab.samples,
       staffs,
     };
   }
