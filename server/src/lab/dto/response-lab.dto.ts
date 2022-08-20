@@ -1,3 +1,4 @@
+import { Sample } from 'src/sample/sample.entity';
 import { Staff } from 'src/staff/staff.entity';
 
 export class LabResponse {
@@ -12,4 +13,6 @@ export class LabResponse {
   lead: Staff;
 
   staffs: Staff[];
+
+  samples: Sample[];
 }

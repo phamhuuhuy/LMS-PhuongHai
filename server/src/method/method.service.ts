@@ -91,7 +91,7 @@ export class MethodService {
 
   async deleteMethod(uuid: string) {
     const method = await this.getOne(uuid);
-    await this.methodRepository.delete(method);
+    await this.methodRepository.delete(method.id);
     return { msg: 'Sucessfully deleted method' };
   }
 }

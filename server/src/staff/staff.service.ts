@@ -1,4 +1,10 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Lab } from 'src/lab/lab.entity';
 import { StaffLab } from 'src/staffLab/staffLab.entity';
 import EncryptValue from 'src/utils/encrypt.util';
@@ -65,8 +71,23 @@ export class StaffService {
   }
 
   async createStaff(newStaff: Staff): Promise<Staff> {
+    const staff = await this.staffRepository.findOne({
+      where: {
+        employeeUserName: newStaff.employeeUserName,
+      },
+    });
     newStaff.employeePassword = await EncryptValue(newStaff.employeePassword);
-    return this.staffRepository.save(newStaff);
+    if (!staff) {
+      return this.staffRepository.save(newStaff);
+    } else {
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          error: 'User name must be unique',
+        },
+        HttpStatus.FORBIDDEN,
+      );
+    }
   }
 
   async getOne(uuid: string): Promise<StaffResponse> {
@@ -124,7 +145,7 @@ export class StaffService {
 
   async deleteStaff(uuid: string) {
     const staff = await this.getOne(uuid);
-    await this.staffRepository.delete(staff);
+    await this.staffRepository.delete(staff.id);
     return { msg: 'Sucessfully deleted staff' };
   }
 }
