@@ -47,8 +47,10 @@ export class LabService {
         staff: true,
       },
     });
-    const lead: Staff = staffLab.find((staffLab) => staffLab.isLead).staff;
-    const staffs: Staff[] = staffLab.map((value: StaffLab) => value.staff);
+    const lead: Staff = staffLab.find((staffLab) => staffLab.isLead)?.staff;
+    const staffs: Staff[] = staffLab
+      .filter((value) => !value.isLead)
+      .map((value: StaffLab) => value.staff);
     return {
       id: lab.id,
       labName: lab.labName,
