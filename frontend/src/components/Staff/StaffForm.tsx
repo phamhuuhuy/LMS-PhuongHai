@@ -16,6 +16,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { Staff } from "./Staff.type";
+import axios from "axios";
+import { setHeader } from "../../common/utils/common";
 
 const StaffForm: React.FC = () => {
   const navigate = useNavigate();
@@ -77,15 +79,10 @@ const StaffForm: React.FC = () => {
   const handleOnSubmit = async () => {
     if (handleValidation()) {
       try {
-        const response = await fetch(
+        const response = await axios.post(
           process.env.REACT_APP_API_BASE + "/staff",
-          {
-            method: "POST",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify(employeeData),
-          }
+          employeeData,
+          setHeader()
         );
         if (response.status === 201) {
           navigate("/staff");
