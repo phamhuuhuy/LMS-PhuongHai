@@ -12,6 +12,7 @@ import { ChemicalMethodModule } from './chemicalMethod/chemicalMethod.module';
 import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './auth/Role/roles.guard';
+import { SampleModule } from './sample/sample.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { RolesGuard } from './auth/Role/roles.guard';
     InstrumentMethodModule,
     ChemicalMethodModule,
     AuthModule,
+    SampleModule,
   ],
   controllers: [AppController],
   providers: [AppService],

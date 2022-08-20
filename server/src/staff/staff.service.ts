@@ -1,4 +1,10 @@
-import { HttpException, HttpStatus, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Lab } from 'src/lab/lab.entity';
 import { StaffLab } from 'src/staffLab/staffLab.entity';
 import EncryptValue from 'src/utils/encrypt.util';
@@ -65,7 +71,7 @@ export class StaffService {
   }
 
   async createStaff(newStaff: Staff): Promise<Staff> {
-    const staff = this.staffRepository.findOne({
+    const staff = await this.staffRepository.findOne({
       where: {
         employeeUserName: newStaff.employeeUserName,
       },
@@ -139,7 +145,7 @@ export class StaffService {
 
   async deleteStaff(uuid: string) {
     const staff = await this.getOne(uuid);
-    await this.staffRepository.delete(staff);
+    await this.staffRepository.delete(staff.id);
     return { msg: 'Sucessfully deleted staff' };
   }
 }

@@ -1,5 +1,6 @@
 import { IsEmail, IsOptional, IsString } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Sample } from 'src/sample/sample.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Customer {
@@ -30,4 +31,7 @@ export class Customer {
   @IsString()
   @IsOptional()
   customerNote: string;
+
+  @OneToMany(() => Sample, (sample: Sample) => sample.customer)
+  sample: Sample[];
 }
