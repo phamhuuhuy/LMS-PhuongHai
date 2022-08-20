@@ -1,4 +1,5 @@
-import { IsDateString, IsOptional, IsString } from 'class-validator';
+import { IsDateString, IsEnum, IsOptional, IsString } from 'class-validator';
+import { Status } from './status.enum';
 
 export class UpdateSample {
   @IsDateString()
@@ -6,11 +7,17 @@ export class UpdateSample {
   sampleReceivedDate?: string;
   @IsDateString()
   @IsOptional()
-  sampleReturnResultDate?: string;
+  sampleReturnedResultDate?: string;
   @IsString()
   @IsOptional()
   sampleNote?: string;
-  @IsString()
+  @IsEnum(Status)
   @IsOptional()
   sampleStatus?: string;
+  @IsString()
+  @IsOptional()
+  labId: String;
+  @IsString()
+  @IsOptional()
+  customerId: String;
 }
