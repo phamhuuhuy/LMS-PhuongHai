@@ -71,7 +71,7 @@ export class LabService {
 
   async deleteLab(uuid: string) {
     const lab = await this.getOne(uuid);
-    await this.labRepository.delete(lab);
+    await this.labRepository.delete(lab.id);
     return { msg: 'Sucessfully deleted lab' };
   }
 }
