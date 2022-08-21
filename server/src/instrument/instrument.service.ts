@@ -1,4 +1,5 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { InstrumentMethod } from 'src/instrumentMethod/instrumentMethod.entity';
 import { Between, LessThan, MoreThan, Repository } from 'typeorm';
 import { UpdateInstrument } from './dto';
 import { Instrument } from './instrument.entity';
@@ -8,10 +9,51 @@ export class InstrumentService {
   constructor(
     @Inject('INSTRUMENT_REPOSITORY')
     private instrumentRepository: Repository<Instrument>,
+
+    @Inject('INSTRUMENT_METHOD_REPOSITORY')
+    private instrumentMethodRepository: Repository<InstrumentMethod>,
   ) {}
 
   async getAll(): Promise<Instrument[]> {
-    return await this.instrumentRepository.find();
+    return await this.instrumentRepository.find({
+      relations: {
+        instrumentMethod: true,
+      },
+    });
+  }
+
+  async getAllNotInMethod(uuid: String): Promise<Instrument[]> {
+    const instruments = await this.instrumentRepository.find({
+      relations: {
+        instrumentMethod: true,
+      },
+    });
+    const result = [];
+    for (const instrument of instruments) {
+      if (instrument.instrumentMethod.length == 0) {
+        result.push(instrument);
+        continue;
+      }
+      const methodId = instrument.instrumentMethod.find((instrumentMethod) => {
+        return instrumentMethod.method_id == uuid;
+      });
+      if (methodId == undefined) {
+        result.push(instrument);
+        continue;
+      }
+
+      const instrumentMethod = await this.instrumentMethodRepository.findOne({
+        where: {
+          method_id: methodId.method_id,
+        },
+      });
+      if (instrument.id == instrumentMethod.instrument_id) {
+        continue;
+      }
+      result.push(instrument);
+    }
+
+    return result;
   }
 
   async createInstrument(newInstrument: Instrument): Promise<Instrument> {
@@ -19,7 +61,14 @@ export class InstrumentService {
   }
 
   async getOne(uuid: string): Promise<Instrument> {
-    const instrument = await this.instrumentRepository.findOneBy({ id: uuid });
+    const instrument = await this.instrumentRepository.findOne({
+      where: {
+        id: uuid,
+      },
+      relations: {
+        instrumentMethod: true,
+      },
+    });
     if (!instrument) {
       throw new NotFoundException('Instrument id is not exist');
     }

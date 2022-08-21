@@ -1,5 +1,6 @@
 import { IsBoolean, IsDateString, IsOptional, IsString } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { InstrumentMethod } from 'src/instrumentMethod/instrumentMethod.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Instrument {
@@ -46,4 +47,10 @@ export class Instrument {
   @IsBoolean()
   @IsOptional()
   instrumentServer: boolean;
+
+  @OneToMany(
+    () => InstrumentMethod,
+    (instrumentMethod: InstrumentMethod) => instrumentMethod.instrument,
+  )
+  instrumentMethod: InstrumentMethod[];
 }

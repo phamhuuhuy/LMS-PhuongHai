@@ -4,8 +4,10 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import DialogAlert from "../../../common/DialogAlert";
 
-const MethodTableInstrument: React.FC = () => {
-    const [data, setData] = useState<any[]>([]);
+const MethodTableInstrument: React.FC<any> = ({
+  instruments,
+  methodId,
+}: any) => {
   const [id, setId] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
@@ -15,32 +17,57 @@ const MethodTableInstrument: React.FC = () => {
   };
 
   const columns: GridColDef[] = [
-    { field: "id", headerName: "STT", width: 100 },
+    { field: "id", headerName: "ID", width: 60 },
     {
       field: "instrumentName",
-      headerName: "Danh mục",
-      width: 210,
+      headerName: "Tên TB",
+      width: 150,
     },
     {
       field: "instrumentModel",
-      headerName: "Hãng/Model",
-      width: 210,
-    },
-    {
-      field: "instrumentSeriNo",
-      headerName: "Số Seri",
-      width: 190,
-    },
-    {
-      field: "quantity",
-      headerName: "Số lượng",
-      width: 180,
+      headerName: "Model",
+      width: 80,
     },
 
     {
-      field: "note",
-      headerName: "Ghi chú",
-      width: 180,
+      field: "instrumentSeriNo",
+      headerName: "Seri no.",
+      width: 80,
+    },
+    {
+      field: "instrumentBuyDate",
+      headerName: "Ngày mua",
+      width: 120,
+    },
+    {
+      field: "instrumentCalibrationDate",
+      headerName: "Ngày hiệu chuẩn",
+      width: 150,
+    },
+    {
+      field: "instrumentStatus",
+      headerName: "Tình trạng TB",
+      width: 100,
+    },
+    {
+      field: "instrumentNextCalibrationDate",
+      headerName: "Ngày HC kế tiếp",
+      width: 150,
+    },
+    {
+      field: "instrumentProvider",
+      headerName: "Nhà cung cấp",
+      width: 120,
+    },
+    {
+      field: "instrumentSupervisor",
+      headerName: "NV quản lí trực tiếp",
+      width: 150,
+    },
+    {
+      field: "instrumentServer",
+      headerName: "Server",
+      width: 100,
     },
   ];
 
@@ -74,7 +101,7 @@ const MethodTableInstrument: React.FC = () => {
 
       <div style={{ height: "79%", width: "100%" }}>
         <DataGrid
-          rows={data}
+          rows={instruments}
           columns={columns}
           pageSize={7}
           disableSelectionOnClick
@@ -84,4 +111,4 @@ const MethodTableInstrument: React.FC = () => {
   );
 };
 
-export default MethodTableInstrument
+export default MethodTableInstrument;

@@ -102,7 +102,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"instrumentName\": \"nhiet ke\",\r\n    \"instrumentModel\": \"E98123\",\r\n    \"instrumentSeriNo\": \"9187237\",\r\n    \"instrumentBuyDate\": \"2000-12-12\",\r\n    \"instrumentCalibrationDate\": \"2000-12-13\",\r\n    \"instrumentNextCalibrationDate\": \"2000-12-20\",\r\n    \"instrumentStatus\": \"dfasfsa\",\r\n    \"instrumentProvider\": \"fdsafsaf\",\r\n    \"instrumentSupervisor\": \"Tuong\",\r\n    \"instrumentServer\": true\r\n}",
+							"raw": "{\r\n    \"instrumentName\": \"hehehee\",\r\n    \"instrumentModel\": \"E98123\",\r\n    \"instrumentSeriNo\": \"9187237\",\r\n    \"instrumentBuyDate\": \"2000-12-12\",\r\n    \"instrumentCalibrationDate\": \"2000-12-13\",\r\n    \"instrumentNextCalibrationDate\": \"2000-12-20\",\r\n    \"instrumentStatus\": \"dfasfsa\",\r\n    \"instrumentProvider\": \"fdsafsaf\",\r\n    \"instrumentSupervisor\": \"Tuong\",\r\n    \"instrumentServer\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -128,14 +128,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/instrument/d365dc2f-1bb2-4dff-be67-285c08f07f0e",
+							"raw": "localhost:5000/instrument/146952f1-8e7b-4dbe-944b-d3ed20c33055",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"instrument",
-								"d365dc2f-1bb2-4dff-be67-285c08f07f0e"
+								"146952f1-8e7b-4dbe-944b-d3ed20c33055"
 							]
 						}
 					},
@@ -225,6 +225,26 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "get all instrument not in method",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/instrument/not-in-method/256be668-0013-4538-a664-a03d04634018",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"instrument",
+								"not-in-method",
+								"256be668-0013-4538-a664-a03d04634018"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -250,13 +270,33 @@
 					"response": []
 				},
 				{
+					"name": "get all chemical not in method Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/chemical/not-in-method/256be668-0013-4538-a664-a03d04634018",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"chemical",
+								"not-in-method",
+								"256be668-0013-4538-a664-a03d04634018"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create new chemical",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"chemicalName\": \"Chemical A\",\r\n  \"chemicalModel\": \"hehe\",\r\n  \"chemicalUnit\": \"hehe\",\r\n  \"chemicalImportDate\": \"2000-12-03\",\r\n  \"chemicalQuantity\": 12.41232,\r\n  \"chemicalDueDate\": \"2022-05-04\",\r\n  \"chemicalExportDate\": \"2022-10-20\",\r\n  \"chemicalReceiver\": \"hehee\"\r\n}",
+							"raw": "{\r\n  \"chemicalName\": \"Chemical B\",\r\n  \"chemicalModel\": \"hehe\",\r\n  \"chemicalUnit\": \"hehe\",\r\n  \"chemicalImportDate\": \"2000-12-03\",\r\n  \"chemicalQuantity\": 12.41232,\r\n  \"chemicalDueDate\": \"2022-05-04\",\r\n  \"chemicalExportDate\": \"2022-10-20\",\r\n  \"chemicalReceiver\": \"hehee\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -533,7 +573,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"labName\": \"hehe\"\r\n}",
+							"raw": "{\r\n    \"labName\": \"hehe\",\r\n    \"subLab\": \"hehe\",\r\n    \"certification\": \"hehe\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -598,7 +638,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"labName\": \"lab 1\"\r\n}",
+							"raw": "{\r\n    \"labName\": \"lab 1\",\r\n    \"subLab\": \"hihi\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -606,14 +646,302 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:5000/lab/b8624979-8465-45fd-b894-70aa23aa3ab9",
+							"raw": "localhost:5000/lab/1dff05fb-e60e-435f-87fb-f31b095abe9e",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"lab",
-								"b8624979-8465-45fd-b894-70aa23aa3ab9"
+								"1dff05fb-e60e-435f-87fb-f31b095abe9e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Method",
+			"item": [
+				{
+					"name": "get all method",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/method",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"method"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create new method",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"methodTargets\": \"hehe\",\r\n    \"methodName\": \"hehe\",\r\n    \"methodDetail\": \"hehe\",\r\n    \"methodScope\": \"hehe\",\r\n    \"methodFileUrl\": \"hehe\",\r\n    \"methodTime\": \"2000-12-13\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/method",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"method"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update method",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"methodTargets\": \"hehe\",\r\n    \"methodName\": \"321421\",\r\n    \"methodDetail\": \"hehe\",\r\n    \"methodScope\": \"213421343\",\r\n    \"methodFileUrl\": \"h2143214321ehe\",\r\n    \"methodTime\": \"2000-12-13\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/method/f2a2ed01-5869-4786-9bd3-63f038cb99d0",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"method",
+								"f2a2ed01-5869-4786-9bd3-63f038cb99d0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete method",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/method/f2a2ed01-5869-4786-9bd3-63f038cb99d0",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"method",
+								"f2a2ed01-5869-4786-9bd3-63f038cb99d0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one method",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/method/256be668-0013-4538-a664-a03d04634018",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"method",
+								"256be668-0013-4538-a664-a03d04634018"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "method instrument",
+			"item": [
+				{
+					"name": "add new instrument to method",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"methodId\": \"256be668-0013-4538-a664-a03d04634018\",\r\n    \"instrumentId\": \"6babe449-fab8-44e7-bd92-be3672f37551\",\r\n    \"note\": \"hehee\",\r\n    \"quantity\": 123\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/instrument-method",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"instrument-method"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove instrument",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"methodId\": \"256be668-0013-4538-a664-a03d04634018\",\r\n    \"instrumentId\": \"6babe449-fab8-44e7-bd92-be3672f37551\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/instrument-method",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"instrument-method"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update method instrument",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"methodId\": \"f2a2ed01-5869-4786-9bd3-63f038cb99d0\",\r\n    \"instrumentId\": \"146952f1-8e7b-4dbe-944b-d3ed20c33055\",\r\n    \"note\": \"fdasfdsafdsafdsaf\",\r\n    \"quantity\": 2145\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/instrument-method",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"instrument-method"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "method chemical",
+			"item": [
+				{
+					"name": "add new chemical to method",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"methodId\": \"256be668-0013-4538-a664-a03d04634018\",\r\n    \"chemicalId\": \"77099256-0d25-486c-8c02-2cb4907506d0\",\r\n    \"note\": \"hehee\",\r\n    \"quantity\": 123\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/chemical-method",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"chemical-method"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove chemical",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"methodId\": \"256be668-0013-4538-a664-a03d04634018\",\r\n    \"chemicalId\": \"77099256-0d25-486c-8c02-2cb4907506d0\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/chemical-method",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"chemical-method"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update method chemical",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"methodId\": \"256be668-0013-4538-a664-a03d04634018\",\r\n    \"chemicalId\": \"77099256-0d25-486c-8c02-2cb4907506d0\",\r\n    \"note\": \"fdasfdsafdsafdsaf\",\r\n    \"quantity\": 2145\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/chemical-method",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"chemical-method"
 							]
 						}
 					},

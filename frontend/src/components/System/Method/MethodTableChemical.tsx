@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Typography,
   Button,
@@ -11,21 +11,16 @@ import {
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import DialogAlert from "../../../common/DialogAlert";
+import axios from "axios";
+import ModalPopup from "../../../common/ModalPopup";
 
-const MethodTableChemical: React.FC = () => {
-  const [data, setData] = useState<any[]>([
-    {
-      id: "id",
-      chemicalName: "chemicalName",
-      chemicalModel: "chemicalModel",
-      chemicalQuantity: "chemicalQuantity",
-      chemicalUnit: "chemicalUnit",
-      note: "this is note",
-    },
-  ]);
-  
+const MethodTableChemical: React.FC<any> = ({ chemicals, methodId }: any) => {
+  const [open, setOpen] = useState(false);
+  const handleModalOpen = () => setOpen(true);
+  //
   const [id, setId] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
+  const [chemicalsNotInMethod, setChemicalsNotInMethod] = useState<any>(null);
   const navigate = useNavigate();
 
   const handleOnClick = () => {
@@ -51,37 +46,82 @@ const MethodTableChemical: React.FC = () => {
     {
       field: "chemicalName",
       headerName: "Danh mục",
-      width: 210,
+      width: 150,
     },
     {
       field: "chemicalModel",
       headerName: "Hãng/Model",
-      width: 210,
-    },
-    {
-      field: "chemicalQuantity",
-      headerName: "Số lượng",
-      width: 190,
+      width: 80,
     },
     {
       field: "chemicalUnit",
       headerName: "Đơn vị",
-      width: 180,
+      width: 100,
+    },
+    {
+      field: "chemicalImportDate",
+      headerName: "Ngày nhập",
+      width: 135,
+    },
+    {
+      field: "chemicalQuantity",
+      headerName: "Số lượng",
+      width: 135,
+    },
+    {
+      field: "chemicalDueDate",
+      headerName: "Hạn sử dụng",
+      width: 135,
+    },
+    {
+      field: "chemicalExportDate",
+      headerName: "Ngày xuất kho",
+      width: 135,
     },
 
     {
-      field: "note",
-      headerName: "Ghi chú",
-      width: 180,
+      field: "chemicalReceiver",
+      headerName: "chemicalReceiver",
+      width: 135,
     },
   ];
 
   const handleOnChange = (event: any) => {
-    console.log("first");
+    // const endPoint = process.env.REACT_APP_API_BASE + "/chemical-method";
+    handleModalOpen();
+    // const response = await axios.post(endPoint);
   };
+
+  const fetchChemicalsNotInMethod = async () => {
+    const endPoint =
+      process.env.REACT_APP_API_BASE + `/chemical/not-in-method/${methodId}`;
+    try {
+      const { data } = await axios.get(endPoint);
+      const shortenedData = data.map((chemical: any) => {
+        delete chemical["chemicalMethod"];
+        delete chemical["chemicalDueDate"];
+        delete chemical["chemicalExportDate"];
+        delete chemical["chemicalImportDate"];
+        delete chemical["chemicalReceiver"];
+        delete chemical["chemicalQuantity"];
+        delete chemical["chemicalUnit"];
+        delete chemical["chemicalModel"];
+        return chemical;
+      });
+      setChemicalsNotInMethod([...shortenedData]);
+    } catch (error: any) {
+      console.log("Meeting error:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchChemicalsNotInMethod();
+  }, []);
 
   return (
     <div style={{ height: "100%", width: "100%" }}>
+      <ModalPopup isOpen={open} handleModalClose={() => setOpen(false)} />
+
       <Typography
         component="h2"
         variant="h6"
@@ -99,20 +139,23 @@ const MethodTableChemical: React.FC = () => {
           alignItems: "center",
         }}
       >
-        <FormControl style={{minWidth: '250px'}}>
-          <InputLabel id="demo-simple-select-label">Chức Danh</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            name="isManager"
-            id="demo-simple-select"
-            value={"hello"}
-            label="Chức Danh"
-            onChange={handleOnChange}
-          >
-            <MenuItem value={true as any}>Quản lí</MenuItem>
-            <MenuItem value={false as any}>Nhân Viên</MenuItem>
-          </Select>
-        </FormControl>
+        {chemicalsNotInMethod && (
+          <FormControl style={{ minWidth: "300px" }}>
+            <Select
+              value={""}
+              onChange={(e) => handleOnChange(e)}
+              displayEmpty
+              inputProps={{ "aria-label": "Without label" }}
+            >
+              <MenuItem value="">
+                <em>Chọn thêm vật tư hoá chất</em>
+              </MenuItem>
+              {chemicalsNotInMethod.map((element: any) => (
+                <MenuItem value={element.id}>{element.chemicalName}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
       </div>
       <DialogAlert
         id={id}
@@ -123,7 +166,7 @@ const MethodTableChemical: React.FC = () => {
 
       <div style={{ height: "79%", width: "100%" }}>
         <DataGrid
-          rows={data}
+          rows={chemicals}
           columns={columns}
           pageSize={7}
           disableSelectionOnClick

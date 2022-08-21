@@ -1,22 +1,28 @@
-import { Delete, Edit, Preview } from "@mui/icons-material";
-import { Button, Tooltip, Typography } from "@mui/material";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Typography, Button, Tooltip } from "@mui/material";
+import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
+import { Edit, Delete, Preview } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import DialogAlert from "../../../common/DialogAlert";
+import axios from "axios";
 
-const LabTable: React.FC = () => {
+
+const MethodTable: React.FC = () => {
   const [data, setData] = useState<any[]>([]);
   const [id, setId] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
 
   const handleOnClick = () => {
-    navigate("/lab/create");
+    navigate("/method/create");
   };
 
   const handleEdit = (id: string) => {
-    navigate(`/lab/${id}`);
+    navigate(`/method/${id}`);
+  };
+
+  const handleView = (id: string) => {
+    navigate(`/method/detail/${id}`);
   };
 
   const handleDelete = (id: string) => {
@@ -32,24 +38,34 @@ const LabTable: React.FC = () => {
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 100 },
     {
-      field: "labName",
-      headerName: "Tên phòng lab",
-      width: 180,
+      field: "methodTargets",
+      headerName: "Chỉ tiêu/ sản phẩm, vật liệu được thử",
+      width: 150,
     },
     {
-      field: "employeeName",
-      headerName: "Trưởng phòng",
-      width: 190,
+      field: "methodName",
+      headerName: "Tên phép thử cụ thể",
+      width: 150,
     },
     {
-      field: "subLab",
-      headerName: "Bộ phận con",
-      width: 190,
+      field: "methodDetail",
+      headerName: "Phương pháp thử",
+      width: 150,
     },
     {
-      field: "certification",
-      headerName: "Chứng chỉ",
-      width: 180,
+      field: "methodScope",
+      headerName: "Phạm vi đo giới hạn",
+      width: 150,
+    },
+    {
+      field: "methodTime",
+      headerName: "Thời gian phân tích chuẩn",
+      width: 150,
+    },
+    {
+      field: "methodFileUrl",
+      headerName: "File đính kèm",
+      width: 150,
     },
     {
       field: "action",
@@ -59,6 +75,14 @@ const LabTable: React.FC = () => {
         return (
           <>
             <div style={{ marginRight: "20px" }}>
+              <Tooltip title="Xem">
+                <Preview
+                  style={{ color: "#1976d2" }}
+                  onClick={() => handleView(params.row.id)}
+                />
+              </Tooltip>
+            </div>
+            <div style={{ marginRight: "20px" }}>
               <Tooltip title="Sửa">
                 <Edit
                   style={{ color: "#1976d2" }}
@@ -66,17 +90,12 @@ const LabTable: React.FC = () => {
                 />
               </Tooltip>
             </div>
-            <div style={{ marginRight: "20px" }}>
+            <div>
               <Tooltip title="Xoá">
                 <Delete
                   style={{ color: "red" }}
                   onClick={() => handleDelete(params.row.id)}
                 />
-              </Tooltip>
-            </div>
-            <div>
-              <Tooltip title="Phân Công">
-                <Preview style={{ color: "red" }} onClick={() => {}} />
               </Tooltip>
             </div>
           </>
@@ -85,15 +104,18 @@ const LabTable: React.FC = () => {
     },
   ];
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const getData = async () => {
+    const dataAPI = await axios.get(
+      process.env.REACT_APP_API_BASE + "/method"
+    );
 
-  const fetchData = async () => {
-    const response = await fetch(process.env.REACT_APP_API_BASE + "/lab");
-    const value = await response.json();
-    setData(value);
+    const { data } = dataAPI;
+    setData(data);
   };
+
+  useEffect(() => {
+    getData();
+  });
 
   return (
     <div style={{ height: "100%", width: "100%" }}>
@@ -103,7 +125,7 @@ const LabTable: React.FC = () => {
         color="primary"
         style={{ marginBottom: "20px" }}
       >
-        Thiết lập danh mục phòng Lab
+        Thiết lập phương pháp phân tích
       </Typography>
       <div
         style={{
@@ -119,15 +141,14 @@ const LabTable: React.FC = () => {
           variant="contained"
           onClick={handleOnClick}
         >
-          + Thêm danh mục phòng Lab
+          + Thêm phương pháp
         </Button>
       </div>
       <DialogAlert
         id={id}
-        item="lab"
         openDialog={openDialog}
         handleClose={handleClose}
-        msg={"Bạn có chắc muốn xoá danh mục phòng Lab này ?"}
+        msg={"Bạn có chắc muốn xoá phương pháp này ?"}
       />
 
       <div style={{ height: "79%", width: "100%" }}>
@@ -142,4 +163,4 @@ const LabTable: React.FC = () => {
   );
 };
 
-export default LabTable;
+export default MethodTable;
