@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import {
   Typography,
-  Button,
-  Tooltip,
   FormControl,
-  InputLabel,
   Select,
   MenuItem,
+  Tooltip,
 } from "@mui/material";
+import { Edit, Delete } from "@mui/icons-material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import DialogAlert from "../../../common/DialogAlert";
@@ -15,17 +14,20 @@ import axios from "axios";
 import ModalPopup from "../../../common/ModalPopup";
 
 const MethodTableChemical: React.FC<any> = ({ chemicals, methodId }: any) => {
+  const [isAdded, setIsAdded] = useState(false);
   const [open, setOpen] = useState(false);
   const handleModalOpen = () => setOpen(true);
   //
   const [id, setId] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const [chemicalsNotInMethod, setChemicalsNotInMethod] = useState<any>(null);
-  const navigate = useNavigate();
+  const [chosenChemical, setChosenChemical] = useState<any>(null);
 
-  const handleOnClick = () => {
-    navigate("/method/create");
+  const handleClose = (value: boolean) => {
+    setOpenDialog(value);
   };
+
+  const navigate = useNavigate();
 
   const handleEdit = (id: string) => {
     navigate(`/method/update/${id}`);
@@ -35,10 +37,6 @@ const MethodTableChemical: React.FC<any> = ({ chemicals, methodId }: any) => {
     setOpenDialog(true);
     console.log("Delete " + id);
     setId(id);
-  };
-
-  const handleClose = (value: boolean) => {
-    setOpenDialog(value);
   };
 
   const columns: GridColDef[] = [
@@ -84,12 +82,39 @@ const MethodTableChemical: React.FC<any> = ({ chemicals, methodId }: any) => {
       headerName: "chemicalReceiver",
       width: 135,
     },
+    {
+      field: "action",
+      headerName: "Hành Động",
+      width: 100,
+      renderCell: (params) => {
+        return (
+          <>
+            <div style={{ marginRight: "20px" }}>
+              <Tooltip title="Sửa">
+                <Edit
+                  style={{ color: "#1976d2" }}
+                  onClick={() => handleEdit(params.row.id)}
+                />
+              </Tooltip>
+            </div>
+            <div>
+              <Tooltip title="Xoá">
+                <Delete
+                  style={{ color: "red" }}
+                  onClick={() => handleDelete(params.row.id)}
+                />
+              </Tooltip>
+            </div>
+          </>
+        );
+      },
+    },
   ];
 
   const handleOnChange = (event: any) => {
-    // const endPoint = process.env.REACT_APP_API_BASE + "/chemical-method";
+    const selectedChemical = event.target.value;
+    setChosenChemical(selectedChemical);
     handleModalOpen();
-    // const response = await axios.post(endPoint);
   };
 
   const fetchChemicalsNotInMethod = async () => {
@@ -116,12 +141,26 @@ const MethodTableChemical: React.FC<any> = ({ chemicals, methodId }: any) => {
 
   useEffect(() => {
     fetchChemicalsNotInMethod();
-  }, []);
+  }, [open]);
 
   return (
     <div style={{ height: "100%", width: "100%" }}>
-      <ModalPopup isOpen={open} handleModalClose={() => setOpen(false)} />
+      <DialogAlert
+        id={id}
+        openDialog={openDialog}
+        handleClose={handleClose}
+        msg={"Bạn có chắc muốn xoá vật tư này khỏi phương pháp ?"}
+        isInMethod={true}
+        methodId={methodId}
+        item={"chemical"}
+      />
 
+      <ModalPopup
+        isOpen={open}
+        handleModalClose={() => setOpen(false)}
+        chosenChemical={chosenChemical}
+        chosenMethod={methodId}
+      />
       <Typography
         component="h2"
         variant="h6"
@@ -150,28 +189,27 @@ const MethodTableChemical: React.FC<any> = ({ chemicals, methodId }: any) => {
               <MenuItem value="">
                 <em>Chọn thêm vật tư hoá chất</em>
               </MenuItem>
-              {chemicalsNotInMethod.map((element: any) => (
-                <MenuItem value={element.id}>{element.chemicalName}</MenuItem>
+              {chemicalsNotInMethod?.map((element: any) => (
+                <MenuItem
+                  value={{ id: element.id, name: element.chemicalName } as any}
+                >
+                  {element.chemicalName}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
         )}
       </div>
-      <DialogAlert
-        id={id}
-        openDialog={openDialog}
-        handleClose={handleClose}
-        msg={"Bạn có chắc muốn xoá danh mục phòng Lab này ?"}
-      />
-
-      <div style={{ height: "79%", width: "100%" }}>
-        <DataGrid
-          rows={chemicals}
-          columns={columns}
-          pageSize={7}
-          disableSelectionOnClick
-        />
-      </div>
+      {chemicals && (
+        <div style={{ height: "79%", width: "100%" }}>
+          <DataGrid
+            rows={chemicals}
+            columns={columns}
+            pageSize={7}
+            disableSelectionOnClick
+          />
+        </div>
+      )}
     </div>
   );
 };

@@ -233,7 +233,7 @@ const EquipmentForm: React.FC = () => {
                           instrumentBuyDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
 
                     {errorForm?.instrumentBuyDate && (
@@ -253,7 +253,7 @@ const EquipmentForm: React.FC = () => {
                           instrumentCalibrationDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
                   </div>
 
@@ -273,7 +273,7 @@ const EquipmentForm: React.FC = () => {
                           instrumentNextCalibrationDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
                   </div>
 

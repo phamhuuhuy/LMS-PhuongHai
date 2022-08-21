@@ -236,7 +236,7 @@ const EquipmentUpdateForm = () => {
                           instrumentBuyDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
 
                     {errorForm?.instrumentBuyDate && (
@@ -256,7 +256,7 @@ const EquipmentUpdateForm = () => {
                           instrumentCalibrationDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
                   </div>
 
@@ -276,7 +276,7 @@ const EquipmentUpdateForm = () => {
                           instrumentNextCalibrationDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
                   </div>
 
