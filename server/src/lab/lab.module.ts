@@ -16,5 +16,6 @@ import { StaffProvider } from 'src/staff/staff.provider';
     LabService,
   ],
   controllers: [LabController],
+  exports: [LabService],
 })
 export class LabModule {}
