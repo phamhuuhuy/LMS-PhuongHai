@@ -24,6 +24,7 @@ export class ChemicalService {
         chemicalMethod: true,
       },
     });
+
     const result = [];
     for (const chemical of chemicals) {
       if (chemical.chemicalMethod.length == 0) {
@@ -40,7 +41,7 @@ export class ChemicalService {
 
       const chemicalMethod = await this.chemicalMethodRepository.findOne({
         where: {
-          method_id: methodId.method_id,
+          chemical_id: chemical.id,
         },
       });
       if (chemical.id == chemicalMethod.chemical_id) {

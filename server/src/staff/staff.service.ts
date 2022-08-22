@@ -51,7 +51,7 @@ export class StaffService {
 
       const staffLab = await this.staffLabRepository.findOne({
         where: {
-          lab_id: labId.lab_id,
+          staff_id: staff.id,
         },
       });
       if (staff.id == staffLab.staff_id) {

@@ -44,7 +44,7 @@ export class InstrumentService {
 
       const instrumentMethod = await this.instrumentMethodRepository.findOne({
         where: {
-          method_id: methodId.method_id,
+          instrument_id: instrument.id,
         },
       });
       if (instrument.id == instrumentMethod.instrument_id) {
