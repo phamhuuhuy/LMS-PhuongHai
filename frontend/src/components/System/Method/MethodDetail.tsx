@@ -65,7 +65,6 @@ const MethodDetail: React.FC = () => {
     <NotificationContext.Provider value={{ isDisplayNoti, setIsDisplayNoti }}>
       <>
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          {isDisplayNoti && <div>Hello World</div>}
           <Grid container spacing={3} style={{ height: "100%" }}>
             <Grid item xs={12}>
               <Paper

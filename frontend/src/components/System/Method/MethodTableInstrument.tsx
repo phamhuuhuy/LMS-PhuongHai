@@ -154,9 +154,8 @@ const MethodTableInstrument: React.FC<any> = ({
   };
 
   useEffect(() => {
-    console.log("cmn");
     fetchInstrumentsNotInMethod();
-  }, []);
+  });
 
   return (
     <div style={{ height: "100%", width: "100%" }}>

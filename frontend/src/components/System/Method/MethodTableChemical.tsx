@@ -141,7 +141,7 @@ const MethodTableChemical: React.FC<any> = ({ chemicals, methodId }: any) => {
 
   useEffect(() => {
     fetchChemicalsNotInMethod();
-  }, [open]);
+  });
 
   return (
     <div style={{ height: "100%", width: "100%" }}>
