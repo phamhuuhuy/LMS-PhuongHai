@@ -39,18 +39,7 @@ export class InstrumentService {
       });
       if (methodId == undefined) {
         result.push(instrument);
-        continue;
       }
-
-      const instrumentMethod = await this.instrumentMethodRepository.findOne({
-        where: {
-          instrument_id: instrument.id,
-        },
-      });
-      if (instrument.id == instrumentMethod.instrument_id) {
-        continue;
-      }
-      result.push(instrument);
     }
 
     return result;

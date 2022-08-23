@@ -46,18 +46,7 @@ export class StaffService {
       });
       if (labId == undefined) {
         result.push(staff);
-        continue;
       }
-
-      const staffLab = await this.staffLabRepository.findOne({
-        where: {
-          staff_id: staff.id,
-        },
-      });
-      if (staff.id == staffLab.staff_id) {
-        continue;
-      }
-      result.push(staff);
     }
 
     if (role) {

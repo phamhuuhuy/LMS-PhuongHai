@@ -36,18 +36,7 @@ export class ChemicalService {
       });
       if (methodId == undefined) {
         result.push(chemical);
-        continue;
       }
-
-      const chemicalMethod = await this.chemicalMethodRepository.findOne({
-        where: {
-          chemical_id: chemical.id,
-        },
-      });
-      if (chemical.id == chemicalMethod.chemical_id) {
-        continue;
-      }
-      result.push(chemical);
     }
 
     return result;
