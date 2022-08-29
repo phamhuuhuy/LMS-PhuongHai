@@ -10,7 +10,7 @@ import { CustomerProvider } from 'src/customer/customer.provider';
 import { StaffLabModule } from 'src/staffLab/staffLab.module';
 
 @Module({
-  imports: [DatabaseModule, StaffLabModule],
+  imports: [DatabaseModule, StaffLabModule, LabModule],
   controllers: [SampleController],
   providers: [
     SampleService,

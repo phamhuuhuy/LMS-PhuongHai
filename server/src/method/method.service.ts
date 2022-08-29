@@ -57,13 +57,21 @@ export class MethodService {
         chemical: true,
       },
     });
-    const instruments: Instrument[] = instrumentMethod.map(
-      (value: InstrumentMethod) => value.instrument,
-    );
+    const instruments = instrumentMethod.map((value: InstrumentMethod) => {
+      return {
+        ...value.instrument,
+        note: value.note,
+        quantity: value.quantity,
+      };
+    });
 
-    const chemicals: Chemical[] = chemicalMethod.map(
-      (value: ChemicalMethod) => value.chemical,
-    );
+    const chemicals = chemicalMethod.map((value: ChemicalMethod) => {
+      return {
+        ...value.chemical,
+        note: value.note,
+        quantity: value.quantity,
+      };
+    });
     return {
       id: method.id,
       methodTargets: method.methodTargets,
