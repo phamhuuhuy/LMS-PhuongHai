@@ -10,6 +10,7 @@ import {
 import axios from "axios";
 import Spinner from "./Spinner";
 import { NotificationContext } from "../components/System/Method/MethodDetail";
+import { setHeader } from "./utils/common";
 
 const style = {
   borderRadius: "2px",
@@ -112,11 +113,16 @@ const Modal: React.FC<{
         const endPointInstrument =
           process.env.REACT_APP_API_BASE + "/instrument-method";
         if (chosenChemical) {
-          response = await axios.post(endPointChemical, requestBodyChemical);
+          response = await axios.post(
+            endPointChemical,
+            requestBodyChemical,
+            setHeader()
+          );
         } else {
           response = await axios.post(
             endPointInstrument,
-            requestBodyInstrument
+            requestBodyInstrument,
+            setHeader()
           );
         }
         setPageState({ ...pageState, loading: false, data: response.data.msg });

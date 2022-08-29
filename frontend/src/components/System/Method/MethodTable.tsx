@@ -5,6 +5,7 @@ import { Edit, Delete, Preview } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import DialogAlert from "../../../common/DialogAlert";
 import axios from "axios";
+import { setHeader } from "../../../common/utils/common";
 
 
 const MethodTable: React.FC = () => {
@@ -106,7 +107,8 @@ const MethodTable: React.FC = () => {
 
   const getData = async () => {
     const dataAPI = await axios.get(
-      process.env.REACT_APP_API_BASE + "/method"
+      process.env.REACT_APP_API_BASE + "/method",
+      setHeader()
     );
 
     const { data } = dataAPI;

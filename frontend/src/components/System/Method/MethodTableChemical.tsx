@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import DialogAlert from "../../../common/DialogAlert";
 import axios from "axios";
 import ModalPopup from "../../../common/ModalPopup";
+import { setHeader } from "../../../common/utils/common";
 
 const MethodTableChemical: React.FC<any> = ({ chemicals, methodId }: any) => {
   const [isAdded, setIsAdded] = useState(false);
@@ -79,7 +80,19 @@ const MethodTableChemical: React.FC<any> = ({ chemicals, methodId }: any) => {
 
     {
       field: "chemicalReceiver",
-      headerName: "chemicalReceiver",
+      headerName: "Người nhận thiết bị",
+      width: 135,
+    },
+
+    {
+      field: "note",
+      headerName: "Ghi chú",
+      width: 135,
+    },
+
+    {
+      field: "quantity",
+      headerName: "Số lượng",
       width: 135,
     },
     {
@@ -121,7 +134,7 @@ const MethodTableChemical: React.FC<any> = ({ chemicals, methodId }: any) => {
     const endPoint =
       process.env.REACT_APP_API_BASE + `/chemical/not-in-method/${methodId}`;
     try {
-      const { data } = await axios.get(endPoint);
+      const { data } = await axios.get(endPoint, setHeader());
       const shortenedData = data.map((chemical: any) => {
         delete chemical["chemicalMethod"];
         delete chemical["chemicalDueDate"];
@@ -131,6 +144,8 @@ const MethodTableChemical: React.FC<any> = ({ chemicals, methodId }: any) => {
         delete chemical["chemicalQuantity"];
         delete chemical["chemicalUnit"];
         delete chemical["chemicalModel"];
+        delete chemical["note"];
+        delete chemical["quantity"];
         return chemical;
       });
       setChemicalsNotInMethod([...shortenedData]);

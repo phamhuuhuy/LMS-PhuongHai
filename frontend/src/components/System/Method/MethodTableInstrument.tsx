@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import ModalPopup from "../../../common/ModalPopup";
 import DialogAlert from "../../../common/DialogAlert";
 import axios from "axios";
+import { setHeader } from "../../../common/utils/common";
 
 const MethodTableInstrument: React.FC<any> = ({
   instruments,
@@ -133,7 +134,7 @@ const MethodTableInstrument: React.FC<any> = ({
     const endPoint =
       process.env.REACT_APP_API_BASE + `/instrument/not-in-method/${methodId}`;
     try {
-      const { data } = await axios.get(endPoint);
+      const { data } = await axios.get(endPoint, setHeader());
       const shortenedData = data.map((instrument: any) => {
         delete instrument["instrumentBuyDate"];
         delete instrument["instrumentCalibrationDate"];

@@ -16,6 +16,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { Method } from "./Method.type";
+import axios from "axios";
+import { setHeader } from "../../../common/utils/common";
 
 const MethodForm: React.FC = () => {
   const navigate = useNavigate();
@@ -55,6 +57,10 @@ const MethodForm: React.FC = () => {
     });
   };
 
+  const { headers } = setHeader();
+
+  console.log(headers.Authorization);
+
   const handleOnSubmit = async () => {
     if (handleValidation()) {
       try {
@@ -63,7 +69,8 @@ const MethodForm: React.FC = () => {
           {
             method: "POST",
             headers: {
-              "Content-type": "application/json",
+              "Authorization": headers.Authorization,
+              "Content-type": "application/json"
             },
             body: JSON.stringify(data),
           }

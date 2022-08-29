@@ -4,6 +4,7 @@ import MethodTableChemical from "./MethodTableChemical";
 import MethodTableInstrument from "./MethodTableInstrument";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { setHeader } from "../../../common/utils/common";
 
 export const NotificationContext = createContext<any>(false);
 
@@ -17,7 +18,7 @@ const MethodDetail: React.FC = () => {
   const fetchMethodByDetail = async () => {
     const endPoint = process.env.REACT_APP_API_BASE + `/method/${methodId}`;
     try {
-      const { data } = await axios.get(endPoint);
+      const { data } = await axios.get(endPoint, setHeader());
 
       setChemicals(data?.chemicals);
       setInstruments(data?.instruments);

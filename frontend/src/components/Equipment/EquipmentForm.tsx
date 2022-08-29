@@ -129,7 +129,7 @@ const EquipmentForm: React.FC = () => {
   };
 
   const handleOnSubmit = async () => {
-    console.log(handleValidation());
+    console.log('1');
     if (handleValidation()) {
       console.log("form", instrumentData);
       try {
@@ -148,6 +148,7 @@ const EquipmentForm: React.FC = () => {
         }
       }
     }
+    console.log('2');
   };
 
   return (
