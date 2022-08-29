@@ -46,6 +46,7 @@ const DialogAlert = ({
             response = await axios.delete(
               process.env.REACT_APP_API_BASE + `/${item}-method`,
               {
+                headers,
                 data: {
                   methodId: methodId,
                   instrumentId: id,
