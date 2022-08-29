@@ -10,12 +10,23 @@ import {
   Grid,
   Paper,
 } from "@mui/material";
+import { Delete } from "@mui/icons-material";
 
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useNavigate, useParams } from "react-router-dom";
 import DialogAlert from "../../../common/DialogAlert";
 import Container from "@mui/material/Container";
 import StaffTableOneLab from "./LabStaff/StaffTableOneLab";
+import axios from "axios";
+import { setHeader } from "../../../common/utils/common";
+
+interface EmployeeType {
+  id: String;
+  employeeUserName: String;
+  employeePassword: String;
+  employeeName: String;
+  isManager: Boolean;
+}
 
 const LabDetail: React.FC = () => {
   let { labId } = useParams();
@@ -23,23 +34,58 @@ const LabDetail: React.FC = () => {
     labName: "",
     subLab: "",
     certification: "",
+    lead: {} as EmployeeType,
   });
-  const fetchStaffById = useCallback(async () => {
-    const response = await fetch(
-      process.env.REACT_APP_API_BASE + `/lab/${labId}`,
-      {
-        method: "GET",
-      }
-    );
-    const result = await response.json();
 
-    let { id: string, ...filteredResult } = result;
-    setLabData({ ...filteredResult });
+  const [leadList, setLeadList] = useState([]);
+  const fetchStaffById = useCallback(async () => {
+    const { data } = await axios.get(
+      process.env.REACT_APP_API_BASE + `/lab/${labId}`,
+      setHeader()
+    );
+    setLabData(data);
   }, [labId]);
 
+  const handleOnChange = async (e: any) => {
+    const leadId = e.target.value;
+    const bodyData = {
+      staffId: leadId,
+      labId,
+      isLead: true,
+    };
+    const { data } = await axios.post(
+      process.env.REACT_APP_API_BASE + `/staff-lab`,
+      bodyData,
+      setHeader()
+    );
+    window.location.reload();
+  };
+
+  const handleDelete = async (staffId: any) => {
+    const { headers }: any = setHeader();
+    const { data } = await axios.delete(
+      process.env.REACT_APP_API_BASE + `/staff-lab`,
+      {
+        headers,
+        data: {
+          staffId,
+          labId,
+        },
+      }
+    );
+    window.location.reload();
+  };
+  const fetchLead = useCallback(async () => {
+    const { data } = await axios.get(
+      process.env.REACT_APP_API_BASE + `/staff/not-in-lab/lead/${labId}`,
+      setHeader()
+    );
+    setLeadList(data);
+  }, [labId]);
   useEffect(() => {
     fetchStaffById();
-  }, [fetchStaffById]);
+    fetchLead();
+  }, [fetchStaffById, fetchLead]);
   return (
     <>
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
@@ -139,8 +185,43 @@ const LabDetail: React.FC = () => {
                   >
                     Trưởng phòng
                   </div>
+
                   <div style={{ maxWidth: "300px", width: "50%" }}>
-                    //TODO: add code
+                    {labData?.lead ? (
+                      <span
+                        style={{
+                          display: "flex",
+                        }}
+                      >
+                        {labData?.lead?.employeeName}
+                        <Tooltip title="Xoá">
+                          <Delete
+                            style={{ color: "red" }}
+                            onClick={() => handleDelete(labData?.lead?.id)}
+                          />
+                        </Tooltip>
+                      </span>
+                    ) : (
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">
+                          Trưởng phòng
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          name="lead"
+                          id="demo-simple-select"
+                          label="Trưởng phòng"
+                          onChange={handleOnChange}
+                        >
+                          {leadList.length > 0 &&
+                            leadList.map((item: EmployeeType) => (
+                              <MenuItem value={item.id as any}>
+                                {item.employeeName}
+                              </MenuItem>
+                            ))}
+                        </Select>
+                      </FormControl>
+                    )}
                   </div>
                 </div>
               </div>
@@ -161,7 +242,7 @@ const LabDetail: React.FC = () => {
               sx={{ p: 2, display: "flex", flexDirection: "column" }}
               style={{ height: "100%" }}
             >
-              <StaffTableOneLab />
+              <StaffTableOneLab labId={labId || ""} />
             </Paper>
           </Grid>
         </Grid>

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import DialogAlert from "../../common/DialogAlert";
 import { Chemical } from "./Chemical.type";
 import axios from "axios";
+import { setHeader } from "../../common/utils/common";
 
 const ChemicalTable: React.FC = () => {
   const [data, setData] = useState<Chemical[]>([]);
@@ -35,7 +36,8 @@ const ChemicalTable: React.FC = () => {
 
   const getData = async () => {
     const dataAPI = await axios.get(
-      process.env.REACT_APP_API_BASE + "/chemical"
+      process.env.REACT_APP_API_BASE + "/chemical",
+      setHeader()
     );
 
     const { data } = dataAPI;
@@ -44,7 +46,8 @@ const ChemicalTable: React.FC = () => {
 
   const getOverDueData = async () => {
     const dataAPI = await axios.get(
-      process.env.REACT_APP_API_BASE + "/chemical/over-due"
+      process.env.REACT_APP_API_BASE + "/chemical/over-due",
+      setHeader()
     );
     const { data } = dataAPI;
     setOverDueData(data);
@@ -52,7 +55,8 @@ const ChemicalTable: React.FC = () => {
 
   const getNextDueData = async () => {
     const dataAPI = await axios.get(
-      process.env.REACT_APP_API_BASE + "/chemical/next-due"
+      process.env.REACT_APP_API_BASE + "/chemical/next-due",
+      setHeader()
     );
     const { data } = dataAPI;
     console.log(data);

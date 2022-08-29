@@ -1,9 +1,11 @@
 import { Delete, Edit, Preview } from "@mui/icons-material";
 import { Button, Tooltip, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DialogAlert from "../../../common/DialogAlert";
+import { setHeader } from "../../../common/utils/common";
 
 const LabTable: React.FC = () => {
   const [data, setData] = useState<any[]>([]);
@@ -96,9 +98,11 @@ const LabTable: React.FC = () => {
   }, []);
 
   const fetchData = async () => {
-    const response = await fetch(process.env.REACT_APP_API_BASE + "/lab");
-    const value = await response.json();
-    setData(value);
+    const { data } = await axios.get(
+      process.env.REACT_APP_API_BASE + "/lab",
+      setHeader()
+    );
+    setData(data);
   };
 
   return (

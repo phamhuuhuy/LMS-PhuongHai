@@ -1,14 +1,26 @@
-
 import React, { useState } from "react";
-import { Typography, Button, Tooltip } from "@mui/material";
+import {
+  Typography,
+  Button,
+  Tooltip,
+  FormControl,
+  InputLabel,
+  Select,
+} from "@mui/material";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import { Edit, Delete } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import DialogAlert from "../../../../common/DialogAlert";
+import axios from "axios";
+import { setHeader } from "../../../../common/utils/common";
 
+interface StaffTableOneLabProps {
+  labId: string;
+}
 
-const StaffTableOneLab: React.FC = () => {
+const StaffTableOneLab: React.FC<StaffTableOneLabProps> = ({ labId }) => {
   const [data, setData] = useState([]);
+  const [staffList, setStaffList] = useState([]);
   const [id, setId] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
@@ -36,33 +48,22 @@ const StaffTableOneLab: React.FC = () => {
     {
       field: "employeeName",
       headerName: "Tên người dùng",
-      width: 180,
+      width: 200,
     },
     {
       field: "employeeUserName",
       headerName: "Tên tài khoản",
-      width: 180,
+      width: 200,
     },
     {
       field: "employeePassword",
       headerName: "Mật khẩu",
-      width: 180,
-    },
-
-    {
-      field: "employeeLab",
-      headerName: "Phòng Lab",
-      width: 160,
-    },
-    {
-      field: "isManager",
-      headerName: "Chức danh",
-      width: 150,
+      width: 200,
     },
     {
       field: "action",
       headerName: "Hành Động",
-      width: 100,
+      width: 200,
       renderCell: (params) => {
         return (
           <>
@@ -96,10 +97,16 @@ const StaffTableOneLab: React.FC = () => {
     fetchData();
   }, []);
 
+  const fetchStaffList = async () => {};
+
   const fetchData = async () => {
-    const response = await fetch(process.env.REACT_APP_API_BASE + "/staff");
-    const value = await response.json();
-    setData(value);
+    const { data } = await axios.get(
+      process.env.REACT_APP_API_BASE + `/lab/${labId}`,
+      setHeader()
+    );
+    const { staffs } = data;
+    console.log(staffs);
+    setData(staffs);
   };
   return (
     <div style={{ height: "100%", width: "100%" }}>
@@ -109,7 +116,7 @@ const StaffTableOneLab: React.FC = () => {
         color="primary"
         style={{ marginBottom: "20px" }}
       >
-       Danh sách nhân viên của phòng lab
+        Danh sách nhân viên của phòng lab
       </Typography>
       <div
         style={{
@@ -120,13 +127,32 @@ const StaffTableOneLab: React.FC = () => {
           alignItems: "center",
         }}
       >
-        <Button
-          style={{ alignSelf: "flex-end" }}
-          variant="contained"
-          onClick={handleOnClick}
-        >
-          + Thêm Nhân Viên
-        </Button>
+        <div style={{ flex: 1 }}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Nhân viên</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              name="lead"
+              id="demo-simple-select"
+              label="Nhân viên"
+              //onChange={handleOnChange}
+            >
+              {/* {leadList.length > 0 &&
+              leadList.map((item: EmployeeType) => (
+                <MenuItem value={item.id as any}>{item.employeeName}</MenuItem>
+              ))} */}
+            </Select>
+          </FormControl>
+        </div>
+        <div style={{ flex: 1, display: "flex", justifyContent: "end" }}>
+          <Button
+            style={{ alignSelf: "flex-end" }}
+            variant="contained"
+            onClick={handleOnClick}
+          >
+            + Thêm Nhân Viên
+          </Button>
+        </div>
       </div>
       <DialogAlert
         id={id}

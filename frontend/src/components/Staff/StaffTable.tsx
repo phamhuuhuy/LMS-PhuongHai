@@ -5,6 +5,8 @@ import { Edit, Delete } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import DialogAlert from "../../common/DialogAlert";
 import { IStaffFetch } from "./Staff.type";
+import axios from "axios";
+import { setHeader } from "../../common/utils/common";
 
 const StaffTable: React.FC = () => {
   const [data, setData] = useState<IStaffFetch[]>([]);
@@ -90,9 +92,11 @@ const StaffTable: React.FC = () => {
   }, []);
 
   const fetchData = async () => {
-    const response = await fetch(process.env.REACT_APP_API_BASE + "/staff");
-    const value = await response.json();
-    setData(value);
+    const { data } = await axios.get(
+      process.env.REACT_APP_API_BASE + "/staff",
+      setHeader()
+    );
+    setData(data);
   };
   return (
     <div style={{ height: "100%", width: "100%" }}>

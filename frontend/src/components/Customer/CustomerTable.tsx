@@ -5,6 +5,8 @@ import { Typography, TextField, Button, Tooltip } from "@mui/material";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import DialogAlert from "../../common/DialogAlert";
 import { ICustomerFetch } from "./Customer.type";
+import axios from "axios";
+import { setHeader } from "../../common/utils/common";
 
 const CustomerTable: React.FC = () => {
   const [data, setData] = useState<ICustomerFetch[]>([]);
@@ -111,9 +113,11 @@ const CustomerTable: React.FC = () => {
   }, []);
 
   const fetchData = async () => {
-    const response = await fetch(process.env.REACT_APP_API_BASE + "/customer");
-    const value = await response.json();
-    setData(value);
+    const { data } = await axios.get(
+      process.env.REACT_APP_API_BASE + "/customer",
+      setHeader()
+    );
+    setData(data);
   };
 
   const nullParams = () => {
