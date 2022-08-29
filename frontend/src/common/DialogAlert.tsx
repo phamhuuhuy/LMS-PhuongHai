@@ -5,6 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { setHeader } from "./utils/common";
 import { NotificationContext } from "../components/System/Method/MethodDetail";
 import axios from "axios";
 
@@ -22,6 +23,7 @@ const DialogAlert = ({
   };
 
   const { isDisplayNoti, setIsDisplayNoti } = useContext(NotificationContext);
+  const { headers }: any = setHeader();
 
   const handleDeleteUser = async () => {
     handleClose(false);
@@ -33,6 +35,7 @@ const DialogAlert = ({
             response = await axios.delete(
               process.env.REACT_APP_API_BASE + `/${item}-method`,
               {
+                headers,
                 data: {
                   methodId: methodId,
                   chemicalId: id,

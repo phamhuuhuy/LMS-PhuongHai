@@ -22,6 +22,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import axios from "axios";
+import { setHeader } from "../../common/utils/common";
 
 const useStyles = makeStyles({
   root: {
@@ -131,16 +133,12 @@ const EquipmentForm: React.FC = () => {
     if (handleValidation()) {
       console.log("form", instrumentData);
       try {
-        const response = await fetch(
+        const response = await axios.post(
           process.env.REACT_APP_API_BASE + "/instrument",
-          {
-            method: "POST",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify(instrumentData),
-          }
+          instrumentData,
+          setHeader()
         );
+
         if (response.status === 201) {
           navigate("/equipment");
         }

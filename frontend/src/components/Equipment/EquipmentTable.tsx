@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import DialogAlert from "../../common/DialogAlert";
 import axios from "axios";
 import { Instrument } from "./Equipment.type";
+import { setHeader } from "../../common/utils/common";
 const CustomerTable: React.FC = () => {
   const [data, setData] = useState<Instrument[]>([]);
   const [overDueData, setOverDueData] = useState<Instrument[]>();
@@ -16,7 +17,8 @@ const CustomerTable: React.FC = () => {
 
   const getData = async () => {
     const dataAPI = await axios.get(
-      process.env.REACT_APP_API_BASE + "/instrument"
+      process.env.REACT_APP_API_BASE + "/instrument",
+      setHeader()
     );
 
     const { data } = dataAPI;
@@ -25,7 +27,8 @@ const CustomerTable: React.FC = () => {
 
   const getOverDueData = async () => {
     const dataAPI = await axios.get(
-      process.env.REACT_APP_API_BASE + "/instrument/over-due"
+      process.env.REACT_APP_API_BASE + "/instrument/over-due",
+      setHeader()
     );
     const { data } = dataAPI;
     setOverDueData(data);
@@ -33,7 +36,8 @@ const CustomerTable: React.FC = () => {
 
   const getNextDueData = async () => {
     const dataAPI = await axios.get(
-      process.env.REACT_APP_API_BASE + "/instrument/next-due"
+      process.env.REACT_APP_API_BASE + "/instrument/next-due",
+      setHeader()
     );
     const { data } = dataAPI;
     setNextDueData(data);

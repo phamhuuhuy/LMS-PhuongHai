@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c18ab923-b641-46bf-9467-5f094a7f2c1b",
+		"_postman_id": "38688403-d990-4c50-8c99-193f2a8a6b5b",
 		"name": "LMS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,6 +11,16 @@
 				{
 					"name": "Get All Customer",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzA2NTQ0Ni03NTFjLTQwZTUtYTM5OC1iMDc3N2VjNTI5NTUiLCJlbXBsb3llZVVzZXJOYW1lIjoicWhuZ3V5ZW4xNyIsImVtcGxveWVlTmFtZSI6IlR1YW4gSG9hbmciLCJpc01hbmFnZXIiOnRydWUsImlhdCI6MTY2MDgzNTMwMSwiZXhwIjoxNjYwOTIxNzAxfQ.nXLA32H9COW8hLqfdN0HHiPNA-dDoeZKYinBsq_QMFE",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -29,6 +39,16 @@
 				{
 					"name": "Create new customer",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzA2NTQ0Ni03NTFjLTQwZTUtYTM5OC1iMDc3N2VjNTI5NTUiLCJlbXBsb3llZVVzZXJOYW1lIjoicWhuZ3V5ZW4xNyIsImVtcGxveWVlTmFtZSI6IlR1YW4gSG9hbmciLCJpc01hbmFnZXIiOnRydWUsImlhdCI6MTY2MDgzNTMwMSwiZXhwIjoxNjYwOTIxNzAxfQ.nXLA32H9COW8hLqfdN0HHiPNA-dDoeZKYinBsq_QMFE",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -98,6 +118,16 @@
 				{
 					"name": "Create new instrument",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzA2NTQ0Ni03NTFjLTQwZTUtYTM5OC1iMDc3N2VjNTI5NTUiLCJlbXBsb3llZVVzZXJOYW1lIjoicWhuZ3V5ZW4xNyIsImVtcGxveWVlTmFtZSI6IlR1YW4gSG9hbmciLCJpc01hbmFnZXIiOnRydWUsImlhdCI6MTY2MDgzNTMwMSwiZXhwIjoxNjYwOTIxNzAxfQ.nXLA32H9COW8hLqfdN0HHiPNA-dDoeZKYinBsq_QMFE",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -172,17 +202,27 @@
 				{
 					"name": "Delete instrument",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzA2NTQ0Ni03NTFjLTQwZTUtYTM5OC1iMDc3N2VjNTI5NTUiLCJlbXBsb3llZVVzZXJOYW1lIjoicWhuZ3V5ZW4xNyIsImVtcGxveWVlTmFtZSI6IlR1YW4gSG9hbmciLCJpc01hbmFnZXIiOnRydWUsImlhdCI6MTY2MDgzNTMwMSwiZXhwIjoxNjYwOTIxNzAxfQ.nXLA32H9COW8hLqfdN0HHiPNA-dDoeZKYinBsq_QMFE",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/instrument/7c1dc9dd-36b2-4a3e-b8dd-09a3244cb79d",
+							"raw": "localhost:5000/instrument/1b33f8d8-70bd-4f3e-b325-e3f31b0136ae",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"instrument",
-								"7c1dc9dd-36b2-4a3e-b8dd-09a3244cb79d"
+								"1b33f8d8-70bd-4f3e-b325-e3f31b0136ae"
 							]
 						}
 					},
@@ -428,6 +468,16 @@
 				{
 					"name": "get all staff",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzA2NTQ0Ni03NTFjLTQwZTUtYTM5OC1iMDc3N2VjNTI5NTUiLCJlbXBsb3llZVVzZXJOYW1lIjoicWhuZ3V5ZW4xNyIsImVtcGxveWVlTmFtZSI6IlR1YW4gSG9hbmciLCJpc01hbmFnZXIiOnRydWUsImlhdCI6MTY2MDk3NDcyNywiZXhwIjoxNjYxMDYxMTI3fQ.l7eKB27p1OK7LAzsMnpQv-FWTxQAjJL3zj4Gd54FH0A",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -444,13 +494,74 @@
 					"response": []
 				},
 				{
+					"name": "get all staff not in lab",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzA2NTQ0Ni03NTFjLTQwZTUtYTM5OC1iMDc3N2VjNTI5NTUiLCJlbXBsb3llZVVzZXJOYW1lIjoicWhuZ3V5ZW4xNyIsImVtcGxveWVlTmFtZSI6IlR1YW4gSG9hbmciLCJpc01hbmFnZXIiOnRydWUsImlhdCI6MTY2MDk3NDcyNywiZXhwIjoxNjYxMDYxMTI3fQ.l7eKB27p1OK7LAzsMnpQv-FWTxQAjJL3zj4Gd54FH0A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/staff/not-in-lab/36883c23-1ea7-444d-9ce4-e5b36b27b716",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"staff",
+								"not-in-lab",
+								"36883c23-1ea7-444d-9ce4-e5b36b27b716"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all lead not in lab",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/staff/not-in-lab/lead/36883c23-1ea7-444d-9ce4-e5b36b27b716",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"staff",
+								"not-in-lab",
+								"lead",
+								"36883c23-1ea7-444d-9ce4-e5b36b27b716"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create new Staff",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzA2NTQ0Ni03NTFjLTQwZTUtYTM5OC1iMDc3N2VjNTI5NTUiLCJlbXBsb3llZVVzZXJOYW1lIjoicWhuZ3V5ZW4xNyIsImVtcGxveWVlTmFtZSI6IlR1YW4gSG9hbmciLCJpc01hbmFnZXIiOnRydWUsImlhdCI6MTY2MDk3NDcyNywiZXhwIjoxNjYxMDYxMTI3fQ.l7eKB27p1OK7LAzsMnpQv-FWTxQAjJL3zj4Gd54FH0A",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"employeeUserName\": \"qhnguyen17\",\r\n    \"employeePassword\": \"huy\",\r\n    \"employeeName\": \"quoc huy\",\r\n    \"employeeLab\": \"Lab B\",\r\n    \"isManager\": true\r\n}",
+							"raw": "{\r\n    \"employeeUserName\": \"qhnguyen178\",\r\n    \"employeePassword\": \"huy\",\r\n    \"employeeName\": \"Hoang Tuan\",\r\n    \"isManager\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -504,14 +615,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/staff/113f5c2f-56b0-4c67-87c3-329f5871634d",
+							"raw": "localhost:5000/staff/311866d9-60e2-4edc-97da-47c82103c915",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"staff",
-								"113f5c2f-56b0-4c67-87c3-329f5871634d"
+								"311866d9-60e2-4edc-97da-47c82103c915"
 							]
 						}
 					},
@@ -547,6 +658,16 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzA2NTQ0Ni03NTFjLTQwZTUtYTM5OC1iMDc3N2VjNTI5NTUiLCJlbXBsb3llZVVzZXJOYW1lIjoicWhuZ3V5ZW4xNyIsImVtcGxveWVlTmFtZSI6IlR1YW4gSG9hbmciLCJpc01hbmFnZXIiOnRydWUsImlhdCI6MTY2MDk3NDcyNywiZXhwIjoxNjYxMDYxMTI3fQ.l7eKB27p1OK7LAzsMnpQv-FWTxQAjJL3zj4Gd54FH0A",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -569,11 +690,21 @@
 				{
 					"name": "create new lab",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzA2NTQ0Ni03NTFjLTQwZTUtYTM5OC1iMDc3N2VjNTI5NTUiLCJlbXBsb3llZVVzZXJOYW1lIjoicWhuZ3V5ZW4xNyIsImVtcGxveWVlTmFtZSI6IlR1YW4gSG9hbmciLCJpc01hbmFnZXIiOnRydWUsImlhdCI6MTY2MDk3NDcyNywiZXhwIjoxNjYxMDYxMTI3fQ.l7eKB27p1OK7LAzsMnpQv-FWTxQAjJL3zj4Gd54FH0A",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"labName\": \"hehe\",\r\n    \"subLab\": \"hehe\",\r\n    \"certification\": \"hehe\"\r\n}",
+							"raw": "{\r\n    \"labName\": \"lab 1\",\r\n    \"subLab\": \"hehe\",\r\n    \"certification\": \"hehe\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -596,17 +727,27 @@
 				{
 					"name": "delete lab",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzA2NTQ0Ni03NTFjLTQwZTUtYTM5OC1iMDc3N2VjNTI5NTUiLCJlbXBsb3llZVVzZXJOYW1lIjoicWhuZ3V5ZW4xNyIsImVtcGxveWVlTmFtZSI6IlR1YW4gSG9hbmciLCJpc01hbmFnZXIiOnRydWUsImlhdCI6MTY2MDk3NDcyNywiZXhwIjoxNjYxMDYxMTI3fQ.l7eKB27p1OK7LAzsMnpQv-FWTxQAjJL3zj4Gd54FH0A",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/lab/e6852099-1e90-4c93-8bf2-7d897d94a9f9",
+							"raw": "localhost:5000/lab/8bb4f71f-7f28-43d4-b122-6d19ec8ce91e",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"lab",
-								"e6852099-1e90-4c93-8bf2-7d897d94a9f9"
+								"8bb4f71f-7f28-43d4-b122-6d19ec8ce91e"
 							]
 						}
 					},
@@ -615,17 +756,27 @@
 				{
 					"name": "get one",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzA2NTQ0Ni03NTFjLTQwZTUtYTM5OC1iMDc3N2VjNTI5NTUiLCJlbXBsb3llZVVzZXJOYW1lIjoicWhuZ3V5ZW4xNyIsImVtcGxveWVlTmFtZSI6IlR1YW4gSG9hbmciLCJpc01hbmFnZXIiOnRydWUsImlhdCI6MTY2MDk3NDcyNywiZXhwIjoxNjYxMDYxMTI3fQ.l7eKB27p1OK7LAzsMnpQv-FWTxQAjJL3zj4Gd54FH0A",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/lab/b8624979-8465-45fd-b894-70aa23aa3ab9",
+							"raw": "localhost:5000/lab/ba10042d-15f5-49f6-993c-faa774cf5581",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"lab",
-								"b8624979-8465-45fd-b894-70aa23aa3ab9"
+								"ba10042d-15f5-49f6-993c-faa774cf5581"
 							]
 						}
 					},
@@ -634,11 +785,21 @@
 				{
 					"name": "update lab",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzA2NTQ0Ni03NTFjLTQwZTUtYTM5OC1iMDc3N2VjNTI5NTUiLCJlbXBsb3llZVVzZXJOYW1lIjoicWhuZ3V5ZW4xNyIsImVtcGxveWVlTmFtZSI6IlR1YW4gSG9hbmciLCJpc01hbmFnZXIiOnRydWUsImlhdCI6MTY2MDk3NDcyNywiZXhwIjoxNjYxMDYxMTI3fQ.l7eKB27p1OK7LAzsMnpQv-FWTxQAjJL3zj4Gd54FH0A",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"labName\": \"lab 1\",\r\n    \"subLab\": \"hihi\"\r\n}",
+							"raw": "{\r\n    \"labName\": \"lab moi ne\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -646,14 +807,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:5000/lab/1dff05fb-e60e-435f-87fb-f31b095abe9e",
+							"raw": "localhost:5000/lab/ba10042d-15f5-49f6-993c-faa774cf5581",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"lab",
-								"1dff05fb-e60e-435f-87fb-f31b095abe9e"
+								"ba10042d-15f5-49f6-993c-faa774cf5581"
 							]
 						}
 					},
@@ -942,6 +1103,241 @@
 							"port": "5000",
 							"path": [
 								"chemical-method"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "staff lab",
+			"item": [
+				{
+					"name": "add new staff to lab",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzA2NTQ0Ni03NTFjLTQwZTUtYTM5OC1iMDc3N2VjNTI5NTUiLCJlbXBsb3llZVVzZXJOYW1lIjoicWhuZ3V5ZW4xNyIsImVtcGxveWVlTmFtZSI6IlR1YW4gSG9hbmciLCJpc01hbmFnZXIiOnRydWUsImlhdCI6MTY2MDk3NDcyNywiZXhwIjoxNjYxMDYxMTI3fQ.l7eKB27p1OK7LAzsMnpQv-FWTxQAjJL3zj4Gd54FH0A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"staffId\": \"b365b383-fc66-456c-9774-2cba6001e6ed\",\r\n    \"labId\": \"36883c23-1ea7-444d-9ce4-e5b36b27b716\",\r\n    \"isLead\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/staff-lab",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"staff-lab"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove staff lab",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"staffId\": \"ec8d3101-38bb-4a2f-afde-ac6a6db0e87e\",\r\n    \"labId\": \"8bb4f71f-7f28-43d4-b122-6d19ec8ce91e\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/staff-lab",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"staff-lab"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update staff lab",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"methodId\": \"256be668-0013-4538-a664-a03d04634018\",\r\n    \"chemicalId\": \"77099256-0d25-486c-8c02-2cb4907506d0\",\r\n    \"note\": \"fdasfdsafdsafdsaf\",\r\n    \"quantity\": 2145\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/staff-lab",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"staff-lab"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"qhnguyen17\",\n    \"password\" : \"huy\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sample",
+			"item": [
+				{
+					"name": "get all sample",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzA2NTQ0Ni03NTFjLTQwZTUtYTM5OC1iMDc3N2VjNTI5NTUiLCJlbXBsb3llZVVzZXJOYW1lIjoicWhuZ3V5ZW4xNyIsImVtcGxveWVlTmFtZSI6IlR1YW4gSG9hbmciLCJpc01hbmFnZXIiOnRydWUsImlhdCI6MTY2MDgzNTMwMSwiZXhwIjoxNjYwOTIxNzAxfQ.nXLA32H9COW8hLqfdN0HHiPNA-dDoeZKYinBsq_QMFE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:5000/sample",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"sample"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add new sample",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzA2NTQ0Ni03NTFjLTQwZTUtYTM5OC1iMDc3N2VjNTI5NTUiLCJlbXBsb3llZVVzZXJOYW1lIjoicWhuZ3V5ZW4xNyIsImVtcGxveWVlTmFtZSI6IlR1YW4gSG9hbmciLCJpc01hbmFnZXIiOnRydWUsImlhdCI6MTY2MDgzNTMwMSwiZXhwIjoxNjYwOTIxNzAxfQ.nXLA32H9COW8hLqfdN0HHiPNA-dDoeZKYinBsq_QMFE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sampleNote\": \"noted\",\r\n    \"customerId\": \"165b6776-1726-4443-827a-e54d9bd467e8\",\r\n    \"labId\": \"36883c23-1ea7-444d-9ce4-e5b36b27b716\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/sample",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"sample"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NzA2NTQ0Ni03NTFjLTQwZTUtYTM5OC1iMDc3N2VjNTI5NTUiLCJlbXBsb3llZVVzZXJOYW1lIjoicWhuZ3V5ZW4xNyIsImVtcGxveWVlTmFtZSI6IlR1YW4gSG9hbmciLCJpc01hbmFnZXIiOnRydWUsImlhdCI6MTY2MDgzNTMwMSwiZXhwIjoxNjYwOTIxNzAxfQ.nXLA32H9COW8hLqfdN0HHiPNA-dDoeZKYinBsq_QMFE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/sample/325000ee-a2bb-4e26-9da9-8b409e53aabd",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"sample",
+								"325000ee-a2bb-4e26-9da9-8b409e53aabd"
 							]
 						}
 					},

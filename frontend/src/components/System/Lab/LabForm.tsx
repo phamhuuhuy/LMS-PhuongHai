@@ -7,8 +7,10 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { setHeader } from "../../../common/utils/common";
 import { Lab } from "./Lab.type";
 
 const LabForm: React.FC = () => {
@@ -50,13 +52,12 @@ const LabForm: React.FC = () => {
   const handleOnSubmit = async () => {
     if (handleValidation()) {
       try {
-        const response = await fetch(process.env.REACT_APP_API_BASE + "/lab", {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify(labData),
-        });
+        const response = await axios.post(
+          process.env.REACT_APP_API_BASE + "/lab",
+          labData,
+          setHeader()
+        );
+        
         if (response.status === 201) {
           navigate("/lab");
         }
