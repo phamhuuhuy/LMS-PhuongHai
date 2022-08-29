@@ -30,8 +30,14 @@ export class RolesGuard implements CanActivate {
     if (user.isManager) {
       userRole = Role.ADMIN;
     } else {
+
       const staff = await this.staffLabService.getRoleByStaffId(user.id);
-      userRole = staff.isLead ? Role.LEAD : Role.USER;
+      
+      if(!staff){
+        userRole= Role.USER
+      } else {
+        userRole = staff.isLead ? Role.LEAD : Role.USER;
+      }
     }
 
     //does the current user making the request have those required roles
