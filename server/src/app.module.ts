@@ -13,6 +13,7 @@ import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './auth/Role/roles.guard';
 import { SampleModule } from './sample/sample.module';
+import { TaskModule } from './task/task.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { SampleModule } from './sample/sample.module';
     ChemicalMethodModule,
     AuthModule,
     SampleModule,
+    TaskModule,
   ],
   controllers: [AppController],
   providers: [AppService],
