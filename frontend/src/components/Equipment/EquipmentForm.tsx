@@ -129,7 +129,7 @@ const EquipmentForm: React.FC = () => {
   };
 
   const handleOnSubmit = async () => {
-    console.log(handleValidation());
+    console.log('1');
     if (handleValidation()) {
       console.log("form", instrumentData);
       try {
@@ -148,6 +148,7 @@ const EquipmentForm: React.FC = () => {
         }
       }
     }
+    console.log('2');
   };
 
   return (
@@ -231,7 +232,7 @@ const EquipmentForm: React.FC = () => {
                           instrumentBuyDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
 
                     {errorForm?.instrumentBuyDate && (
@@ -251,7 +252,7 @@ const EquipmentForm: React.FC = () => {
                           instrumentCalibrationDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
                   </div>
 
@@ -271,7 +272,7 @@ const EquipmentForm: React.FC = () => {
                           instrumentNextCalibrationDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
                   </div>
 

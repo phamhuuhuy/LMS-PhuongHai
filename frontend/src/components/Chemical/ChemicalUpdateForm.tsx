@@ -220,7 +220,7 @@ const ChemicalUpdateForm: React.FC = () => {
                           chemicalImportDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
 
                     {errorForm?.chemicalImportDate && (
@@ -241,7 +241,7 @@ const ChemicalUpdateForm: React.FC = () => {
                           chemicalDueDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
                   </div>
 
@@ -262,7 +262,7 @@ const ChemicalUpdateForm: React.FC = () => {
                           chemicalExportDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
                   </div>
 

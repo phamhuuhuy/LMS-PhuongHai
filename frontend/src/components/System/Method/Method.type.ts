@@ -6,3 +6,4 @@ export type Method = {
   methodTime?: string;
   methodFileUrl?: string;
 };
+
