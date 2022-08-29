@@ -43,7 +43,6 @@ const LabDetail: React.FC = () => {
       process.env.REACT_APP_API_BASE + `/lab/${labId}`,
       setHeader()
     );
-    console.log(data);
     setLabData(data);
   }, [labId]);
 
@@ -81,7 +80,6 @@ const LabDetail: React.FC = () => {
       process.env.REACT_APP_API_BASE + `/staff/not-in-lab/lead/${labId}`,
       setHeader()
     );
-    console.log("Lead ", data);
     setLeadList(data);
   }, [labId]);
   useEffect(() => {
@@ -244,7 +242,7 @@ const LabDetail: React.FC = () => {
               sx={{ p: 2, display: "flex", flexDirection: "column" }}
               style={{ height: "100%" }}
             >
-              <StaffTableOneLab />
+              <StaffTableOneLab labId={labId || ""} />
             </Paper>
           </Grid>
         </Grid>
