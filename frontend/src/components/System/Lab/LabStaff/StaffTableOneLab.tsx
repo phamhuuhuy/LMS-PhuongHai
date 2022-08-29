@@ -6,6 +6,7 @@ import {
   FormControl,
   InputLabel,
   Select,
+  MenuItem,
 } from "@mui/material";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import { Edit, Delete } from "@mui/icons-material";
@@ -29,10 +30,19 @@ const StaffTableOneLab: React.FC<StaffTableOneLabProps> = ({ labId }) => {
     navigate(`/staff/${id}`);
   };
 
-  const handleDelete = (id: string) => {
-    setOpenDialog(true);
-    console.log("Delete " + id);
-    setId(id);
+  const handleDelete = async (staffId: any) => {
+    const { headers }: any = setHeader();
+    const { data } = await axios.delete(
+      process.env.REACT_APP_API_BASE + `/staff-lab`,
+      {
+        headers,
+        data: {
+          staffId,
+          labId,
+        },
+      }
+    );
+    window.location.reload();
   };
 
   const handleClose = (value: boolean) => {
@@ -67,14 +77,6 @@ const StaffTableOneLab: React.FC<StaffTableOneLabProps> = ({ labId }) => {
       renderCell: (params) => {
         return (
           <>
-            <div style={{ marginRight: "20px" }}>
-              <Tooltip title="Sửa">
-                <Edit
-                  style={{ color: "#1976d2" }}
-                  onClick={() => handleEdit(params.row.id)}
-                />
-              </Tooltip>
-            </div>
             <div>
               <Tooltip title="Xoá">
                 <Delete
@@ -83,10 +85,6 @@ const StaffTableOneLab: React.FC<StaffTableOneLabProps> = ({ labId }) => {
                 />
               </Tooltip>
             </div>
-            {/* <Link to={`/user/${params.row._id}`}>
-                            <button className="userListEdit">Edit</button>
-                        </Link>
-                        <DeleteOutline className="userListDelete" onClick={() => handleDelete(params.row._id)} /> */}
           </>
         );
       },
@@ -95,9 +93,16 @@ const StaffTableOneLab: React.FC<StaffTableOneLabProps> = ({ labId }) => {
 
   React.useEffect(() => {
     fetchData();
+    fetchStaffList();
   }, []);
 
-  const fetchStaffList = async () => {};
+  const fetchStaffList = async () => {
+    const { data } = await axios.get(
+      process.env.REACT_APP_API_BASE + `/staff/not-in-lab/${labId}`,
+      setHeader()
+    );
+    setStaffList(data);
+  };
 
   const fetchData = async () => {
     const { data } = await axios.get(
@@ -105,8 +110,22 @@ const StaffTableOneLab: React.FC<StaffTableOneLabProps> = ({ labId }) => {
       setHeader()
     );
     const { staffs } = data;
-    console.log(staffs);
     setData(staffs);
+  };
+
+  const handleOnChange = async (e: any) => {
+    const staffId = e.target.value;
+    const bodyData = {
+      staffId,
+      labId,
+      isLead: false,
+    };
+    const { data } = await axios.post(
+      process.env.REACT_APP_API_BASE + `/staff-lab`,
+      bodyData,
+      setHeader()
+    );
+    window.location.reload();
   };
   return (
     <div style={{ height: "100%", width: "100%" }}>
@@ -135,23 +154,25 @@ const StaffTableOneLab: React.FC<StaffTableOneLabProps> = ({ labId }) => {
               name="lead"
               id="demo-simple-select"
               label="Nhân viên"
-              //onChange={handleOnChange}
+              onChange={handleOnChange}
             >
-              {/* {leadList.length > 0 &&
-              leadList.map((item: EmployeeType) => (
-                <MenuItem value={item.id as any}>{item.employeeName}</MenuItem>
-              ))} */}
+              {staffList.length > 0 &&
+                staffList.map((item: any) => (
+                  <MenuItem value={item.id as any}>
+                    {item.employeeUserName}
+                  </MenuItem>
+                ))}
             </Select>
           </FormControl>
         </div>
         <div style={{ flex: 1, display: "flex", justifyContent: "end" }}>
-          <Button
+          {/* <Button
             style={{ alignSelf: "flex-end" }}
             variant="contained"
             onClick={handleOnClick}
           >
             + Thêm Nhân Viên
-          </Button>
+          </Button> */}
         </div>
       </div>
       <DialogAlert
