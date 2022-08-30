@@ -88,39 +88,42 @@ export class TaskService {
   }
 
   async updateTask(uuid: string, updatedTask: UpdateTask): Promise<UpdateTask> {
+    const staff = await this.staffRepository.findOneBy({
+      id: updatedTask.staffId,
+    });
+    if (!staff) {
+      throw new NotFoundException('Staff id is not exist');
+    }
+
+    const method = await this.methodRepository.findOneBy({
+      id: updatedTask.methodId,
+    });
+    if (!method) {
+      throw new NotFoundException('Method id is not exist');
+    }
     const taskFound = await this.getOne(uuid);
 
-    if (updatedTask.taskEndDate) {
-      updatedTask.taskStatus = Status.DONE;
+    let taskEndDate: string;
+    if (updatedTask.taskStatus == Status.DONE) {
+      taskEndDate = new Date().toISOString().slice(0, 10);
+    } else if (!updatedTask.taskStatus) {
+      taskEndDate = taskFound.taskEndDate;
+    } else {
+      taskEndDate = null;
     }
 
     const task = {
-      taskStatus: Status.PROCCESSING,
+      taskStatus: updatedTask.taskStatus || taskFound.taskStatus,
       taskNote: updatedTask.taskNote || taskFound.taskNote,
       taskResult: updatedTask.taskResult || taskFound.taskResult,
       taskStartDate: updatedTask.taskStartDate || taskFound.taskStartDate,
-      taskEndDate: updatedTask.taskEndDate || taskFound.taskEndDate,
-      sampleId: updatedTask.sampleId || taskFound.sample.id,
+      taskEndDate: taskEndDate,
+      sampleId: taskFound.sample.id,
       methodId: updatedTask.methodId || taskFound.method.id,
       staffId: updatedTask.staffId || taskFound.staff.id,
       taskName: updatedTask.taskName || taskFound.taskName,
       id: uuid,
     };
-
-    if (task.taskStatus == Status.DONE) {
-      if (!task.taskEndDate) {
-        throw new HttpException(
-          {
-            status: HttpStatus.BAD_REQUEST,
-            error:
-              'Please update the return result date if your sample status is done',
-          },
-          HttpStatus.BAD_REQUEST,
-        );
-      }
-    } else {
-      task.taskEndDate = null;
-    }
 
     const addedTask = await this.taskRepository.save(task);
     return addedTask;
