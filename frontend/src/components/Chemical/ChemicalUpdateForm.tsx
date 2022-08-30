@@ -12,6 +12,8 @@ import MomentAdapter from "@material-ui/pickers/adapter/moment";
 import DatePicker from "@mui/lab/DatePicker";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { useNavigate, useParams } from "react-router-dom";
+import { setHeader } from "../../common/utils/common";
+import axios from "axios";
 
 const ChemicalUpdateForm: React.FC = () => {
   let { chemicalId } = useParams();
@@ -106,21 +108,16 @@ const ChemicalUpdateForm: React.FC = () => {
   const handleOnSubmit = async () => {
     if (handleValidation()) {
       try {
-        const response = await fetch(
-          process.env.REACT_APP_API_BASE + `/chemical/${chemicalId}`,
+        const response = await axios.post(
+          process.env.REACT_APP_API_BASE + "/chemical",
           {
-            method: "PATCH",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify({
-              ...chemicalData,
-              chemicalQuantity: parseInt(chemicalData.chemicalQuantity),
-            }),
-          }
+            ...chemicalData,
+            chemicalQuantity: parseInt(chemicalData.chemicalQuantity),
+          },
+          setHeader()
         );
         console.log(response);
-        if (response.status === 200) {
+        if (response.status === 201) {
           navigate("/chemical");
         }
       } catch (error) {
@@ -132,16 +129,11 @@ const ChemicalUpdateForm: React.FC = () => {
   };
 
   const fetchChemicalById = useCallback(async () => {
-    const response = await fetch(
-      `http://localhost:5000/chemical/${chemicalId}`,
-      {
-        method: "GET",
-      }
+    const { data } = await axios.get(
+      process.env.REACT_APP_API_BASE + "/chemical/" + `${chemicalId}`,
+      setHeader()
     );
-    const result = await response.json();
-
-    let { id: string, ...filteredResult } = result;
-    setChemicalData({ ...filteredResult });
+    setChemicalData({ ...data });
   }, [chemicalId]);
 
   useEffect(() => {
@@ -228,7 +220,7 @@ const ChemicalUpdateForm: React.FC = () => {
                           chemicalImportDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
 
                     {errorForm?.chemicalImportDate && (
@@ -249,7 +241,7 @@ const ChemicalUpdateForm: React.FC = () => {
                           chemicalDueDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
                   </div>
 
@@ -270,7 +262,7 @@ const ChemicalUpdateForm: React.FC = () => {
                           chemicalExportDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
                   </div>
 

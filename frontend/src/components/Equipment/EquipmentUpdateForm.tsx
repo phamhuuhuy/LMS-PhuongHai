@@ -20,6 +20,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import axios from "axios";
+import { setHeader } from "../../common/utils/common";
 
 const EquipmentUpdateForm = () => {
   let { equipmentId } = useParams();
@@ -114,16 +116,12 @@ const EquipmentUpdateForm = () => {
   const handleOnSubmit = async () => {
     if (handleValidation()) {
       try {
-        const response = await fetch(
-          process.env.REACT_APP_API_BASE + `/instrument/${equipmentId}`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify(instrumentData),
-          }
+        const response = await axios.patch(
+          process.env.REACT_APP_API_BASE + "/instrument/" + `${equipmentId}`,
+          instrumentData,
+          setHeader()
         );
+
         console.log(response);
         if (response.status === 200) {
           navigate("/equipment");
@@ -139,16 +137,12 @@ const EquipmentUpdateForm = () => {
   };
 
   const fetchInstrumentById = useCallback(async () => {
-    const response = await fetch(
-      `http://localhost:5000/instrument/${equipmentId}`,
-      {
-        method: "GET",
-      }
+    const { data } = await axios.get(
+      process.env.REACT_APP_API_BASE + "/instrument/" + `${equipmentId}`,
+      setHeader()
     );
-    const result = await response.json();
 
-    let { id: string, ...filteredResult } = result;
-    setInstrumentData({ ...filteredResult });
+    setInstrumentData(data);
   }, [equipmentId]);
 
   useEffect(() => {
@@ -236,7 +230,7 @@ const EquipmentUpdateForm = () => {
                           instrumentBuyDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
 
                     {errorForm?.instrumentBuyDate && (
@@ -256,7 +250,7 @@ const EquipmentUpdateForm = () => {
                           instrumentCalibrationDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
                   </div>
 
@@ -276,7 +270,7 @@ const EquipmentUpdateForm = () => {
                           instrumentNextCalibrationDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
                   </div>
 

@@ -11,6 +11,8 @@ import Container from "@mui/material/Container";
 import { Alert, Paper } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { Staff } from "./Staff.type";
+import axios from "axios";
+import { setHeader } from "../../common/utils/common";
 
 const StaffUpdateForm: React.FC = () => {
   const navigate = useNavigate();
@@ -75,17 +77,10 @@ const StaffUpdateForm: React.FC = () => {
     if (handleValidation()) {
       try {
         const { employeePassword, ...restEmployee } = employeeData;
-        const response = await fetch(
+        const response = await axios.patch(
           process.env.REACT_APP_API_BASE + `/staff/${staffId}`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify(
-              passwordRef.current?.value ? employeeData : restEmployee
-            ),
-          }
+          passwordRef.current?.value ? employeeData : restEmployee,
+          setHeader()
         );
         if (response.status === 200) {
           navigate("/staff");
@@ -99,16 +94,11 @@ const StaffUpdateForm: React.FC = () => {
   };
 
   const fetchStaffById = useCallback(async () => {
-    const response = await fetch(
+    const { data } = await axios.get(
       process.env.REACT_APP_API_BASE + `/staff/${staffId}`,
-      {
-        method: "GET",
-      }
+      setHeader()
     );
-    const result = await response.json();
-
-    let { id: string, ...filteredResult } = result;
-    setEmployeeData({ ...filteredResult });
+    setEmployeeData(data);
   }, [staffId]);
 
   useEffect(() => {

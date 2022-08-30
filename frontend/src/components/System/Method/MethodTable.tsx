@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Typography, Button, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import { Edit, Delete, Preview } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import DialogAlert from "../../../common/DialogAlert";
+import axios from "axios";
+import { setHeader } from "../../../common/utils/common";
+
 
 const MethodTable: React.FC = () => {
   const [data, setData] = useState<any[]>([]);
@@ -17,6 +20,10 @@ const MethodTable: React.FC = () => {
 
   const handleEdit = (id: string) => {
     navigate(`/method/${id}`);
+  };
+
+  const handleView = (id: string) => {
+    navigate(`/method/detail/${id}`);
   };
 
   const handleDelete = (id: string) => {
@@ -72,7 +79,7 @@ const MethodTable: React.FC = () => {
               <Tooltip title="Xem">
                 <Preview
                   style={{ color: "#1976d2" }}
-                  onClick={() => handleEdit(params.row.id)}
+                  onClick={() => handleView(params.row.id)}
                 />
               </Tooltip>
             </div>
@@ -97,6 +104,20 @@ const MethodTable: React.FC = () => {
       },
     },
   ];
+
+  const getData = async () => {
+    const dataAPI = await axios.get(
+      process.env.REACT_APP_API_BASE + "/method",
+      setHeader()
+    );
+
+    const { data } = dataAPI;
+    setData(data);
+  };
+
+  useEffect(() => {
+    getData();
+  });
 
   return (
     <div style={{ height: "100%", width: "100%" }}>

@@ -12,6 +12,8 @@ import MomentAdapter from "@material-ui/pickers/adapter/moment";
 import DatePicker from "@mui/lab/DatePicker";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { useNavigate } from "react-router-dom";
+import { setHeader } from "../../common/utils/common";
+import axios from "axios";
 
 const ChemicalForm: React.FC = () => {
   const navigate = useNavigate();
@@ -107,18 +109,13 @@ const ChemicalForm: React.FC = () => {
   const handleOnSubmit = async () => {
     if (handleValidation()) {
       try {
-        const response = await fetch(
+        const response = await axios.post(
           process.env.REACT_APP_API_BASE + "/chemical",
           {
-            method: "POST",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify({
-              ...chemicalData,
-              chemicalQuantity: parseInt(chemicalData.chemicalQuantity),
-            }),
-          }
+            ...chemicalData,
+            chemicalQuantity: parseInt(chemicalData.chemicalQuantity),
+          },
+          setHeader()
         );
         console.log(response);
         if (response.status === 201) {
@@ -213,7 +210,7 @@ const ChemicalForm: React.FC = () => {
                           chemicalImportDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
 
                     {errorForm?.chemicalImportDate && (
@@ -234,7 +231,7 @@ const ChemicalForm: React.FC = () => {
                           chemicalDueDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
                   </div>
 
@@ -255,7 +252,7 @@ const ChemicalForm: React.FC = () => {
                           chemicalExportDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
                   </div>
 

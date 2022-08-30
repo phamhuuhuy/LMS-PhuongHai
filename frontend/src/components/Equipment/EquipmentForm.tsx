@@ -22,6 +22,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import axios from "axios";
+import { setHeader } from "../../common/utils/common";
 
 const useStyles = makeStyles({
   root: {
@@ -127,20 +129,16 @@ const EquipmentForm: React.FC = () => {
   };
 
   const handleOnSubmit = async () => {
-    console.log(handleValidation());
+    console.log('1');
     if (handleValidation()) {
       console.log("form", instrumentData);
       try {
-        const response = await fetch(
+        const response = await axios.post(
           process.env.REACT_APP_API_BASE + "/instrument",
-          {
-            method: "POST",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify(instrumentData),
-          }
+          instrumentData,
+          setHeader()
         );
+
         if (response.status === 201) {
           navigate("/equipment");
         }
@@ -150,6 +148,7 @@ const EquipmentForm: React.FC = () => {
         }
       }
     }
+    console.log('2');
   };
 
   return (
@@ -233,7 +232,7 @@ const EquipmentForm: React.FC = () => {
                           instrumentBuyDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
 
                     {errorForm?.instrumentBuyDate && (
@@ -253,7 +252,7 @@ const EquipmentForm: React.FC = () => {
                           instrumentCalibrationDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
                   </div>
 
@@ -273,7 +272,7 @@ const EquipmentForm: React.FC = () => {
                           instrumentNextCalibrationDate: e.format("YYYY-MM-DD"),
                         });
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params: any) => <TextField {...params} />}
                     />
                   </div>
 

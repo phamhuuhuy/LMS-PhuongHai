@@ -31,7 +31,9 @@ import LabUpdateForm from "./components/System/Lab/LabUpdateForm";
 import Method from "./components/System/Method/Method";
 import MethodForm from "./components/System/Method/MethodForm";
 import MethodUpdateForm from "./components/System/Method/MethodUpdateForm";
+import MethodDetail from "./components/System/Method/MethodDetail";
 import LabDetail from "./components/System/Lab/LabDetail";
+import Login from "./components/Login/Login";
 
 const drawerWidth: number = 240;
 
@@ -64,8 +66,9 @@ function App() {
   const handleOnClick = (value: boolean) => {
     setOpen(value);
   };
-  return (
-    <div className="App">
+
+  const AppComponent = () => {
+    return (
       <ThemeProvider theme={mdTheme}>
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
@@ -152,6 +155,11 @@ function App() {
                   path="/method/:methodId"
                   element={<MethodUpdateForm />}
                 />
+                <Route
+                  path="/method/detail/:methodId"
+                  element={<MethodDetail />}
+                />
+                {/* <Route path="/login" element={<Login />} /> */}
               </Routes>
             </Box>
 
@@ -168,6 +176,14 @@ function App() {
           </Box>
         </Box>
       </ThemeProvider>
+    );
+  };
+  return (
+    <div className="App">
+      <Routes>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/*" element={<AppComponent />}></Route>
+      </Routes>
     </div>
   );
 }

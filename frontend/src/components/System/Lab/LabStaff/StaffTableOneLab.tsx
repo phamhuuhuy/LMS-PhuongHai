@@ -1,14 +1,27 @@
-
 import React, { useState } from "react";
-import { Typography, Button, Tooltip } from "@mui/material";
+import {
+  Typography,
+  Button,
+  Tooltip,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import { Edit, Delete } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import DialogAlert from "../../../../common/DialogAlert";
+import axios from "axios";
+import { setHeader } from "../../../../common/utils/common";
 
+interface StaffTableOneLabProps {
+  labId: string;
+}
 
-const StaffTableOneLab: React.FC = () => {
+const StaffTableOneLab: React.FC<StaffTableOneLabProps> = ({ labId }) => {
   const [data, setData] = useState([]);
+  const [staffList, setStaffList] = useState([]);
   const [id, setId] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
@@ -17,10 +30,19 @@ const StaffTableOneLab: React.FC = () => {
     navigate(`/staff/${id}`);
   };
 
-  const handleDelete = (id: string) => {
-    setOpenDialog(true);
-    console.log("Delete " + id);
-    setId(id);
+  const handleDelete = async (staffId: any) => {
+    const { headers }: any = setHeader();
+    const { data } = await axios.delete(
+      process.env.REACT_APP_API_BASE + `/staff-lab`,
+      {
+        headers,
+        data: {
+          staffId,
+          labId,
+        },
+      }
+    );
+    window.location.reload();
   };
 
   const handleClose = (value: boolean) => {
@@ -36,44 +58,25 @@ const StaffTableOneLab: React.FC = () => {
     {
       field: "employeeName",
       headerName: "Tên người dùng",
-      width: 180,
+      width: 200,
     },
     {
       field: "employeeUserName",
       headerName: "Tên tài khoản",
-      width: 180,
+      width: 200,
     },
     {
       field: "employeePassword",
       headerName: "Mật khẩu",
-      width: 180,
-    },
-
-    {
-      field: "employeeLab",
-      headerName: "Phòng Lab",
-      width: 160,
-    },
-    {
-      field: "isManager",
-      headerName: "Chức danh",
-      width: 150,
+      width: 200,
     },
     {
       field: "action",
       headerName: "Hành Động",
-      width: 100,
+      width: 200,
       renderCell: (params) => {
         return (
           <>
-            <div style={{ marginRight: "20px" }}>
-              <Tooltip title="Sửa">
-                <Edit
-                  style={{ color: "#1976d2" }}
-                  onClick={() => handleEdit(params.row.id)}
-                />
-              </Tooltip>
-            </div>
             <div>
               <Tooltip title="Xoá">
                 <Delete
@@ -82,10 +85,6 @@ const StaffTableOneLab: React.FC = () => {
                 />
               </Tooltip>
             </div>
-            {/* <Link to={`/user/${params.row._id}`}>
-                            <button className="userListEdit">Edit</button>
-                        </Link>
-                        <DeleteOutline className="userListDelete" onClick={() => handleDelete(params.row._id)} /> */}
           </>
         );
       },
@@ -94,12 +93,39 @@ const StaffTableOneLab: React.FC = () => {
 
   React.useEffect(() => {
     fetchData();
+    fetchStaffList();
   }, []);
 
+  const fetchStaffList = async () => {
+    const { data } = await axios.get(
+      process.env.REACT_APP_API_BASE + `/staff/not-in-lab/${labId}`,
+      setHeader()
+    );
+    setStaffList(data);
+  };
+
   const fetchData = async () => {
-    const response = await fetch(process.env.REACT_APP_API_BASE + "/staff");
-    const value = await response.json();
-    setData(value);
+    const { data } = await axios.get(
+      process.env.REACT_APP_API_BASE + `/lab/${labId}`,
+      setHeader()
+    );
+    const { staffs } = data;
+    setData(staffs);
+  };
+
+  const handleOnChange = async (e: any) => {
+    const staffId = e.target.value;
+    const bodyData = {
+      staffId,
+      labId,
+      isLead: false,
+    };
+    const { data } = await axios.post(
+      process.env.REACT_APP_API_BASE + `/staff-lab`,
+      bodyData,
+      setHeader()
+    );
+    window.location.reload();
   };
   return (
     <div style={{ height: "100%", width: "100%" }}>
@@ -109,7 +135,7 @@ const StaffTableOneLab: React.FC = () => {
         color="primary"
         style={{ marginBottom: "20px" }}
       >
-       Danh sách nhân viên của phòng lab
+        Danh sách nhân viên của phòng lab
       </Typography>
       <div
         style={{
@@ -120,13 +146,34 @@ const StaffTableOneLab: React.FC = () => {
           alignItems: "center",
         }}
       >
-        <Button
-          style={{ alignSelf: "flex-end" }}
-          variant="contained"
-          onClick={handleOnClick}
-        >
-          + Thêm Nhân Viên
-        </Button>
+        <div style={{ flex: 1 }}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Nhân viên</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              name="lead"
+              id="demo-simple-select"
+              label="Nhân viên"
+              onChange={handleOnChange}
+            >
+              {staffList.length > 0 &&
+                staffList.map((item: any) => (
+                  <MenuItem value={item.id as any}>
+                    {item.employeeUserName}
+                  </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
+        </div>
+        <div style={{ flex: 1, display: "flex", justifyContent: "end" }}>
+          {/* <Button
+            style={{ alignSelf: "flex-end" }}
+            variant="contained"
+            onClick={handleOnClick}
+          >
+            + Thêm Nhân Viên
+          </Button> */}
+        </div>
       </div>
       <DialogAlert
         id={id}

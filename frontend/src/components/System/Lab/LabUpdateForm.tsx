@@ -11,6 +11,8 @@ import Container from "@mui/material/Container";
 import { Alert, Paper } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { Lab } from "./Lab.type";
+import axios from "axios";
+import { setHeader } from "../../../common/utils/common";
 
 const LabUpdateForm: React.FC = () => {
   const navigate = useNavigate();
@@ -54,16 +56,12 @@ const LabUpdateForm: React.FC = () => {
   const handleOnSubmit = async () => {
     if (handleValidation()) {
       try {
-        const response = await fetch(
+        const response = await axios.patch(
           process.env.REACT_APP_API_BASE + `/lab/${labId}`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify(labData),
-          }
+          labData,
+          setHeader()
         );
+        
         if (response.status === 200) {
           navigate("/lab");
         }
@@ -76,16 +74,11 @@ const LabUpdateForm: React.FC = () => {
   };
 
   const fetchStaffById = useCallback(async () => {
-    const response = await fetch(
+    const { data } = await axios.get(
       process.env.REACT_APP_API_BASE + `/lab/${labId}`,
-      {
-        method: "GET",
-      }
+      setHeader()
     );
-    const result = await response.json();
-
-    let { id: string, ...filteredResult } = result;
-    setLabData({ ...filteredResult });
+    setLabData(data);
   }, [labId]);
 
   useEffect(() => {
