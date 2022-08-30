@@ -27,14 +27,6 @@ export class UpdateTask {
   @IsOptional()
   taskStartDate: string;
 
-  @IsDateString()
-  @IsOptional()
-  taskEndDate: string;
-
-  @IsOptional()
-  @IsUUID()
-  sampleId: string;
-
   @IsUUID()
   @IsOptional()
   staffId: string;

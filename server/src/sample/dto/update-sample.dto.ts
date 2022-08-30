@@ -5,9 +5,6 @@ export class UpdateSample {
   @IsDateString()
   @IsOptional()
   sampleReceivedDate?: string;
-  @IsDateString()
-  @IsOptional()
-  sampleReturnedResultDate?: string;
   @IsString()
   @IsOptional()
   sampleNote?: string;
@@ -16,8 +13,8 @@ export class UpdateSample {
   sampleStatus?: string;
   @IsString()
   @IsOptional()
-  labId: String;
+  labId: string;
   @IsString()
   @IsOptional()
-  customerId: String;
+  customerId: string;
 }

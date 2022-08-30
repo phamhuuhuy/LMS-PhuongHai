@@ -12,7 +12,7 @@ import { UpdateCustomer } from 'src/customer/dto';
 import { LabResponse } from 'src/lab/dto';
 import { Lab } from 'src/lab/lab.entity';
 import { LabService } from 'src/lab/lab.service';
-import { Like, Repository, DeleteResult } from 'typeorm';
+import { Like, Repository, DeleteResult, LessThan } from 'typeorm';
 import { UpdateSample } from './dto';
 import { GetOneSampleResponse } from './dto/getOne-respone.dto';
 import { RequestSample } from './dto/request-sample.dto';
@@ -84,40 +84,51 @@ export class SampleService {
   async updateSample(
     uuid: string,
     updatedSample: UpdateSample,
-  ): Promise<UpdateSample> {
-    const sampleFound = await this.getOne(uuid);
+  ): Promise<Sample> {
+    let lab: Lab;
+    let customer: Customer;
 
-    if (updatedSample.sampleReturnedResultDate) {
-      updatedSample.sampleStatus = Status.DONE;
+    if (updatedSample.labId) {
+      lab = await this.labRepository.findOne({
+        where: {
+          id: updatedSample.labId,
+        },
+      });
+      if (!lab) {
+        throw new NotFoundException('Lab id is not exist');
+      }
+    }
+
+    if (updatedSample.customerId) {
+      customer = await this.customerRepository.findOne({
+        where: {
+          id: updatedSample.customerId,
+        },
+      });
+      if (!customer) {
+        throw new NotFoundException('Customer id is not exist');
+      }
+    }
+    const sampleFound = await this.getOne(uuid);
+    let sampleReturnedResultDate;
+    if (updatedSample.sampleStatus == Status.DONE) {
+      sampleReturnedResultDate = new Date().toISOString().slice(0, 10);
+    } else if (!updatedSample.sampleStatus) {
+      sampleReturnedResultDate = sampleFound.sampleReturnedResultDate;
+    } else {
+      sampleReturnedResultDate = null;
     }
 
     const sample = {
       id: uuid,
       sampleReceivedDate:
         updatedSample.sampleReceivedDate || sampleFound.sampleReceivedDate,
-      sampleReturnedResultDate:
-        updatedSample.sampleReturnedResultDate ||
-        sampleFound.sampleReturnedResultDate,
+      sampleReturnedResultDate: sampleReturnedResultDate,
       sampleNote: updatedSample.sampleNote || sampleFound.sampleNote,
       sampleStatus: updatedSample.sampleStatus || sampleFound.sampleStatus,
-      labId: updatedSample.labId || sampleFound.lab.id,
-      customerId: updatedSample.customerId || sampleFound.customer.id,
+      lab: lab,
+      customer: customer,
     };
-
-    if (sample.sampleStatus == Status.DONE) {
-      if (!sample.sampleReturnedResultDate) {
-        throw new HttpException(
-          {
-            status: HttpStatus.BAD_REQUEST,
-            error:
-              'Please update the return result date if your sample status is done',
-          },
-          HttpStatus.BAD_REQUEST,
-        );
-      }
-    } else {
-      sample.sampleReturnedResultDate = null;
-    }
 
     const addedSample = await this.sampleRepository.save(sample);
     return addedSample;
