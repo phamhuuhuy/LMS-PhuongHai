@@ -87,6 +87,23 @@ export class TaskService {
     return task;
   }
 
+  async getMethodBySampleId(uuid: string): Promise<Method[]> {
+    const sample = await this.sampleRepository.findOneBy({
+      id: uuid,
+    });
+    const task = await this.taskRepository.find({
+      where: { sample: sample },
+      relations: {
+        method: true,
+      },
+    });
+    if (!task) {
+      throw new NotFoundException('Task id is not exist');
+    }
+    const methodList = task.map((task) => task.method);
+    return methodList;
+  }
+
   async updateTask(uuid: string, updatedTask: UpdateTask): Promise<UpdateTask> {
     const staff = await this.staffRepository.findOneBy({
       id: updatedTask.staffId,

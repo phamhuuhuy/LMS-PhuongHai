@@ -14,6 +14,9 @@ export class Sample {
   @PrimaryGeneratedColumn('uuid')
   id?: string;
 
+  @Column({ name: 'sample_name' })
+  sampleName: string;
+
   @Column({ name: 'sample_received_date', type: 'date' })
   sampleReceivedDate: string;
 

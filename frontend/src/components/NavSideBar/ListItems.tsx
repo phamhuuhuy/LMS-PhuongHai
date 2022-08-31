@@ -41,7 +41,11 @@ const ListItems = () => {
         </ListItemIcon>
         <ListItemText primary="Khách Hàng" />
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton
+        onClick={() => {
+          navigate("/sample");
+        }}
+      >
         <ListItemIcon>
           <ScienceIcon />
         </ListItemIcon>

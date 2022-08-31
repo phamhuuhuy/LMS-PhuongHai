@@ -2,9 +2,9 @@ import React from "react";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import CustomerTable from "./CustomerTable";
+import SampleTable from "./SampleTable";
 
-const Customer: React.FC = () => {
+const Sample: React.FC = () => {
   return (
     <Container
       maxWidth="lg"
@@ -18,7 +18,7 @@ const Customer: React.FC = () => {
             sx={{ p: 2, display: "flex", flexDirection: "column" }}
             style={{ height: "100%" }}
           >
-            <CustomerTable />
+            <SampleTable />
           </Paper>
         </Grid>
       </Grid>
@@ -26,4 +26,4 @@ const Customer: React.FC = () => {
   );
 };
 
-export default Customer;
+export default Sample;

@@ -7,6 +7,7 @@ import DialogAlert from "../../common/DialogAlert";
 import { ICustomerFetch } from "./Customer.type";
 import axios from "axios";
 import { setHeader } from "../../common/utils/common";
+import AddIcon from "@mui/icons-material/Add";
 
 const CustomerTable: React.FC = () => {
   const [data, setData] = useState<ICustomerFetch[]>([]);
@@ -90,11 +91,19 @@ const CustomerTable: React.FC = () => {
                 />
               </Tooltip>
             </div>
-            <div>
+            <div style={{ marginRight: "20px" }}>
               <Tooltip title="Xoá">
                 <Delete
                   style={{ color: "red" }}
                   onClick={() => handleDelete(params.row.id)}
+                />
+              </Tooltip>
+            </div>
+            <div>
+              <Tooltip title="Thêm Mẫu">
+                <AddIcon
+                  style={{ color: "red" }}
+                  onClick={() => navigate("/sample/create/" + params.row.id)}
                 />
               </Tooltip>
             </div>

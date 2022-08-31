@@ -34,6 +34,10 @@ import MethodUpdateForm from "./components/System/Method/MethodUpdateForm";
 import MethodDetail from "./components/System/Method/MethodDetail";
 import LabDetail from "./components/System/Lab/LabDetail";
 import Login from "./components/Login/Login";
+import Sample from "./components/Sample/Sample";
+import SampleForm from "./components/Sample/SampleForm";
+import SampleUpdateForm from "./components/Sample/SampleUpdateForm";
+import SampleDetail from "./components/Sample/SampleDetail";
 
 const drawerWidth: number = 240;
 
@@ -158,6 +162,16 @@ function App() {
                 <Route
                   path="/method/detail/:methodId"
                   element={<MethodDetail />}
+                />
+                <Route path="/sample" element={<Sample />} />
+                <Route path="/sample/create/:id" element={<SampleForm />} />
+                <Route
+                  path="/sample/:sampleId"
+                  element={<SampleUpdateForm />}
+                />
+                <Route
+                  path="/sample/detail/:sampleId"
+                  element={<SampleDetail />}
                 />
                 {/* <Route path="/login" element={<Login />} /> */}
               </Routes>

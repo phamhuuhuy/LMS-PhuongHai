@@ -35,6 +35,11 @@ export class TaskController {
   getOne(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
     return this.taskService.getOne(uuid);
   }
+
+  @Get('/method/:uuid')
+  getMethodBySampleId(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
+    return this.taskService.getMethodBySampleId(uuid);
+  }
   @Delete('/:uuid')
   @Roles(Role.ADMIN)
   deleteTask(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
