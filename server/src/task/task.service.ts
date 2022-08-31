@@ -166,7 +166,7 @@ export class TaskService {
     return methodList;
   }
 
-  async updateTask(uuid: string, updatedTask: UpdateTask): Promise<UpdateTask> {
+  async updateTask(uuid: string, updatedTask: UpdateTask): Promise<Task> {
     const staff = await this.staffRepository.findOneBy({
       id: updatedTask.staffId,
     });

@@ -27,9 +27,9 @@ const TaskFormAdmin = () => {
     taskStatus: "",
     taskResult: "",
     staffId: "",
+    taskNote: "",
   });
-
-  const [errorForm, setErrorForm] = useState<any>({});
+  const [staffList, setStaffList] = useState<any>([]);
 
   const handleOnChange = (event: any) => {
     setLabData({
@@ -38,25 +38,26 @@ const TaskFormAdmin = () => {
     });
   };
 
-  const handleOnSubmit = async () => {
-    console.log(labData);
+  const handleOnSubmit = async (taskStatus: any) => {
     // const { taskStatus, taskName, taskResult } = labData;
     // const dataSent = { taskStatus, taskName, taskResult };
-    // try {
-    //   const response = await axios.patch(
-    //     process.env.REACT_APP_API_BASE + `/task/${taskId}`,
-    //     dataSent,
-    //     setHeader()
-    //   );
+    const dataSent = { ...labData, taskStatus };
+    console.log(dataSent);
+    try {
+      const response = await axios.patch(
+        process.env.REACT_APP_API_BASE + `/task/${taskId}`,
+        dataSent,
+        setHeader()
+      );
 
-    //   if (response.status === 200) {
-    //     navigate("/task");
-    //   }
-    // } catch (error) {
-    //   if (error instanceof Error) {
-    //     throw error.message;
-    //   }
-    // }
+      if (response.status === 200) {
+        navigate("/task");
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error.message;
+      }
+    }
   };
 
   const fetchStaffById = useCallback(async () => {
@@ -64,15 +65,29 @@ const TaskFormAdmin = () => {
       process.env.REACT_APP_API_BASE + `/task/${taskId}`,
       setHeader()
     );
-    const { taskStatus, taskName, taskResult, staff } = data;
+    const { taskStatus, taskName, taskResult, staff, taskNote } = data;
 
-    const dataSent = { taskStatus, taskName, taskResult, staffId: staff.id };
+    const dataSent = {
+      taskStatus,
+      taskName,
+      taskResult,
+      staffId: staff.id,
+      taskNote,
+    };
     setLabData(dataSent);
   }, [taskId]);
 
+  const fetchAllStaff = useCallback(async () => {
+    const { data } = await axios.get(
+      process.env.REACT_APP_API_BASE + `/staff/not-lead`,
+      setHeader()
+    );
+    setStaffList(data);
+  }, [taskId]);
   useEffect(() => {
     fetchStaffById();
-  }, [fetchStaffById]);
+    fetchAllStaff();
+  }, [fetchStaffById, fetchAllStaff]);
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} style={{ height: "100%" }}>
@@ -126,17 +141,16 @@ const TaskFormAdmin = () => {
                     label="Nhân viên phụ trách"
                     onChange={handleOnChange}
                   >
-                    <MenuItem value={"169b3e6d-3914-4eea-b88f-081840d0f5b9"}>
-                      Chuẩn bị làm
-                    </MenuItem>
-                    {/* <MenuItem value={"processing"}>Đang làm</MenuItem>
-                    <MenuItem value={"wait-for-acception"}>
-                      Chờ phê duyệt
-                    </MenuItem> */}
+                    {staffList.length > 0 &&
+                      staffList.map((item: any) => (
+                        <MenuItem value={item.id as any} key={item.id}>
+                          {item.employeeName}
+                        </MenuItem>
+                      ))}
                   </Select>
                 </FormControl>
 
-                <FormControl fullWidth>
+                {/* <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">
                     Tình Trạng Công Việc
                   </InputLabel>
@@ -154,7 +168,7 @@ const TaskFormAdmin = () => {
                       Chờ phê duyệt
                     </MenuItem>
                   </Select>
-                </FormControl>
+                </FormControl> */}
                 <TextField
                   required
                   margin="normal"
@@ -165,14 +179,32 @@ const TaskFormAdmin = () => {
                   value={labData?.taskResult}
                   onChange={handleOnChange}
                 />
+                <TextField
+                  required
+                  margin="normal"
+                  name="taskNote"
+                  variant="outlined"
+                  label="Ghi chú"
+                  fullWidth
+                  value={labData?.taskNote}
+                  onChange={handleOnChange}
+                />
 
                 <Button
                   variant="contained"
                   color="primary"
                   style={{ width: "100%", marginTop: "20px" }}
-                  onClick={handleOnSubmit}
+                  onClick={() => handleOnSubmit("done")}
                 >
-                  Cập Nhật Công việc
+                  Đồng ý
+                </Button>
+                <Button
+                  variant="contained"
+                  color="error"
+                  style={{ width: "100%", marginTop: "20px" }}
+                  onClick={() => handleOnSubmit("to-do")}
+                >
+                  Từ chối
                 </Button>
               </Box>
             </Box>
