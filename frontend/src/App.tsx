@@ -34,7 +34,7 @@ import MethodUpdateForm from "./components/System/Method/MethodUpdateForm";
 import MethodDetail from "./components/System/Method/MethodDetail";
 import LabDetail from "./components/System/Lab/LabDetail";
 import Login from "./components/Login/Login";
-
+import PrivateRoute from "./components/Login/PrivateRoute";
 const drawerWidth: number = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -182,7 +182,10 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/*" element={<AppComponent />}></Route>
+
+        <Route element={<PrivateRoute />}>
+          <Route path="/*" element={<AppComponent />}></Route>
+        </Route>
       </Routes>
     </div>
   );
