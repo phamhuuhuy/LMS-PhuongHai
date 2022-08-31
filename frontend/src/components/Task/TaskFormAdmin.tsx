@@ -1,4 +1,10 @@
-import { Alert, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  Alert,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
@@ -12,7 +18,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { setHeader } from "../../common/utils/common";
 
-const TaskForm = () => {
+const TaskFormAdmin = () => {
   const navigate = useNavigate();
   let { taskId } = useParams();
 
@@ -20,6 +26,7 @@ const TaskForm = () => {
     taskName: "",
     taskStatus: "",
     taskResult: "",
+    staffId: "",
   });
 
   const [errorForm, setErrorForm] = useState<any>({});
@@ -32,23 +39,24 @@ const TaskForm = () => {
   };
 
   const handleOnSubmit = async () => {
-    const { taskStatus, taskName, taskResult } = labData;
-    const dataSent = { taskStatus, taskName, taskResult };
-    try {
-      const response = await axios.patch(
-        process.env.REACT_APP_API_BASE + `/task/${taskId}`,
-        dataSent,
-        setHeader()
-      );
+    console.log(labData);
+    // const { taskStatus, taskName, taskResult } = labData;
+    // const dataSent = { taskStatus, taskName, taskResult };
+    // try {
+    //   const response = await axios.patch(
+    //     process.env.REACT_APP_API_BASE + `/task/${taskId}`,
+    //     dataSent,
+    //     setHeader()
+    //   );
 
-      if (response.status === 200) {
-        navigate("/task");
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        throw error.message;
-      }
-    }
+    //   if (response.status === 200) {
+    //     navigate("/task");
+    //   }
+    // } catch (error) {
+    //   if (error instanceof Error) {
+    //     throw error.message;
+    //   }
+    // }
   };
 
   const fetchStaffById = useCallback(async () => {
@@ -56,7 +64,10 @@ const TaskForm = () => {
       process.env.REACT_APP_API_BASE + `/task/${taskId}`,
       setHeader()
     );
-    setLabData(data);
+    const { taskStatus, taskName, taskResult, staff } = data;
+
+    const dataSent = { taskStatus, taskName, taskResult, staffId: staff.id };
+    setLabData(dataSent);
   }, [taskId]);
 
   useEffect(() => {
@@ -103,16 +114,28 @@ const TaskForm = () => {
                   onChange={handleOnChange}
                 />
 
-                {/* <TextField
-                  required
-                  margin="normal"
-                  name="taskStatus"
-                  variant="outlined"
-                  label="Tình trạng công việc"
-                  fullWidth
-                  value={labData?.taskStatus}
-                  onChange={handleOnChange}
-                /> */}
+                <FormControl style={{ marginBottom: "15px" }} fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Nhân viên phụ trách
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    name="staffId"
+                    id="demo-simple-select"
+                    value={labData?.staffId}
+                    label="Nhân viên phụ trách"
+                    onChange={handleOnChange}
+                  >
+                    <MenuItem value={"169b3e6d-3914-4eea-b88f-081840d0f5b9"}>
+                      Chuẩn bị làm
+                    </MenuItem>
+                    {/* <MenuItem value={"processing"}>Đang làm</MenuItem>
+                    <MenuItem value={"wait-for-acception"}>
+                      Chờ phê duyệt
+                    </MenuItem> */}
+                  </Select>
+                </FormControl>
+
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">
                     Tình Trạng Công Việc
@@ -125,9 +148,11 @@ const TaskForm = () => {
                     label="Tình Trạng Thiết Bị"
                     onChange={handleOnChange}
                   >
-                    <MenuItem value={'to-do'}>Chuẩn bị làm</MenuItem>
-                    <MenuItem value={'processing'}>Đang làm</MenuItem>
-                    <MenuItem value={'wait-for-acception'}>Chờ phê duyệt</MenuItem>
+                    <MenuItem value={"to-do"}>Chuẩn bị làm</MenuItem>
+                    <MenuItem value={"processing"}>Đang làm</MenuItem>
+                    <MenuItem value={"wait-for-acception"}>
+                      Chờ phê duyệt
+                    </MenuItem>
                   </Select>
                 </FormControl>
                 <TextField
@@ -158,4 +183,4 @@ const TaskForm = () => {
   );
 };
 
-export default TaskForm;
+export default TaskFormAdmin;

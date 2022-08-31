@@ -11,14 +11,16 @@ const TaskTable = () => {
   const [id, setId] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
-  const userisManager = JSON.parse(localStorage.getItem("user") as any)?.isManager;
+  const userisManager = JSON.parse(
+    localStorage.getItem("user") as any
+  )?.isManager;
 
   const handleOnClick = () => {
     navigate("/lab/create");
   };
 
-  const handleEdit = (id: string) => {
-    navigate(`/lab/${id}`);
+  const handleEditAdmin = (id: string) => {
+    navigate(`/task/admin/${id}`);
   };
   const handleDetail = (id: string) => {
     navigate(`/task/${id}`);
@@ -74,23 +76,25 @@ const TaskTable = () => {
       renderCell: (params) => {
         return (
           <>
-          {userisManager ? <div>
-              <Tooltip title="Xem chi tiết">
-                <Preview
-                  style={{ color: "red" }}
-                  onClick={() => handleDetail(params.row.id)}
-                />
-              </Tooltip>
-            </div> : <div style={{ marginRight: "20px" }}>
-              <Tooltip title="Sửa">
-                <Edit
-                  style={{ color: "#1976d2" }}
-                  onClick={() => handleEdit(params.row.id)}
-                />
-              </Tooltip>
-            </div>}
-            
-            
+            {userisManager ? (
+              <div>
+                <Tooltip title="Xem chi tiết">
+                  <Preview
+                    style={{ color: "red" }}
+                    onClick={() => handleEditAdmin(params.row.id)}
+                  />
+                </Tooltip>
+              </div>
+            ) : (
+              <div style={{ marginRight: "20px" }}>
+                <Tooltip title="Sửa">
+                  <Edit
+                    style={{ color: "#1976d2" }}
+                    onClick={() => handleDetail(params.row.id)}
+                  />
+                </Tooltip>
+              </div>
+            )}
           </>
         );
       },
@@ -106,7 +110,6 @@ const TaskTable = () => {
       process.env.REACT_APP_API_BASE + "/task",
       setHeader()
     );
-
 
     setData(data);
   };

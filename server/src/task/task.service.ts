@@ -198,8 +198,8 @@ export class TaskService {
       taskStartDate: updatedTask.taskStartDate || taskFound.taskStartDate,
       taskEndDate: taskEndDate,
       sampleId: taskFound.sample.id,
-      methodId: updatedTask.methodId || taskFound.method.id,
-      staffId: updatedTask.staffId || taskFound.staff.id,
+      method: method,
+      staff: staff,
       taskName: updatedTask.taskName || taskFound.taskName,
       id: uuid,
     };

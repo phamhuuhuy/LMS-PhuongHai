@@ -48,7 +48,6 @@ export class TaskController {
     return this.taskService.deleteTask(uuid);
   }
   @Patch('/:uuid')
-  @Roles(Role.ADMIN)
   updateTask(
     @Param('uuid', new ParseUUIDPipe()) uuid: string,
     @Body() task: UpdateTask,
