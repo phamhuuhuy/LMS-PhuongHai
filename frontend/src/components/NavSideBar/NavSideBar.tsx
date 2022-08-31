@@ -43,7 +43,7 @@ const NavSideBar = ({ handleOnClick, stateOpen }: any) => {
   const toggleDrawer = () => {
     handleOnClick(!stateOpen);
   };
-
+  const user = JSON.parse(localStorage.getItem("user") as any);
   return (
     <Drawer variant="permanent" open={stateOpen}>
       <Toolbar
@@ -64,7 +64,6 @@ const NavSideBar = ({ handleOnClick, stateOpen }: any) => {
         >
           {/* src will be fetched */}
           <Avatar
-            src=""
             alt="avatar"
             sx={{
               width: "50px",
@@ -72,14 +71,26 @@ const NavSideBar = ({ handleOnClick, stateOpen }: any) => {
               backgroundColor: "grey",
               marginRight: "10px",
             }}
+            src="https://cdn-icons-png.flaticon.com/512/147/147142.png"
           />
 
           <div style={{ flexGrow: "1" }}>
             <div style={{ fontSize: "15px", fontWeight: "600" }}>
-              Người Dùng
+              {user?.employeeName}
             </div>
 
-            <div style={{ fontSize: "12px" }}>Trưởng Nhóm</div>
+            <div style={{ fontSize: "12px" }}>
+              {user?.isManager ? "Trưởng Nhóm" : "Nhân viên"}
+            </div>
+            <div style={{ fontSize: "12px" }}>
+              <a
+                href=""
+                style={{ color: "red" }}
+                onClick={() => localStorage.removeItem("user")}
+              >
+                Log out
+              </a>
+            </div>
           </div>
         </Box>
         <IconButton onClick={toggleDrawer}>

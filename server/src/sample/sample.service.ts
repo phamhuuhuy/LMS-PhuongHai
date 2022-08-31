@@ -38,6 +38,17 @@ export class SampleService {
     return await this.sampleRepository.find();
   }
 
+  async getAllDoneSample(): Promise<Sample[]> {
+    return await this.sampleRepository.find({
+      where: {
+        sampleStatus: Status.DONE,
+      },
+      relations: {
+        lab: true,
+      },
+    });
+  }
+
   async create(sampleRequest: RequestSample): Promise<Sample> {
     const lab = await this.labRepository.findOne({
       where: {

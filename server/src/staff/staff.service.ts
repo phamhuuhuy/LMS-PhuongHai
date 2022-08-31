@@ -26,6 +26,22 @@ export class StaffService {
     return await this.staffRepository.find();
   }
 
+  async getAllStaffNotLead(): Promise<Staff[]> {
+    const staffs = await this.staffRepository.find({
+      where: {
+        isManager: false,
+      },
+      relations: {
+        staffLab: true,
+      },
+    });
+    return staffs.filter(
+      (staff) =>
+        staff.staffLab.length == 0 ||
+        !staff.staffLab.some((staffLab) => staffLab.isLead),
+    );
+  }
+
   async getAllStaffNotInLab(uuid: String, role: boolean): Promise<Staff[]> {
     const staffs = await this.staffRepository.find({
       where: {

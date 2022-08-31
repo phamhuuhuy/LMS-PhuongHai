@@ -6,8 +6,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { setHeader } from "./utils/common";
-import { NotificationContext } from "../components/System/Method/MethodDetail";
 import axios from "axios";
+import { NotificationContext } from "../components/System/Method/MethodDetail";
 
 const DialogAlert = ({
   openDialog,

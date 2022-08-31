@@ -38,7 +38,9 @@ import Sample from "./components/Sample/Sample";
 import SampleForm from "./components/Sample/SampleForm";
 import SampleUpdateForm from "./components/Sample/SampleUpdateForm";
 import SampleDetail from "./components/Sample/SampleDetail";
-
+import PrivateRoute from "./components/Login/PrivateRoute";
+import Dashboard from "./components/Dashboard/Dashboard";
+import Task from "./components/Task/Task";
 const drawerWidth: number = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -124,6 +126,7 @@ function App() {
 
             <Box style={{ height: "80vh" }}>
               <Routes>
+                <Route path="/" element={<Dashboard />} />
                 <Route path="/customer" element={<Customer />} />
                 <Route path="/customer/create" element={<CustomerForm />} />
                 <Route
@@ -174,6 +177,8 @@ function App() {
                   element={<SampleDetail />}
                 />
                 {/* <Route path="/login" element={<Login />} /> */}
+                <Route path="/task" element={<Task />} />
+                <Route path="/task/:taskId" element={<MethodUpdateForm />} />
               </Routes>
             </Box>
 
@@ -196,7 +201,10 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/*" element={<AppComponent />}></Route>
+
+        <Route element={<PrivateRoute />}>
+          <Route path="/*" element={<AppComponent />}></Route>
+        </Route>
       </Routes>
     </div>
   );

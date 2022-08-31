@@ -25,6 +25,7 @@ export class TaskController {
   constructor(private readonly taskService: TaskService) {}
   @Get('')
   getAll(@GetUser() user: any) {
+    console.log(user);
     return this.taskService.getAll(user);
   }
   @Post('/')

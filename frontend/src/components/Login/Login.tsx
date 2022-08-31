@@ -1,23 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 // material-ui
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import {
-  Alert,
-  CircularProgress,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Paper,
-  Select,
-} from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./Login.css";
+import { Box, CircularProgress } from "@mui/material";
 
 const Login = () => {
   const [dataForm, setDataForm] = useState({
@@ -25,7 +11,6 @@ const Login = () => {
     password: "",
   });
   const [loading, setLoading] = useState(false);
-  const [errorForm, setErrorForm] = useState<any>({});
   const navigate = useNavigate();
   const handleOnSubmit = async () => {
     setLoading(true);
@@ -49,85 +34,65 @@ const Login = () => {
     });
   };
   return (
-    <Container
-      maxWidth="lg"
-      sx={{ mt: 4, mb: 4 }}
-      style={{ height: "100%", backgroundColor: "blue" }}
-    >
-      <Grid
-        container
-        spacing={3}
-        style={{ height: "500px", width: "100%", padding: "25px" }}
-      >
-        <Grid item xs={12}>
-          <Paper
-            sx={{
-              p: 3,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-            style={{ height: "100%" }}
-          >
-            <CssBaseline />
+    <div className="container">
+      <div className="screen">
+        <div className="screen__content">
+          <div className="login">
             <Box
               sx={{
                 marginTop: 4,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                width: "40%",
+                width: "100%",
               }}
             >
-              <Typography component="h1" variant="h5">
-                Đăng nhập
-              </Typography>
               {loading ? <CircularProgress /> : null}
-              <Box component="form" noValidate sx={{ mt: 1 }}>
-                {errorForm?.message && (
-                  <Alert severity="warning">{errorForm?.message}</Alert>
-                )}
-                <TextField
-                  required
-                  autoComplete="name"
-                  autoFocus
-                  margin="normal"
-                  name="username"
-                  variant="outlined"
-                  label="Tên đăng nhập"
-                  fullWidth
-                  value={dataForm.username}
-                  onChange={handleOnChange}
-                />
-
-                <TextField
-                  required
-                  autoComplete="name"
-                  autoFocus
-                  margin="normal"
-                  name="password"
-                  variant="outlined"
-                  label="Password"
-                  type="password"
-                  fullWidth
-                  value={dataForm?.password}
-                  onChange={handleOnChange}
-                />
-
-                <Button
-                  variant="contained"
-                  color="primary"
-                  style={{ width: "100%", marginTop: "20px" }}
-                  onClick={handleOnSubmit}
-                >
-                  Đăng nhập
-                </Button>
-              </Box>
             </Box>
-          </Paper>
-        </Grid>
-      </Grid>
-    </Container>
+            <div className="login__field">
+              <i className="login__icon fas fa-user"></i>
+              <input
+                type="text"
+                className="login__input"
+                placeholder="User name"
+                value={dataForm.username}
+                onChange={handleOnChange}
+                name="username"
+              />
+            </div>
+            <div className="login__field">
+              <i className="login__icon fas fa-lock"></i>
+              <input
+                type="password"
+                className="login__input"
+                placeholder="Password"
+                name="password"
+                value={dataForm?.password}
+                onChange={handleOnChange}
+              />
+            </div>
+            <button className="button login__submit" onClick={handleOnSubmit}>
+              <span className="button__text">Log In</span>
+              <i className="button__icon fas fa-chevron-right"></i>
+            </button>
+          </div>
+          <div className="social-login">
+            <h3>Lab Management System</h3>
+            <div className="social-icons">
+              <a href="#" className="social-login__icon fab fa-instagram"></a>
+              <a href="#" className="social-login__icon fab fa-facebook"></a>
+              <a href="#" className="social-login__icon fab fa-twitter"></a>
+            </div>
+          </div>
+        </div>
+        <div className="screen__background">
+          <span className="screen__background__shape screen__background__shape4"></span>
+          <span className="screen__background__shape screen__background__shape3"></span>
+          <span className="screen__background__shape screen__background__shape2"></span>
+          <span className="screen__background__shape screen__background__shape1"></span>
+        </div>
+      </div>
+    </div>
   );
 };
 

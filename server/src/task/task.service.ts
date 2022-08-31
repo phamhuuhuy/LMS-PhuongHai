@@ -9,6 +9,7 @@ import { Method } from 'src/method/method.entity';
 import { Status } from 'src/sample/dto/status.enum';
 import { Sample } from 'src/sample/sample.entity';
 import { Staff } from 'src/staff/staff.entity';
+import { StaffLab } from 'src/staffLab/staffLab.entity';
 import { Repository } from 'typeorm';
 import { UpdateTask } from './dto';
 import { RequestTask } from './dto/request-task.dto';
@@ -23,6 +24,9 @@ export class TaskService {
     @Inject('STAFF_REPOSITORY')
     private staffRepository: Repository<Staff>,
 
+    @Inject('STAFF_LAB_REPOSITORY')
+    private stafLabRepository: Repository<StaffLab>,
+
     @Inject('SAMPLE_REPOSITORY')
     private sampleRepository: Repository<Sample>,
 
@@ -31,7 +35,62 @@ export class TaskService {
   ) {}
 
   async getAll(user): Promise<Task[]> {
-    return await this.taskRepository.find();
+    if (user.isManager) {
+      return await this.taskRepository.find({
+        relations: {
+          staff: true,
+          sample: true,
+        },
+      });
+    } else if (user.isLead) {
+      const labList = await this.stafLabRepository.find({
+        where: {
+          staff_id: user.id,
+        },
+        relations: {
+          lab: true,
+        },
+      });
+      let samples: any = [];
+      for (const lab of labList) {
+        const sampleInLab = await this.sampleRepository.find({
+          where: {
+            lab: lab.lab,
+          },
+          relations: {
+            lab: true,
+          },
+        });
+        samples = [...samples, ...sampleInLab];
+      }
+      let tasks = [];
+      for (const sample of samples) {
+        const taskInSample = await this.taskRepository.find({
+          where: {
+            sample: sample,
+          },
+          relations: {
+            sample: true,
+          },
+        });
+        tasks = [...tasks, ...taskInSample];
+      }
+      return tasks;
+    }
+    const staff = await this.staffRepository.findOne({
+      where: {
+        id: user.id,
+      },
+    });
+    return await this.taskRepository.find({
+      where: {
+        staff: staff,
+      },
+      relations: {
+        staff: true,
+        sample: true,
+      },
+    });
   }
 
   async create(taskRequest: RequestTask): Promise<Task> {
@@ -58,7 +117,7 @@ export class TaskService {
     }
     const taskStartDate = new Date();
     const newTask: Task = {
-      taskStatus: Status.PROCCESSING,
+      taskStatus: Status.TO_DO,
       taskNote: taskRequest.taskNote,
       taskResult: null,
       taskStartDate: taskStartDate.toISOString().slice(0, 10),
