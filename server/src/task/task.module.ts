@@ -11,6 +11,7 @@ import { TaskService } from './task.service';
 import { TaskProvider } from './task.provider';
 import { SampleProvider } from 'src/sample/sample.provider';
 import { MethodProvider } from 'src/method/method.provider';
+import { StaffLabProvider } from 'src/staffLab/staffLab.provider';
 
 @Module({
   imports: [DatabaseModule, StaffLabModule],
@@ -21,6 +22,7 @@ import { MethodProvider } from 'src/method/method.provider';
     ...TaskProvider,
     ...SampleProvider,
     ...MethodProvider,
+    ...StaffLabProvider,
   ],
 })
 export class TaskModule {}

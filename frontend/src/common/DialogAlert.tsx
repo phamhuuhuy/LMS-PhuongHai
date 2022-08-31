@@ -56,11 +56,9 @@ const DialogAlert = ({
           }
           setIsDisplayNoti(!isDisplayNoti);
         } else {
-          response = await fetch(
+          response = await axios.delete(
             process.env.REACT_APP_API_BASE + `/${item}/${id}`,
-            {
-              method: "DELETE",
-            }
+            setHeader()
           );
           window.location.reload();
         }

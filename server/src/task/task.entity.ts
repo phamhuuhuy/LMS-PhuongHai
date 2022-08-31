@@ -7,9 +7,11 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  Unique,
 } from 'typeorm';
 
 @Entity()
+@Unique(['sample', 'method'])
 export class Task {
   @PrimaryGeneratedColumn('uuid')
   id?: string;

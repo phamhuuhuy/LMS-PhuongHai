@@ -66,6 +66,7 @@ export class SampleService {
     }
     const sampleReceivedDate = new Date();
     const newSample: Sample = {
+      sampleName: sampleRequest.sampleName,
       sampleReceivedDate: sampleReceivedDate.toISOString().slice(0, 10),
       sampleReturnedResultDate: null,
       sampleNote: sampleRequest.sampleNote,
@@ -132,6 +133,7 @@ export class SampleService {
 
     const sample = {
       id: uuid,
+      sampleName: updatedSample.sampleName || sampleFound.sampleName,
       sampleReceivedDate:
         updatedSample.sampleReceivedDate || sampleFound.sampleReceivedDate,
       sampleReturnedResultDate: sampleReturnedResultDate,

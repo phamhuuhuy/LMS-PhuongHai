@@ -1,14 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Staff } from 'src/staff/staff.entity';
 import { StaffService } from 'src/staff/staff.service';
+import { StaffLab } from 'src/staffLab/staffLab.entity';
+import { StaffLabService } from 'src/staffLab/staffLab.service';
 import { DecryptValue } from 'src/utils/encrypt.util';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class AuthService {
   constructor(
     private staffService: StaffService,
     private jwtService: JwtService,
+    @Inject('STAFF_LAB_REPOSITORY')
+    private staffLabRepository: Repository<StaffLab>,
   ) {}
 
   async validateUser(username: string, password: string): Promise<any> {
@@ -16,7 +21,17 @@ export class AuthService {
     if (user) {
       const validPassword = await DecryptValue(password, user.employeePassword);
       if (validPassword) {
-        return user;
+        const staffLab = await this.staffLabRepository.findOne({
+          where: {
+            staff_id: user.id,
+            isLead: true,
+          },
+        });
+        if (staffLab) {
+          return { ...user, isLead: true };
+        } else {
+          return { ...user, isLead: false };
+        }
       }
     }
     return null;

@@ -29,6 +29,11 @@ export class StaffController {
     return this.staffService.getAll();
   }
 
+  @Get('/not-lead')
+  getAllNotLead() {
+    return this.staffService.getAllStaffNotLead();
+  }
+
   @Get('/not-in-lab/:uuid')
   getAllNotInLab(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
     return this.staffService.getAllStaffNotInLab(uuid, false);

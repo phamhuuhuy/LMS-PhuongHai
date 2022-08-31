@@ -18,6 +18,7 @@ export class RequestTask {
   sampleId: string;
 
   @IsUUID()
+  @IsOptional()
   staffId: string;
 
   @IsUUID()

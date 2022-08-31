@@ -5,6 +5,8 @@ import { Staff } from 'src/staff/staff.entity';
 export class GetOneSampleResponse {
   id: string;
 
+  sampleName: string;
+
   sampleReceivedDate: string;
 
   sampleReturnedResultDate: string;

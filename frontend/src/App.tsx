@@ -34,6 +34,10 @@ import MethodUpdateForm from "./components/System/Method/MethodUpdateForm";
 import MethodDetail from "./components/System/Method/MethodDetail";
 import LabDetail from "./components/System/Lab/LabDetail";
 import Login from "./components/Login/Login";
+import Sample from "./components/Sample/Sample";
+import SampleForm from "./components/Sample/SampleForm";
+import SampleUpdateForm from "./components/Sample/SampleUpdateForm";
+import SampleDetail from "./components/Sample/SampleDetail";
 import PrivateRoute from "./components/Login/PrivateRoute";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Task from "./components/Task/Task";
@@ -122,7 +126,7 @@ function App() {
 
             <Box style={{ height: "80vh" }}>
               <Routes>
-              <Route path="/" element={<Dashboard />} />
+                <Route path="/" element={<Dashboard />} />
                 <Route path="/customer" element={<Customer />} />
                 <Route path="/customer/create" element={<CustomerForm />} />
                 <Route
@@ -162,14 +166,19 @@ function App() {
                   path="/method/detail/:methodId"
                   element={<MethodDetail />}
                 />
+                <Route path="/sample" element={<Sample />} />
+                <Route path="/sample/create/:id" element={<SampleForm />} />
                 <Route
-                  path="/task"
-                  element={<Task />}
+                  path="/sample/:sampleId"
+                  element={<SampleUpdateForm />}
                 />
                 <Route
-                  path="/task/:taskId"
-                  element={<MethodUpdateForm />}
+                  path="/sample/detail/:sampleId"
+                  element={<SampleDetail />}
                 />
+                {/* <Route path="/login" element={<Login />} /> */}
+                <Route path="/task" element={<Task />} />
+                <Route path="/task/:taskId" element={<MethodUpdateForm />} />
               </Routes>
             </Box>
 
