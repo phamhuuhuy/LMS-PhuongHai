@@ -36,6 +36,7 @@ import LabDetail from "./components/System/Lab/LabDetail";
 import Login from "./components/Login/Login";
 import PrivateRoute from "./components/Login/PrivateRoute";
 import Dashboard from "./components/Dashboard/Dashboard";
+import Task from "./components/Task/Task";
 const drawerWidth: number = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -160,6 +161,14 @@ function App() {
                 <Route
                   path="/method/detail/:methodId"
                   element={<MethodDetail />}
+                />
+                <Route
+                  path="/task"
+                  element={<Task />}
+                />
+                <Route
+                  path="/task/:taskId"
+                  element={<MethodUpdateForm />}
                 />
               </Routes>
             </Box>

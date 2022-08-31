@@ -31,7 +31,12 @@ export class TaskService {
   ) {}
 
   async getAll(): Promise<Task[]> {
-    return await this.taskRepository.find();
+    return await this.taskRepository.find({
+      relations: {
+        staff: true,
+        sample: true,
+      },
+    });
   }
 
   async create(taskRequest: RequestTask): Promise<Task> {
@@ -58,7 +63,7 @@ export class TaskService {
     }
     const taskStartDate = new Date();
     const newTask: Task = {
-      taskStatus: Status.PROCCESSING,
+      taskStatus: Status.TO_DO,
       taskNote: taskRequest.taskNote,
       taskResult: null,
       taskStartDate: taskStartDate.toISOString().slice(0, 10),

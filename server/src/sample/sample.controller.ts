@@ -26,6 +26,10 @@ export class SampleController {
   getAll() {
     return this.sampleService.getAll();
   }
+  @Get('/done')
+  getAllDoneSample() {
+    return this.sampleService.getAllDoneSample();
+  }
   @Post('/')
   @Roles(Role.ADMIN)
   createSample(@Body() requestSample: RequestSample) {

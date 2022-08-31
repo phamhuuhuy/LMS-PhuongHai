@@ -1,6 +1,6 @@
 export enum Status {
   DONE = 'done',
-  NOT_ASSIGNED = 'not-assigned',
+  TO_DO = 'to-do',
   PROCCESSING = 'processing',
   WAIT_FOR_ACCEPTION = 'wait-for-acception',
   REJECT = 'reject',

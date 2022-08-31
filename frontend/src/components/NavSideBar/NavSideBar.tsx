@@ -64,7 +64,6 @@ const NavSideBar = ({ handleOnClick, stateOpen }: any) => {
         >
           {/* src will be fetched */}
           <Avatar
-            src=""
             alt="avatar"
             sx={{
               width: "50px",
@@ -72,6 +71,7 @@ const NavSideBar = ({ handleOnClick, stateOpen }: any) => {
               backgroundColor: "grey",
               marginRight: "10px",
             }}
+            src="https://cdn-icons-png.flaticon.com/512/147/147142.png"
           />
 
           <div style={{ flexGrow: "1" }}>

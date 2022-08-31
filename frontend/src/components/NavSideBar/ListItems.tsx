@@ -47,7 +47,11 @@ const ListItems = () => {
         </ListItemIcon>
         <ListItemText primary="Mẫu" />
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton
+        onClick={() => {
+          navigate("/task");
+        }}
+      >
         <ListItemIcon>
           <WorkIcon />
         </ListItemIcon>
