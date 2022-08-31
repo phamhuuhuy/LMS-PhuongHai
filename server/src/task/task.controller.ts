@@ -12,6 +12,7 @@ import {
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Role } from 'src/auth/Role/role.enum';
 import { RolesGuard } from 'src/auth/Role/roles.guard';
+import { GetUser } from 'src/decorator';
 import { Roles } from 'src/decorator/role.decorator';
 import { UpdateTask } from './dto';
 import { RequestTask } from './dto/request-task.dto';
@@ -23,8 +24,8 @@ import { TaskService } from './task.service';
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
   @Get('')
-  getAll() {
-    return this.taskService.getAll();
+  getAll(@GetUser() user: any) {
+    return this.taskService.getAll(user);
   }
   @Post('/')
   @Roles(Role.ADMIN)

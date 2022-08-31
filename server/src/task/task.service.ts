@@ -30,7 +30,7 @@ export class TaskService {
     private methodRepository: Repository<Method>,
   ) {}
 
-  async getAll(): Promise<Task[]> {
+  async getAll(user): Promise<Task[]> {
     return await this.taskRepository.find();
   }
 
@@ -100,7 +100,10 @@ export class TaskService {
     if (!task) {
       throw new NotFoundException('Task id is not exist');
     }
-    const methodList = task.map((task) => task.method);
+    const methodList = task.map((task) => ({
+      ...task.method,
+      taskId: task.id,
+    }));
     return methodList;
   }
 

@@ -20,6 +20,7 @@ const MethodList: React.FC<any> = ({ sampleId }) => {
   const [method, setMethod] = useState([]);
   const [sampleMethod, setSampleMethod] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [updated, setUpdated] = useState(false);
   const [id, setId] = useState("");
   const [methodId, setMethodId] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
@@ -32,29 +33,26 @@ const MethodList: React.FC<any> = ({ sampleId }) => {
     methodId: "",
   });
 
+  const emptyField = () => {
+    setTaskForm({ ...taskForm, taskName: "", taskNote: "", methodId: "" });
+  };
   const handleCloseModal = () => {
     setIsOpen(false);
-    setTaskForm({ ...taskForm, taskName: "", taskNote: "", methodId: "" });
+    emptyField();
   };
 
   const handleOnChange = (e: any) => {
     setTaskForm({ ...taskForm, [e.target.name]: e.target.value });
   };
 
-  //   const handleDelete = async (staffId: any) => {
-  //     const { headers }: any = setHeader();
-  //     const { data } = await axios.delete(
-  //       process.env.REACT_APP_API_BASE + `/staff-lab`,
-  //       {
-  //         headers,
-  //         data: {
-  //           staffId,
-  //           labId,
-  //         },
-  //       }
-  //     );
-  //     window.location.reload();
-  //   };
+  const handleDelete = async (taskId: any) => {
+    const { data } = await axios.delete(
+      process.env.REACT_APP_API_BASE + `/task/` + taskId,
+      setHeader()
+    );
+    emptyField();
+    setUpdated(!updated);
+  };
 
   const handleClose = (value: boolean) => {
     setOpenDialog(value);
@@ -87,7 +85,7 @@ const MethodList: React.FC<any> = ({ sampleId }) => {
               <Tooltip title="Xoá">
                 <Delete
                   style={{ color: "red" }}
-                  //   onClick={() => handleDelete(params.row.id)}
+                  onClick={() => handleDelete(params.row.taskId)}
                 />
               </Tooltip>
             </div>
@@ -99,8 +97,11 @@ const MethodList: React.FC<any> = ({ sampleId }) => {
 
   React.useEffect(() => {
     fetchMethod();
-    fetchMethodBySampleId();
   }, []);
+
+  React.useEffect(() => {
+    fetchMethodBySampleId();
+  }, [updated]);
 
   const fetchMethodBySampleId = async () => {
     const { data } = await axios.get(
@@ -124,25 +125,10 @@ const MethodList: React.FC<any> = ({ sampleId }) => {
       taskForm,
       setHeader()
     );
-    setMethod(data);
+    setIsOpen(false);
+    setUpdated(!updated);
   };
 
-  //   const handleOnChange = async (e: any) => {
-  //     const staffId = e.target.value;
-  //     const bodyData = {
-  //       staffId,
-  //       //   labId,
-  //       isLead: false,
-  //     };
-  //     const { data } = await axios.post(
-  //       process.env.REACT_APP_API_BASE + `/staff-lab`,
-  //       bodyData,
-  //       setHeader()
-  //     );
-  //     window.location.reload();
-  //   };
-
-  console.log("taskForm", sampleMethod);
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <Typography
@@ -177,11 +163,18 @@ const MethodList: React.FC<any> = ({ sampleId }) => {
               value={taskForm.methodId}
             >
               {method.length > 0 &&
-                method.map((method: any) => (
-                  <MenuItem value={method.id as any}>
-                    {method.methodName}
-                  </MenuItem>
-                ))}
+                method
+                  .filter(
+                    (item: any) =>
+                      !sampleMethod
+                        .map((hoho: any) => hoho.id)
+                        .includes(item.id)
+                  )
+                  .map((method: any) => (
+                    <MenuItem value={method.id as any}>
+                      {method.methodName}
+                    </MenuItem>
+                  ))}
             </Select>
           </FormControl>
         </div>
@@ -199,8 +192,8 @@ const MethodList: React.FC<any> = ({ sampleId }) => {
         id={id}
         openDialog={openDialog}
         handleClose={handleClose}
-        item="staff"
-        msg={"Bạn có chắc muốn xoá nhân viên này ?"}
+        item="task"
+        msg={"Bạn có chắc muốn xoá ?"}
       />
 
       <div style={{ height: "79%", width: "100%" }}>
