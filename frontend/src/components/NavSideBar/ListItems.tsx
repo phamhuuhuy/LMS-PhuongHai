@@ -18,6 +18,10 @@ import { useNavigate } from "react-router-dom";
 
 const ListItems = () => {
   const navigate = useNavigate();
+  const userIsManager = JSON.parse(
+    localStorage.getItem("user") as any
+  )?.isManager;
+
   return (
     <>
       <ListItemButton
@@ -30,17 +34,19 @@ const ListItems = () => {
         </ListItemIcon>
         <ListItemText primary="Trang Chủ" />
       </ListItemButton>
+      {userIsManager && (
+        <ListItemButton
+          onClick={() => {
+            navigate("/customer");
+          }}
+        >
+          <ListItemIcon>
+            <PeopleIcon />
+          </ListItemIcon>
+          <ListItemText primary="Khách Hàng" />
+        </ListItemButton>
+      )}
 
-      <ListItemButton
-        onClick={() => {
-          navigate("/customer");
-        }}
-      >
-        <ListItemIcon>
-          <PeopleIcon />
-        </ListItemIcon>
-        <ListItemText primary="Khách Hàng" />
-      </ListItemButton>
       <ListItemButton
         onClick={() => {
           navigate("/sample");
@@ -61,68 +67,64 @@ const ListItems = () => {
         </ListItemIcon>
         <ListItemText primary="Công Việc" />
       </ListItemButton>
+      {userIsManager && (
+        <>
+          <ListItemButton
+            onClick={() => {
+              navigate("/equipment");
+            }}
+          >
+            <ListItemIcon>
+              <BuildIcon />
+            </ListItemIcon>
+            <ListItemText primary="Thiết Bị" />
+          </ListItemButton>
 
-      <ListItemButton
-        onClick={() => {
-          navigate("/equipment");
-        }}
-      >
-        <ListItemIcon>
-          <BuildIcon />
-        </ListItemIcon>
-        <ListItemText primary="Thiết Bị" />
-      </ListItemButton>
+          <ListItemButton
+            onClick={() => {
+              navigate("/chemical");
+            }}
+          >
+            <ListItemIcon>
+              <HardwareIcon />
+            </ListItemIcon>
+            <ListItemText primary="Vật Tư" />
+          </ListItemButton>
 
-      <ListItemButton
-        onClick={() => {
-          navigate("/chemical");
-        }}
-      >
-        <ListItemIcon>
-          <HardwareIcon />
-        </ListItemIcon>
-        <ListItemText primary="Vật Tư" />
-      </ListItemButton>
+          <ListItemButton
+            onClick={() => {
+              navigate("/staff");
+            }}
+          >
+            <ListItemIcon>
+              <GroupsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Nhân Sự" />
+          </ListItemButton>
 
-      <ListItemButton
-        onClick={() => {
-          navigate("/staff");
-        }}
-      >
-        <ListItemIcon>
-          <GroupsIcon />
-        </ListItemIcon>
-        <ListItemText primary="Nhân Sự" />
-      </ListItemButton>
+          <ListItemButton
+            onClick={() => {
+              navigate("/lab");
+            }}
+          >
+            <ListItemIcon>
+              <BiotechIcon />
+            </ListItemIcon>
+            <ListItemText primary="Phòng Lab" />
+          </ListItemButton>
 
-      <ListItemButton
-        onClick={() => {
-          navigate("/lab");
-        }}
-      >
-        <ListItemIcon>
-          <BiotechIcon />
-        </ListItemIcon>
-        <ListItemText primary="Phòng Lab" />
-      </ListItemButton>
-
-      <ListItemButton>
-        <ListItemIcon>
-          <LayersIcon />
-        </ListItemIcon>
-        <ListItemText primary="Kết Quả" />
-      </ListItemButton>
-
-      <ListItemButton
-        onClick={() => {
-          navigate("/system");
-        }}
-      >
-        <ListItemIcon>
-          <DnsIcon />
-        </ListItemIcon>
-        <ListItemText primary="Hệ Thống" />
-      </ListItemButton>
+          <ListItemButton
+            onClick={() => {
+              navigate("/system");
+            }}
+          >
+            <ListItemIcon>
+              <DnsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Hệ Thống" />
+          </ListItemButton>
+        </>
+      )}
     </>
   );
 };

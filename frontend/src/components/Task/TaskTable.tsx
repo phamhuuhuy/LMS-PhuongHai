@@ -7,11 +7,11 @@ import { useNavigate } from "react-router-dom";
 import { setHeader } from "../../common/utils/common";
 
 const statusMapper = {
-  ["to-do"] : 'Chuẩn bị làm',
-  ["processing"]: 'Đang làm',
-  ["wait-for-acception"]: 'Chờ phê duyệt',
-  ["done"]: 'Đã xong',
-}
+  ["to-do"]: "Chuẩn bị làm",
+  ["processing"]: "Đang làm",
+  ["wait-for-acception"]: "Chờ phê duyệt",
+  ["done"]: "Đã xong",
+};
 
 const TaskTable = () => {
   const [data, setData] = useState<any[]>([]);
@@ -24,6 +24,10 @@ const TaskTable = () => {
 
   const handleOnClick = () => {
     navigate("/lab/create");
+  };
+
+  const handleAssign = (id: string) => {
+    navigate(`/task/staff/${id}`);
   };
 
   const handleEditAdmin = (id: string) => {
@@ -47,6 +51,16 @@ const TaskTable = () => {
     {
       field: "taskName",
       headerName: "Tên cv",
+      width: 150,
+    },
+    {
+      field: "sampleName",
+      headerName: "Tên mẫu",
+      width: 150,
+    },
+    {
+      field: "methodName",
+      headerName: "Tên phương pháp",
       width: 150,
     },
     {
@@ -88,6 +102,12 @@ const TaskTable = () => {
           <>
             {userisManager ? (
               <div>
+                <Tooltip title="Phân công">
+                  <Edit
+                    style={{ color: "#1976d2" }}
+                    onClick={() => handleAssign(params.row.id)}
+                  />
+                </Tooltip>
                 <Tooltip title="Xem chi tiết">
                   <Preview
                     style={{ color: "red" }}
@@ -120,15 +140,18 @@ const TaskTable = () => {
       process.env.REACT_APP_API_BASE + "/task",
       setHeader()
     );
-  const newData = data.map((task:any) => {
-    const status : string = statusMapper[task.taskStatus as keyof typeof statusMapper];
-    const newTask ={
-      ...task,
-      taskStatus: status,
-      employeeName: task?.staff?.employeeName
-    }
-    return newTask
-  }) 
+    const newData = data.map((task: any) => {
+      const status: string =
+        statusMapper[task.taskStatus as keyof typeof statusMapper];
+      const newTask = {
+        ...task,
+        methodName: task?.method?.methodName,
+        taskStatus: status,
+        sampleName: task?.sample?.sampleName,
+        employeeName: task?.staff?.employeeName,
+      };
+      return newTask;
+    });
     setData(newData);
   };
 
