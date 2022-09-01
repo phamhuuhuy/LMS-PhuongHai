@@ -22,7 +22,6 @@ const ChemicalTable: React.FC = () => {
 
   const handleDelete = (id: string) => {
     setOpenDialog(true);
-    console.log("Delete " + id);
     setId(id);
   };
 
@@ -59,7 +58,6 @@ const ChemicalTable: React.FC = () => {
       setHeader()
     );
     const { data } = dataAPI;
-    console.log(data);
     setNextDueData(data);
   };
   const getDates = (date: string): number => {

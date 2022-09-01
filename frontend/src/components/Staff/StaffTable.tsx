@@ -20,7 +20,6 @@ const StaffTable: React.FC = () => {
 
   const handleDelete = (id: string) => {
     setOpenDialog(true);
-    console.log("Delete " + id);
     setId(id);
   };
 

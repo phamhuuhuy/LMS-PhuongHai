@@ -45,15 +45,11 @@ const EquipmentForm: React.FC = () => {
     instrumentNextCalibrationDate: null,
     instrumentStatus: "",
     instrumentProvider: "",
+    instrumentSupervisor: "",
     instrumentServer: true,
   });
 
   const [errorForm, setErrorForm] = useState<InstrumentError>({});
-
-  // const handleValidation = () => {
-  //   console.log(equipmentData);
-  //   var error: EquipmentError = {};
-  //   var validate = true;
 
   const handleValidation = () => {
     var error: InstrumentError = {};
@@ -113,10 +109,6 @@ const EquipmentForm: React.FC = () => {
       validate = false;
     }
 
-    if (!instrumentData.instrumentSupervisor) {
-      error.instrumentSupervisor = "Bắt Buộc";
-      validate = false;
-    }
     setErrorForm(error);
     return validate;
   };
@@ -129,9 +121,7 @@ const EquipmentForm: React.FC = () => {
   };
 
   const handleOnSubmit = async () => {
-    console.log('1');
     if (handleValidation()) {
-      console.log("form", instrumentData);
       try {
         const response = await axios.post(
           process.env.REACT_APP_API_BASE + "/instrument",
@@ -148,7 +138,6 @@ const EquipmentForm: React.FC = () => {
         }
       }
     }
-    console.log('2');
   };
 
   return (
@@ -319,20 +308,6 @@ const EquipmentForm: React.FC = () => {
                   <Alert severity="warning">{errorForm.instrumentStatus}</Alert>
                 )}
 
-                <TextField
-                  margin="normal"
-                  name="instrumentSupervisor"
-                  variant="outlined"
-                  label="Nhân Viên Quản Lí Trực Tiếp"
-                  fullWidth
-                  value={instrumentData?.instrumentSupervisor}
-                  onChange={handleOnChange}
-                />
-                {errorForm?.instrumentSupervisor && (
-                  <Alert severity="warning">
-                    {errorForm.instrumentSupervisor}
-                  </Alert>
-                )}
                 <Button
                   variant="contained"
                   color="primary"

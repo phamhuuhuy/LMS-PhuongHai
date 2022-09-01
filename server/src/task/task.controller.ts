@@ -28,7 +28,7 @@ export class TaskController {
     return this.taskService.getAll(user);
   }
   @Post('/')
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN, Role.LEAD)
   createTask(@Body() requestTask: RequestTask) {
     return this.taskService.create(requestTask);
   }
@@ -42,7 +42,7 @@ export class TaskController {
     return this.taskService.getMethodBySampleId(uuid);
   }
   @Delete('/:uuid')
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN, Role.LEAD)
   deleteTask(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
     return this.taskService.deleteTask(uuid);
   }

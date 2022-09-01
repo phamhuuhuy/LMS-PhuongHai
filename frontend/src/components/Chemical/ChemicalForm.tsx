@@ -31,7 +31,6 @@ const ChemicalForm: React.FC = () => {
   const [errorForm, setErrorForm] = useState<ChemicalError>({});
 
   const handleValidation = () => {
-    console.log(chemicalData);
     var error: ChemicalError = {};
     var validate = true;
     var reg = new RegExp("^[0-9]+$");
@@ -117,7 +116,6 @@ const ChemicalForm: React.FC = () => {
           },
           setHeader()
         );
-        console.log(response);
         if (response.status === 201) {
           navigate("/chemical");
         }
@@ -127,7 +125,6 @@ const ChemicalForm: React.FC = () => {
         }
       }
     }
-    console.log(chemicalData);
   };
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} style={{ height: "100%" }}>
@@ -204,7 +201,6 @@ const ChemicalForm: React.FC = () => {
                       label="Ngày Nhập"
                       value={chemicalData?.chemicalImportDate}
                       onChange={(e: any) => {
-                        console.log(e.format("MM/DD/YYYY"));
                         setChemicalData({
                           ...chemicalData,
                           chemicalImportDate: e.format("YYYY-MM-DD"),
@@ -225,7 +221,6 @@ const ChemicalForm: React.FC = () => {
                       label="Hạn Sử Dụng"
                       value={chemicalData?.chemicalDueDate}
                       onChange={(e: any) => {
-                        console.log(e.format("MM/DD/YYYY"));
                         setChemicalData({
                           ...chemicalData,
                           chemicalDueDate: e.format("YYYY-MM-DD"),
@@ -246,7 +241,6 @@ const ChemicalForm: React.FC = () => {
                       label="Ngày Xuất Kho"
                       value={chemicalData?.chemicalExportDate}
                       onChange={(e: any) => {
-                        console.log(e.format("MM/DD/YYYY"));
                         setChemicalData({
                           ...chemicalData,
                           chemicalExportDate: e.format("YYYY-MM-DD"),

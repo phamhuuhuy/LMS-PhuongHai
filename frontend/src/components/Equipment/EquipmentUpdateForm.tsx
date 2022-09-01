@@ -98,10 +98,6 @@ const EquipmentUpdateForm = () => {
       validate = false;
     }
 
-    if (!instrumentData.instrumentSupervisor) {
-      error.instrumentSupervisor = "Bắt Buộc";
-      validate = false;
-    }
     setErrorForm(error);
     return validate;
   };
@@ -122,7 +118,6 @@ const EquipmentUpdateForm = () => {
           setHeader()
         );
 
-        console.log(response);
         if (response.status === 200) {
           navigate("/equipment");
         }
@@ -133,7 +128,6 @@ const EquipmentUpdateForm = () => {
       }
     }
     handleValidation();
-    console.log(instrumentData);
   };
 
   const fetchInstrumentById = useCallback(async () => {
@@ -149,7 +143,6 @@ const EquipmentUpdateForm = () => {
     fetchInstrumentById();
   }, [fetchInstrumentById]);
 
-  console.log(instrumentData);
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} style={{ height: "100%" }}>
       <Grid container spacing={3} style={{ height: "100%", overflowY: "auto" }}>
@@ -317,21 +310,6 @@ const EquipmentUpdateForm = () => {
                   <Alert severity="warning">{errorForm.instrumentStatus}</Alert>
                 )}
 
-                <TextField
-                  required
-                  margin="normal"
-                  name="instrumentSupervisor"
-                  variant="outlined"
-                  label="Nhân Viên Quản Lí Trực Tiếp"
-                  fullWidth
-                  value={instrumentData?.instrumentSupervisor}
-                  onChange={handleOnChange}
-                />
-                {errorForm?.instrumentSupervisor && (
-                  <Alert severity="warning">
-                    {errorForm.instrumentSupervisor}
-                  </Alert>
-                )}
                 <Button
                   variant="contained"
                   color="primary"

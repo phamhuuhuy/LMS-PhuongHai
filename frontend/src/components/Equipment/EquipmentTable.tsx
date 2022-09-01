@@ -110,11 +110,6 @@ const CustomerTable: React.FC = () => {
       width: 120,
     },
     {
-      field: "instrumentSupervisor",
-      headerName: "NV quản lí trực tiếp",
-      width: 150,
-    },
-    {
       field: "instrumentServer",
       headerName: "Server",
       width: 100,

@@ -15,8 +15,8 @@ const System: React.FC = () => {
       onClickFuc: () => navigate("/staff"),
     },
     {
-      content: "3. Thiết lập danh mục thiết ",
-      onClickFuc: () => console.log("hello3"),
+      content: "3. Thiết lập danh mục thiết bị ",
+      onClickFuc: () => navigate("/equipment"),
     },
     {
       content: "4. Thiết lập phương pháp phân tích",

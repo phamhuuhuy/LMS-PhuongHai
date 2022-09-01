@@ -36,7 +36,6 @@ const MethodTableChemical: React.FC<any> = ({ chemicals, methodId }: any) => {
 
   const handleDelete = (id: string) => {
     setOpenDialog(true);
-    console.log("Delete " + id);
     setId(id);
   };
 

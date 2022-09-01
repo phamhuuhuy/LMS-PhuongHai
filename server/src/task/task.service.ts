@@ -171,11 +171,9 @@ export class TaskService {
   }
 
   async updateTask(uuid: string, updatedTask: UpdateTask): Promise<Task> {
-    console.log(updatedTask.staffId);
-    const staff = await this.staffRepository.findOne({where:
-      {id: updatedTask.staffId},
+    const staff = await this.staffRepository.findOne({
+      where: { id: updatedTask.staffId },
     });
-    console.log('hehe', staff);
     if (!staff) {
       throw new NotFoundException('Staff id is not exist');
     }

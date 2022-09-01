@@ -45,7 +45,7 @@ export class SampleController {
     return this.sampleService.deleteSample(uuid);
   }
   @Patch('/:uuid')
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN, Role.LEAD)
   updateSample(
     @Param('uuid', new ParseUUIDPipe()) uuid: string,
     @Body() sample: UpdateSample,

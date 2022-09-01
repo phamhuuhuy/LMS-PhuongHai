@@ -7,7 +7,6 @@ import DialogAlert from "../../../common/DialogAlert";
 import axios from "axios";
 import { setHeader } from "../../../common/utils/common";
 
-
 const MethodTable: React.FC = () => {
   const [data, setData] = useState<any[]>([]);
   const [id, setId] = useState("");
@@ -28,7 +27,6 @@ const MethodTable: React.FC = () => {
 
   const handleDelete = (id: string) => {
     setOpenDialog(true);
-    console.log("Delete " + id);
     setId(id);
   };
 

@@ -138,7 +138,6 @@ const SampleUpdateForm: React.FC = () => {
 
     setLabList(data);
   };
-  console.log(sampleData);
   useEffect(() => {
     fetchSampleById();
     fetchLabById();
@@ -209,7 +208,6 @@ const SampleUpdateForm: React.FC = () => {
                     )}
                   </div>
                 </LocalizationProvider>
-                {console.log(sampleData?.lab?.id)}
                 <FormControl fullWidth style={{ marginTop: "10px" }}>
                   <InputLabel id="demo-simple-select-label">
                     Phòng Lab

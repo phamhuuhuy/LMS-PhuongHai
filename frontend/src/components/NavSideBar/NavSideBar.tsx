@@ -80,7 +80,11 @@ const NavSideBar = ({ handleOnClick, stateOpen }: any) => {
             </div>
 
             <div style={{ fontSize: "12px" }}>
-              {user?.isManager ? "Trưởng Nhóm" : "Nhân viên"}
+              {user?.isManager
+                ? "Admin"
+                : user?.isLead
+                ? "Trưởng Phòng"
+                : "Nhân Viên"}
             </div>
             <div style={{ fontSize: "12px" }}>
               <a

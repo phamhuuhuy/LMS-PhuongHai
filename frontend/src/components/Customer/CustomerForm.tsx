@@ -9,6 +9,8 @@ import { Alert, Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { Customer } from "./Customer.type";
+import { setHeader } from "../../common/utils/common";
+import axios from "axios";
 
 const CustomerForm: React.FC = () => {
   const navigate = useNavigate();
@@ -81,13 +83,11 @@ const CustomerForm: React.FC = () => {
   const handleOnSubmit = async () => {
     if (handleValidation()) {
       try {
-        const response = await fetch(process.env.REACT_APP_API_BASE+"/customer", {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify(customerData),
-        });
+        const response = await axios.post(
+          process.env.REACT_APP_API_BASE + "/customer",
+          customerData,
+          setHeader()
+        );
         if (response.status === 201) {
           navigate("/customer");
         }

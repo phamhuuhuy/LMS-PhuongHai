@@ -30,7 +30,6 @@ const StaffUpdateForm: React.FC = () => {
   const [errorForm, setErrorForm] = useState<Staff>({});
 
   const handleValidation = () => {
-    console.log("ref", passwordRef.current?.value);
     var error: Staff = {};
     var validate = true;
     if (!employeeData.employeeUserName) {
@@ -54,10 +53,7 @@ const StaffUpdateForm: React.FC = () => {
       error.employeeName = "Bắt Buộc";
       validate = false;
     }
-    if (!employeeData.employeeLab) {
-      error.employeeLab = "Bắt Buộc";
-      validate = false;
-    }
+
     if (employeeData.isManager === "") {
       error.isManager = "Bắt Buộc";
       validate = false;
@@ -174,19 +170,6 @@ const StaffUpdateForm: React.FC = () => {
                 {errorForm?.employeeName && (
                   <Alert severity="warning">{errorForm.employeeName}</Alert>
                 )}
-                <TextField
-                  required
-                  margin="normal"
-                  name="employeeLab"
-                  variant="outlined"
-                  label="Phòng Lab"
-                  fullWidth
-                  value={employeeData?.employeeLab}
-                  onChange={handleOnChange}
-                />
-                {errorForm?.employeeLab && (
-                  <Alert severity="warning">{errorForm.employeeLab}</Alert>
-                )}
 
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">
@@ -200,7 +183,7 @@ const StaffUpdateForm: React.FC = () => {
                     label="Chức Danh"
                     onChange={handleOnChange}
                   >
-                    <MenuItem value={true as any}>Quản lí</MenuItem>
+                    <MenuItem value={true as any}>Admin</MenuItem>
                     <MenuItem value={false as any}>Nhân Viên</MenuItem>
                   </Select>
                 </FormControl>

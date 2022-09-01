@@ -59,8 +59,6 @@ const MethodForm: React.FC = () => {
 
   const { headers } = setHeader();
 
-  console.log(headers.Authorization);
-
   const handleOnSubmit = async () => {
     if (handleValidation()) {
       try {
@@ -69,8 +67,8 @@ const MethodForm: React.FC = () => {
           {
             method: "POST",
             headers: {
-              "Authorization": headers.Authorization,
-              "Content-type": "application/json"
+              Authorization: headers.Authorization,
+              "Content-type": "application/json",
             },
             body: JSON.stringify(data),
           }

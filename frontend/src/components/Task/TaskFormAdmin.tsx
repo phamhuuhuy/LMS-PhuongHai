@@ -41,7 +41,6 @@ const TaskFormAdmin = () => {
 
   const handleOnSubmit = async (taskStatus: any) => {
     const dataSent = { ...labData, taskStatus };
-    console.log(dataSent);
     try {
       const response = await axios.patch(
         process.env.REACT_APP_API_BASE + `/task/${taskId}`,
@@ -74,7 +73,6 @@ const TaskFormAdmin = () => {
       taskNote,
       methodId: method?.id,
     };
-    console.log("hihi", dataSent);
     setLabData(dataSent);
   }, [taskId]);
 
