@@ -43,6 +43,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Task from "./components/Task/Task";
 import TaskForm from "./components/Task/TaskForm";
 import TaskFormAdmin from "./components/Task/TaskFormAdmin";
+import TaskEditAdmin from "./components/Task/TaskEditAdmin";
 const drawerWidth: number = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -182,6 +183,7 @@ function App() {
                 <Route path="/task" element={<Task />} />
                 <Route path="/task/:taskId" element={<TaskForm />} />
                 <Route path="/task/admin/:taskId" element={<TaskFormAdmin />} />
+                <Route path="/task/staff/:taskId" element={<TaskEditAdmin />} />
               </Routes>
             </Box>
 

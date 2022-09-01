@@ -28,6 +28,7 @@ const TaskFormAdmin = () => {
     taskResult: "",
     staffId: "",
     taskNote: "",
+    methodId: "",
   });
   const [staffList, setStaffList] = useState<any>([]);
 
@@ -63,7 +64,7 @@ const TaskFormAdmin = () => {
       process.env.REACT_APP_API_BASE + `/task/${taskId}`,
       setHeader()
     );
-    const { taskStatus, taskName, taskResult, staff, taskNote } = data;
+    const { taskStatus, taskName, taskResult, staff, taskNote, method } = data;
 
     const dataSent = {
       taskStatus,
@@ -71,6 +72,7 @@ const TaskFormAdmin = () => {
       taskResult,
       staffId: staff?.id,
       taskNote,
+      methodId: method?.id,
     };
     console.log("hihi", dataSent);
     setLabData(dataSent);
@@ -124,11 +126,12 @@ const TaskFormAdmin = () => {
                   variant="outlined"
                   label="Tên công việc"
                   fullWidth
+                  disabled={true}
                   value={labData?.taskName}
                   onChange={handleOnChange}
                 />
 
-                <FormControl style={{ marginBottom: "15px" }} fullWidth>
+                <FormControl style={{ marginBottom: "12px" }} fullWidth>
                   <InputLabel id="demo-simple-select-label">
                     Nhân viên phụ trách
                   </InputLabel>
@@ -139,6 +142,7 @@ const TaskFormAdmin = () => {
                     value={labData?.staffId}
                     label="Nhân viên phụ trách"
                     onChange={handleOnChange}
+                    disabled={true}
                   >
                     {staffList.length > 0 &&
                       staffList.map((item: any) => (
