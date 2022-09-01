@@ -16,7 +16,11 @@ import { setHeader } from "../../common/utils/common";
 import DialogAlert from "../../common/DialogAlert";
 import { ModelPopUp } from "./ModelPopUp";
 
-const MethodList: React.FC<any> = ({ sampleId }) => {
+const MethodList: React.FC<any> = ({
+  sampleId,
+  handleReloadSampleInfo,
+  sampleStatus1,
+}) => {
   const [method, setMethod] = useState([]);
   const [sampleMethod, setSampleMethod] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -129,6 +133,15 @@ const MethodList: React.FC<any> = ({ sampleId }) => {
     setUpdated(!updated);
   };
 
+  const handleSampleDone = async () => {
+    const { data } = await axios.patch(
+      process.env.REACT_APP_API_BASE + `/sample/` + sampleId,
+      { sampleStatus: "done" },
+      setHeader()
+    );
+    handleReloadSampleInfo();
+  };
+  console.log(sampleMethod);
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <Typography
@@ -144,7 +157,6 @@ const MethodList: React.FC<any> = ({ sampleId }) => {
           width: "100%",
           display: "flex",
           marginBottom: "20px",
-          justifyContent: "flex-end",
           alignItems: "center",
         }}
       >
@@ -178,7 +190,26 @@ const MethodList: React.FC<any> = ({ sampleId }) => {
             </Select>
           </FormControl>
         </div>
-        <div style={{ flex: 1, display: "flex", justifyContent: "end" }}></div>
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            justifyContent: "flex-end",
+            margin: "auto",
+          }}
+        >
+          {sampleMethod.every((task: any) => task.taskStatus === "done") &&
+          sampleMethod.length != 0 &&
+          sampleStatus1 != "done" ? (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSampleDone}
+            >
+              Đồng ý
+            </Button>
+          ) : null}
+        </div>
       </div>
       <DialogAlert
         id={id}

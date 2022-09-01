@@ -40,6 +40,12 @@ const SampleDetail: React.FC = () => {
     leadName: "",
   });
 
+  const [updated2, setUpdated2] = useState(false);
+
+  const handleReloadSampleInfo = () => {
+    setUpdated2(!updated2);
+  };
+
   const fetchSampleById = useCallback(async () => {
     const { data } = await axios.get(
       process.env.REACT_APP_API_BASE + `/sample/${sampleId}`,
@@ -86,7 +92,7 @@ const SampleDetail: React.FC = () => {
 
   useEffect(() => {
     fetchSampleById();
-  }, [fetchSampleById]);
+  }, [fetchSampleById, updated2]);
   return (
     <>
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
@@ -288,7 +294,11 @@ const SampleDetail: React.FC = () => {
               style={{ height: "100%" }}
             >
               {/* <StaffTableOneLab labId={labId || ""} /> */}
-              <MethodList sampleId={sampleId} />
+              <MethodList
+                sampleId={sampleId}
+                handleReloadSampleInfo={handleReloadSampleInfo}
+                sampleStatus1={sampleData.sampleStatus}
+              />
             </Paper>
           </Grid>
         </Grid>
