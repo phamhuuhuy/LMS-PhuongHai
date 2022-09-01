@@ -127,7 +127,12 @@ export class TaskService {
       taskName: taskRequest.taskName,
       method: method,
     };
-
+    if (sample.sampleStatus == Status.DONE) {
+      await this.sampleRepository.save({
+        ...sample,
+        sampleStatus: Status.PROCCESSING,
+      });
+    }
     return this.taskRepository.save(newTask);
   }
 
@@ -162,6 +167,7 @@ export class TaskService {
     const methodList = task.map((task) => ({
       ...task.method,
       taskId: task.id,
+      taskStatus: task.taskStatus,
     }));
     return methodList;
   }
@@ -205,6 +211,21 @@ export class TaskService {
     };
 
     const addedTask = await this.taskRepository.save(task);
+    const taskBySample = await this.taskRepository.find({
+      where: {
+        sample: taskFound.sample,
+      },
+    });
+    const sampleStatus = taskBySample.some(
+      (task) => task.taskStatus != Status.DONE,
+    );
+    const sampleFound = taskFound.sample;
+    if (sampleStatus) {
+      await this.sampleRepository.save({
+        ...sampleFound,
+        sampleStatus: Status.PROCCESSING,
+      });
+    }
     return addedTask;
   }
 
