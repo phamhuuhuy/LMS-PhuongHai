@@ -10,7 +10,7 @@ const statusMapper = {
   ["to-do"] : 'Chuẩn bị làm',
   ["processing"]: 'Đang làm',
   ["wait-for-acception"]: 'Chờ phê duyệt',
-  
+  ["done"]: 'Đã xong',
 }
 
 const TaskTable = () => {
@@ -121,8 +121,10 @@ const TaskTable = () => {
       setHeader()
     );
   const newData = data.map((task:any) => {
+    const status : string = statusMapper[task.taskStatus as keyof typeof statusMapper];
     const newTask ={
       ...task,
+      taskStatus: status,
       employeeName: task?.staff?.employeeName
     }
     return newTask
