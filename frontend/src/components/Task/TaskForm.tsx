@@ -1,4 +1,10 @@
-import { Alert, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  Alert,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
@@ -32,8 +38,8 @@ const TaskForm = () => {
   };
 
   const handleOnSubmit = async () => {
-    const { taskStatus, taskName, taskResult } = labData;
-    const dataSent = { taskStatus, taskName, taskResult };
+    const { taskStatus, taskName, taskResult, staff, method } = labData;
+    const dataSent = { taskStatus, taskName, taskResult, staffId: staff?.id, methodId: method?.id  };
     try {
       const response = await axios.patch(
         process.env.REACT_APP_API_BASE + `/task/${taskId}`,
@@ -125,9 +131,11 @@ const TaskForm = () => {
                     label="Tình Trạng Thiết Bị"
                     onChange={handleOnChange}
                   >
-                    <MenuItem value={'to-do'}>Chuẩn bị làm</MenuItem>
-                    <MenuItem value={'processing'}>Đang làm</MenuItem>
-                    <MenuItem value={'wait-for-acception'}>Chờ phê duyệt</MenuItem>
+                    <MenuItem value={"to-do"}>Chuẩn bị làm</MenuItem>
+                    <MenuItem value={"processing"}>Đang làm</MenuItem>
+                    <MenuItem value={"wait-for-acception"}>
+                      Chờ phê duyệt
+                    </MenuItem>
                   </Select>
                 </FormControl>
                 <TextField

@@ -39,8 +39,6 @@ const TaskFormAdmin = () => {
   };
 
   const handleOnSubmit = async (taskStatus: any) => {
-    // const { taskStatus, taskName, taskResult } = labData;
-    // const dataSent = { taskStatus, taskName, taskResult };
     const dataSent = { ...labData, taskStatus };
     console.log(dataSent);
     try {
@@ -71,9 +69,10 @@ const TaskFormAdmin = () => {
       taskStatus,
       taskName,
       taskResult,
-      staffId: staff.id,
+      staffId: staff?.id,
       taskNote,
     };
+    console.log("hihi", dataSent);
     setLabData(dataSent);
   }, [taskId]);
 

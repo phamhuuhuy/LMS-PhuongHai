@@ -40,6 +40,7 @@ export class TaskService {
         relations: {
           staff: true,
           sample: true,
+          method: true,
         },
       });
     } else if (user.isLead) {
@@ -71,6 +72,8 @@ export class TaskService {
           },
           relations: {
             sample: true,
+            staff: true,
+            method: true,
           },
         });
         tasks = [...tasks, ...taskInSample];
@@ -89,6 +92,7 @@ export class TaskService {
       relations: {
         staff: true,
         sample: true,
+        method: true,
       },
     });
   }
@@ -101,12 +105,6 @@ export class TaskService {
     });
     if (!sample) {
       throw new NotFoundException('Sample id is not exist');
-    }
-    const staff = await this.staffRepository.findOneBy({
-      id: taskRequest.staffId,
-    });
-    if (!staff) {
-      throw new NotFoundException('Staff id is not exist');
     }
 
     const method = await this.methodRepository.findOneBy({
@@ -123,7 +121,7 @@ export class TaskService {
       taskStartDate: taskStartDate.toISOString().slice(0, 10),
       taskEndDate: null,
       sample: sample,
-      staff: staff,
+      staff: null,
       taskName: taskRequest.taskName,
       method: method,
     };
@@ -173,9 +171,11 @@ export class TaskService {
   }
 
   async updateTask(uuid: string, updatedTask: UpdateTask): Promise<Task> {
-    const staff = await this.staffRepository.findOneBy({
-      id: updatedTask.staffId,
+    console.log(updatedTask.staffId);
+    const staff = await this.staffRepository.findOne({where:
+      {id: updatedTask.staffId},
     });
+    console.log('hehe', staff);
     if (!staff) {
       throw new NotFoundException('Staff id is not exist');
     }

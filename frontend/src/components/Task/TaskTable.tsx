@@ -6,6 +6,13 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { setHeader } from "../../common/utils/common";
 
+const statusMapper = {
+  ["to-do"] : 'Chuẩn bị làm',
+  ["processing"]: 'Đang làm',
+  ["wait-for-acception"]: 'Chờ phê duyệt',
+  
+}
+
 const TaskTable = () => {
   const [data, setData] = useState<any[]>([]);
   const [id, setId] = useState("");
@@ -67,7 +74,11 @@ const TaskTable = () => {
       headerName: "Ngày kết thúc",
       width: 150,
     },
-
+    {
+      field: "employeeName",
+      headerName: "Nhân viên phụ trách",
+      width: 150,
+    },
     {
       field: "action",
       headerName: "Hành Động",
@@ -109,8 +120,14 @@ const TaskTable = () => {
       process.env.REACT_APP_API_BASE + "/task",
       setHeader()
     );
-
-    setData(data);
+  const newData = data.map((task:any) => {
+    const newTask ={
+      ...task,
+      employeeName: task?.staff?.employeeName
+    }
+    return newTask
+  }) 
+    setData(newData);
   };
 
   return (

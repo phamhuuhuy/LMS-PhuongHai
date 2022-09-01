@@ -180,7 +180,7 @@ function App() {
                 />
                 {/* <Route path="/login" element={<Login />} /> */}
                 <Route path="/task" element={<Task />} />
-                <Route path="/task/:taskId" element={<MethodUpdateForm />} />
+                <Route path="/task/:taskId" element={<TaskForm />} />
                 <Route path="/task/admin/:taskId" element={<TaskFormAdmin />} />
               </Routes>
             </Box>
