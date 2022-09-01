@@ -125,7 +125,7 @@ const MethodList: React.FC<any> = ({ sampleId }) => {
       taskForm,
       setHeader()
     );
-    setIsOpen(false);
+    handleCloseModal();
     setUpdated(!updated);
   };
 
@@ -178,15 +178,7 @@ const MethodList: React.FC<any> = ({ sampleId }) => {
             </Select>
           </FormControl>
         </div>
-        <div style={{ flex: 1, display: "flex", justifyContent: "end" }}>
-          {/* <Button
-            style={{ alignSelf: "flex-end" }}
-            variant="contained"
-            onClick={handleOnClick}
-          >
-            + Thêm Nhân Viên
-          </Button> */}
-        </div>
+        <div style={{ flex: 1, display: "flex", justifyContent: "end" }}></div>
       </div>
       <DialogAlert
         id={id}
