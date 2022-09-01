@@ -131,6 +131,9 @@ const MethodList: React.FC<any> = ({
     );
     handleCloseModal();
     setUpdated(!updated);
+    if (sampleStatus1 == "done") {
+      handleReloadSampleInfo();
+    }
   };
 
   const handleSampleDone = async () => {
@@ -141,7 +144,6 @@ const MethodList: React.FC<any> = ({
     );
     handleReloadSampleInfo();
   };
-  console.log(sampleMethod);
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <Typography
