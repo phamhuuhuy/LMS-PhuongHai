@@ -18,9 +18,7 @@ const TaskTable = () => {
   const [id, setId] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
-  const userisManager = JSON.parse(
-    localStorage.getItem("user") as any
-  )?.isManager;
+  const user = JSON.parse(localStorage.getItem("user") as any);
 
   const handleOnClick = () => {
     navigate("/lab/create");
@@ -100,7 +98,22 @@ const TaskTable = () => {
       renderCell: (params) => {
         return (
           <>
-            {userisManager ? (
+            {user?.isManager ? (
+              <div>
+                <Tooltip title="Phân công">
+                  <Edit
+                    style={{ color: "#1976d2" }}
+                    onClick={() => handleAssign(params.row.id)}
+                  />
+                </Tooltip>
+                <Tooltip title="Xem chi tiết">
+                  <Preview
+                    style={{ color: "red" }}
+                    onClick={() => handleEditAdmin(params.row.id)}
+                  />
+                </Tooltip>
+              </div>
+            ) : user?.isLead ? (
               <div>
                 <Tooltip title="Phân công">
                   <Edit

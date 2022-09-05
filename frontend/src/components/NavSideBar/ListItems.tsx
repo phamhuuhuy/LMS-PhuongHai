@@ -18,10 +18,8 @@ import { useNavigate } from "react-router-dom";
 
 const ListItems = () => {
   const navigate = useNavigate();
-  const userIsManager = JSON.parse(
-    localStorage.getItem("user") as any
-  )?.isManager;
-
+  const user = JSON.parse(localStorage.getItem("user") as any);
+  const isShow = user?.isManager ? true : user?.isLead ? true : false;
   return (
     <>
       <ListItemButton
@@ -34,7 +32,7 @@ const ListItems = () => {
         </ListItemIcon>
         <ListItemText primary="Trang Chủ" />
       </ListItemButton>
-      {userIsManager && (
+      {isShow && (
         <ListItemButton
           onClick={() => {
             navigate("/customer");
@@ -67,7 +65,7 @@ const ListItems = () => {
         </ListItemIcon>
         <ListItemText primary="Công Việc" />
       </ListItemButton>
-      {userIsManager && (
+      {isShow && (
         <>
           <ListItemButton
             onClick={() => {
