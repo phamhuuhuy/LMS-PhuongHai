@@ -1,0 +1,12 @@
+version: "3"
+services:
+  mysql:
+    image: mysql
+    container_name: LMS
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: lms
+      MYSQL_USER: phuonghai
+      MYSQL_PASSWORD: phuonghai
