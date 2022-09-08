@@ -101,14 +101,6 @@ const MethodTableChemical: React.FC<any> = ({ chemicals, methodId }: any) => {
       renderCell: (params) => {
         return (
           <>
-            <div style={{ marginRight: "20px" }}>
-              <Tooltip title="Sửa">
-                <Edit
-                  style={{ color: "#1976d2" }}
-                  onClick={() => handleEdit(params.row.id)}
-                />
-              </Tooltip>
-            </div>
             <div>
               <Tooltip title="Xoá">
                 <Delete

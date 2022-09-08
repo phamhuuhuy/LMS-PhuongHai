@@ -181,6 +181,7 @@ const MethodForm: React.FC = () => {
                   name="methodTime"
                   variant="outlined"
                   label="Thời gian phân tích chuẩn"
+                  placeholder="YYYY-MM-DD"
                   fullWidth
                   value={data?.methodTime}
                   onChange={handleOnChange}

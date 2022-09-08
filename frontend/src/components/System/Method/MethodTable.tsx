@@ -147,6 +147,7 @@ const MethodTable: React.FC = () => {
       <DialogAlert
         id={id}
         openDialog={openDialog}
+        item="method"
         handleClose={handleClose}
         msg={"Bạn có chắc muốn xoá phương pháp này ?"}
       />

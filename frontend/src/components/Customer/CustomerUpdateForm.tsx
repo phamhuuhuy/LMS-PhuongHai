@@ -10,6 +10,8 @@ import Container from "@mui/material/Container";
 import { Alert, Paper } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { Customer } from "./Customer.type";
+import axios from "axios";
+import { setHeader } from "../../common/utils/common";
 
 const CustomerUpdateForm: React.FC = () => {
   const navigate = useNavigate();
@@ -84,19 +86,12 @@ const CustomerUpdateForm: React.FC = () => {
   const handleOnSubmit = async () => {
     if (handleValidation()) {
       try {
-        const response = await fetch(
+        await axios.patch(
           process.env.REACT_APP_API_BASE + `/customer/${customerId}`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify(customerData),
-          }
+          customerData,
+          setHeader()
         );
-        if (response.status === 200) {
-          navigate("/customer");
-        }
+        navigate("/customer");
       } catch (error) {
         if (error instanceof Error) {
           throw error.message;
@@ -106,21 +101,18 @@ const CustomerUpdateForm: React.FC = () => {
   };
 
   const fetchCustomerById = useCallback(async () => {
-    const response = await fetch(
-      process.env.REACT_APP_API_BASE + `/customer/${customerId}`,
-      {
-        method: "GET",
-      }
+    const { data } = await axios.get(
+      process.env.REACT_APP_API_BASE + "/customer/" + customerId,
+      setHeader()
     );
-    const result = await response.json();
 
-    let { id: string, ...filteredResult } = result;
+    let { id: string, ...filteredResult } = data;
     setCustomerData({ ...filteredResult });
   }, [customerId]);
 
   useEffect(() => {
     fetchCustomerById();
-  }, [fetchCustomerById]);
+  }, []);
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} style={{ height: "100%" }}>

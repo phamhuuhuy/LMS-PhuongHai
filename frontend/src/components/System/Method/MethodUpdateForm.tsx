@@ -13,12 +13,16 @@ import {
   Paper,
   Select,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import React, { useCallback, useEffect, useState } from "react";
 import { Method } from "./Method.type";
+import axios from "axios";
+import { setHeader } from "../../../common/utils/common";
 
 const MethodUpdateForm: React.FC = () => {
   const navigate = useNavigate();
+  let { methodId } = useParams();
+
   const [data, setData] = useState<Method>({
     methodTargets: "",
     methodName: "",
@@ -58,19 +62,12 @@ const MethodUpdateForm: React.FC = () => {
   const handleOnSubmit = async () => {
     if (handleValidation()) {
       try {
-        const response = await fetch(
-          process.env.REACT_APP_API_BASE + "/method",
-          {
-            method: "PATCH",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify(data),
-          }
+        await axios.patch(
+          process.env.REACT_APP_API_BASE + `/method/${methodId}`,
+          data,
+          setHeader()
         );
-        if (response.status === 201) {
-          navigate("/method");
-        }
+        navigate("/method");
       } catch (error) {
         if (error instanceof Error) {
           throw error.message;
@@ -78,6 +75,18 @@ const MethodUpdateForm: React.FC = () => {
       }
     }
   };
+
+  const fetchMethod = useCallback(async () => {
+    const { data } = await axios.get(
+      process.env.REACT_APP_API_BASE + `/method/` + methodId,
+      setHeader()
+    );
+    setData(data);
+  }, [methodId]);
+
+  useEffect(() => {
+    fetchMethod();
+  }, []);
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} style={{ height: "100%" }}>
