@@ -1,0 +1,6 @@
+"id","employee_username","employee_password","employee_name","is_manager"
+"5db16f4e-757d-4b82-9448-28ed33e312ca",tuong,$2b$16$g27CCBZt/5plDoHNcQ8Puum3nF1a6bAZTbWogaYsJHFhrTVtgNM2S,Tuong,0
+ba10042d-15f5-49f6-993c-faa774cf5581,admin,$2b$16$ZFfhrjepygrDiA4NWsNxIeiID3YKpWl.qj/L5KK8A.BA6E8tn3wA6,Admin,1
+cec0d5e6-6fdd-40d4-919d-709dcdb13707,huuhuy,$2b$16$6zLZalT7smKjZGiH6oHPHuGCk2XVX0swJSYZGnqJIcfmbyCPQlRya,Huu Huy,0
+f68addd6-3312-4bb8-89f5-591805d26c2c,hoangtuan,$2b$16$Vh3hjMV.Z4m2u1A2dBLLaOdanFS4zBRtr/XyY0z.RBfwjeCGNrd0C,Hoang Tuan,0
+ffbb8df6-1431-4988-86ef-588d7970a00a,quochuy,$2b$16$P1GdI/RHXoF8EgW4NITVfOjALAOU4HhL7QpBsvvJPw/94jI9/1uxO,Quoc Huy,0
