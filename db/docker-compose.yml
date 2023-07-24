@@ -9,4 +9,5 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: lms
       MYSQL_USER: phuonghai
-      MYSQL_PASSWORD: phuonghai
+      MYSQL_PASSWORD: haha
+
